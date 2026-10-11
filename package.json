@@ -8,6 +8,7 @@
     "node": ">=22.13.0"
   },
   "scripts": {
+    "build": "node scripts/buildWeb.js",
     "setup:macbook-air": "bash scripts/bootstrap-macbook-air.sh",
     "stack": "bash scripts/run-local-stack.sh",
     "service:install": "bash scripts/macbook-air-service.sh install",

@@ -1,0 +1,529 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Social Trend Radar — SNS短尺動画トレンド・企画立案コンソール</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <div class="app">
+    <aside>
+      <div class="brand">Social<br>Trend Radar<small>FOR SHORT VIDEO CREATORS</small></div>
+      <nav>
+        <button class="nav active" data-page="video-db"><b>01</b><span>動画データベース（実用バズ動画）</span></button>
+        <button class="nav" data-page="radar"><b>02</b><span>テンプレ企画書（9大構成・台本）</span></button>
+        <button class="nav" data-page="coverage"><b>03</b><span>Coverage（観測網・健全性）</span></button>
+        <button class="nav" data-page="automation"><b>04</b><span>Automation（安全自動巡回）</span></button>
+      </nav>
+      <div class="machine">
+        <div class="online"><span class="dot" id="machineDot"></span><span id="machineStatusText">MacBook online</span></div>
+        <p id="machineMeta">最終同期: 取得中...<br>書き込み操作 0件 (完全安全)<br>Jev AI 無料枠監視中</p>
+      </div>
+    </aside>
+    <main>
+      <!-- BRAND CONTEXT BAR (発信アカウント・自社コンセプト設定) -->
+      <div class="brand-context-bar">
+        <div class="bc-left">
+          <span class="bc-badge">🎯 発信アカウント</span>
+          <strong id="activeProfileName">学生団体（新歓・イベント動員）</strong>
+          <span class="bc-target" id="activeProfileTarget">大学1〜2年生向け</span>
+        </div>
+        <button type="button" class="btn-edit-profile" id="btnEditProfile">
+          ⚙️ アカウント設定・自社コンセプト変更
+        </button>
+      </div>
+
+      <!-- VIDEO DATABASE PAGE -->
+      <section id="video-db-page">
+        <div class="top">
+          <div>
+            <div class="kicker">Student Knowledge & Lifehack Explorer · Shorts / Reels / TikTok</div>
+            <h1>日本の学生に刺さる実用ショート動画データベース</h1>
+            <p style="margin:4px 0 0;font-size:13px;color:var(--muted);">情報を伝えるノウハウ・裏技・ライフハック・就活・AI・スマホ活用を大量集積＆テンプレ別分類</p>
+          </div>
+          <div class="sync">
+            <span id="vdbSyncText">同期中...</span>
+            <button id="vdbRefreshBtn" type="button">↻ 分析・更新</button>
+          </div>
+        </div>
+
+        <!-- PULSE COUNTERS FOR VIDEO DB -->
+        <div class="pulse">
+          <div class="lead">
+            <label>集積動画数</label>
+            <strong id="vdbTotalVideos">-</strong>
+            <small>厳選実用ショート動画</small>
+          </div>
+          <div>
+            <label>分類テンプレ数</label>
+            <strong id="vdbTotalTemplates">9 型</strong>
+            <small>定番バズ構成パターン</small>
+          </div>
+          <div>
+            <label>最高再生数</label>
+            <strong id="vdbMaxViews">-</strong>
+            <small>検証済み大バズ実績</small>
+          </div>
+          <div>
+            <label>対象媒体</label>
+            <strong id="vdbPlatforms">3 媒体</strong>
+            <small>Shorts / Reels / TikTok</small>
+          </div>
+          <div>
+            <label>情報伝達率</label>
+            <strong style="color:var(--acid);">100%</strong>
+            <small>学生に役立つ知識・ノウハウ特化</small>
+          </div>
+        </div>
+
+        <!-- FILTER TOOLBAR 1: TEMPLATE SELECTOR -->
+        <div style="margin: 16px 0 8px;">
+          <div style="font-size:11px;font-weight:700;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.05em;">📂 テンプレ（型）で絞り込む</div>
+          <div class="toolbar" id="vdbTemplateToolbar" style="margin-bottom:8px;">
+            <button class="chip active" data-template="all">すべて</button>
+            <button class="chip" data-template="failure_first">⚠️ 失敗先出し型</button>
+            <button class="chip" data-template="shortcut_hack">⚡ 裏技・神時短型</button>
+            <button class="chip" data-template="how_to">📚 手順解説型</button>
+            <button class="chip" data-template="best_list">🏆 まとめ・BEST型</button>
+            <button class="chip" data-template="aruaru">🎭 日常あるある型</button>
+            <button class="chip" data-template="recipe">🍳 悪魔の時短飯型</button>
+            <button class="chip" data-template="before_after">💄 劇的変身型</button>
+            <button class="chip" data-template="routine">🌿 ルーティン型</button>
+          </div>
+        </div>
+
+        <!-- FILTER TOOLBAR 2: STUDENT CATEGORY & PLATFORM & SEARCH -->
+        <div>
+          <div style="font-size:11px;font-weight:700;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.05em;">🎓 学生向けテーマ & キーワード検索</div>
+          <div class="toolbar" id="vdbCategoryToolbar">
+            <button class="chip active" data-category="all">全テーマ</button>
+            <button class="chip" data-category="career_manner">👔 就活・マナー・英語</button>
+            <button class="chip" data-category="ai_pc_hack">💻 AI・PC・スマホ裏技</button>
+            <button class="chip" data-category="study_report">🎓 勉強・レポート術</button>
+            <button class="chip" data-category="student_life">💰 学割・生活ハック</button>
+            <button class="chip" data-category="gadget_tool">📱 神アイテム・便利ツール</button>
+            <button class="chip" data-category="entertainment">🎭 エンタメ・日常あるある</button>
+            <span class="spacer"></span>
+            <select id="vdbPlatformSelect" class="chip" style="background:var(--surface);border:1px solid var(--border);color:var(--ink);cursor:pointer;padding:6px 10px;">
+              <option value="all">全プラットフォーム</option>
+              <option value="youtube">YouTube Shorts</option>
+              <option value="instagram">Instagram Reels</option>
+              <option value="tiktok">TikTok</option>
+            </select>
+            <input id="vdbSearchInput" class="search" style="min-width:280px;" placeholder="動画テーマ・フック・キーワード検索（例: メールの書き出し、ChatGPT、学割）..." />
+          </div>
+        </div>
+
+        <!-- VIDEO GRID HEADER & CONTAINER -->
+        <div style="margin-top:20px;">
+          <div class="board-header-bar" style="border-radius:8px 8px 0 0;">
+            <span style="font-weight:700;">📱 実用ショート動画データベース一覧</span>
+            <span id="vdbCountBadge" class="count-badge">0 件</span>
+          </div>
+          <div id="vdbCardsContainer" class="video-grid-container" style="margin-top:12px;">
+            <div class="loading-state">動画データベースを読み込み中...</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RADAR PAGE -->
+      <section id="radar-page" class="hidden">
+        <div class="top">
+          <div>
+            <div class="kicker" id="currentDateKicker">SNS Marketing Console · Shorts / Reels / TikTok</div>
+            <h1>いま伸びている「動画の型」と企画レシピ</h1>
+          </div>
+          <div class="sync">
+            <span id="syncText">同期中...</span>
+            <button id="refreshBtn" type="button">↻ 分析・更新</button>
+          </div>
+        </div>
+
+        <!-- PULSE COUNTERS -->
+        <div class="pulse">
+          <div class="lead">
+            <label>検知トレンド型</label>
+            <strong id="pulseClusters">-</strong>
+            <small>急上昇中の動画パターン</small>
+          </div>
+          <div>
+            <label>24時間観測動画</label>
+            <strong id="pulseCaptured24h">-</strong>
+            <small>新着キャプチャ</small>
+          </div>
+          <div>
+            <label>総観測動画数</label>
+            <strong id="pulseTotalPosts">-</strong>
+            <small>Shorts / Reels / TikTok</small>
+          </div>
+          <div>
+            <label>観測クリエイター</label>
+            <strong id="pulseCreators">-</strong>
+            <small>お手本アカウント</small>
+          </div>
+          <div>
+            <label>分析信頼度</label>
+            <strong id="pulseConfidence">-</strong>
+            <small>複数アカウントでの裏付け</small>
+          </div>
+        </div>
+
+        <!-- GENRE / THEME FILTER TOOLBAR -->
+        <div class="toolbar">
+          <button class="chip active" data-filter="all">すべて</button>
+          <button class="chip" data-filter="genre:entertainment">🎭 エンタメ・あるある</button>
+          <button class="chip" data-filter="genre:how_to_learning">📚 ノウハウ・解説</button>
+          <button class="chip" data-filter="genre:cooking">🍳 料理・グルメ</button>
+          <button class="chip" data-filter="genre:beauty">💄 美容・コスメ</button>
+          <button class="chip" data-filter="genre:lifestyle">🌿 暮らし・Vlog</button>
+          <button class="chip" data-filter="genre:gadget_review">📦 ガジェット・商品</button>
+          <button class="chip" data-filter="status:market_trend">🔥 急上昇トレンド</button>
+          <button class="chip" data-filter="status:team_interest">👀 チーム共有</button>
+          <span class="spacer"></span>
+          <input id="searchInput" class="search" placeholder="企画テーマ・アカウント名で検索..." />
+        </div>
+
+        <div class="layout">
+          <!-- TREND LIST (CARDS) -->
+          <div class="board">
+            <div class="board-header-bar">
+              <span>いま急上昇している動画の「型」・企画一覧</span>
+              <span id="trendCountBadge" class="count-badge">0 件</span>
+            </div>
+            <div id="trendListContainer" class="trend-cards-container">
+              <div class="loading-state">トレンドデータを読み込み中...</div>
+            </div>
+          </div>
+
+          <!-- TREND DETAIL (ACTIONABLE BLUEPRINT & DECONSTRUCTION) -->
+          <aside class="evidence" id="evidencePanel">
+            <header>
+              <div class="detail-header-top">
+                <span class="state" id="detailStatusBadge">STATUS</span>
+                <span class="demo" id="detailLayerBadge">企画パターン</span>
+              </div>
+              <h2 id="detailTitle">トレンドを選択してください</h2>
+              <div class="detail-meta-line" id="detailMeta">-</div>
+            </header>
+
+            <div class="ev-body" id="detailBody">
+              <!-- SECTION 1: ACTIONABLE BLUEPRINT (企画・台本レシピ) -->
+              <div class="detail-section blueprint-box" id="blueprintSection">
+                <div class="blueprint-header-line">
+                  <div class="section-title blueprint-title">💡 この動画を自社でやるなら？（企画・撮影レシピ）</div>
+                  <div class="jev-status-badge" id="jevSourceBadge">⚡ Jev AI 企画レシピ（無料枠稼働中）</div>
+                </div>
+                <div id="bpTargetVideoBanner" class="bp-target-banner" style="display:none;">
+                  <span class="bp-target-label">🎯 連動中のお手本動画:</span>
+                  <span id="bpTargetVideoTitle" class="bp-target-title">-</span>
+                </div>
+                <div class="blueprint-grid">
+                  <!-- 自社アカウントでの応用コンセプト -->
+                  <div class="blueprint-item theme-item">
+                    <label>🎯 自社アレンジの切り口・テーマ例</label>
+                    <strong id="bpAdaptationTheme">-</strong>
+                  </div>
+                  <!-- 冒頭2秒のフック -->
+                  <div class="blueprint-item highlight-item">
+                    <label>🗣 冒頭2秒のキラーワード / テロップ案 (Hook)</label>
+                    <strong id="bpRecommendHook">-</strong>
+                  </div>
+                  <!-- 起承転結ステップ台本 -->
+                  <div class="blueprint-item">
+                    <label>📝 秒数タイムライン台本（起承転結ステップ）</label>
+                    <div id="bpRecommendStructure" class="structure-steps-box">-</div>
+                  </div>
+                  <!-- 撮影・演出の急所 -->
+                  <div class="blueprint-item tips-item">
+                    <label>🎥 撮影・演出の急所（テロップ・カット割り・音源）</label>
+                    <p id="bpFilmingTips">-</p>
+                  </div>
+                  <div class="blueprint-subgrid">
+                    <div>
+                      <label>⏱ 推奨動画尺 & 撮影テンポ</label>
+                      <span id="bpRecommendDuration">-</span>
+                    </div>
+                    <div>
+                      <label>🧠 なぜ刺さる？（視聴者インサイト）</label>
+                      <span id="bpTargetPsychology">-</span>
+                    </div>
+                  </div>
+                  <div class="blueprint-item" style="margin-top:4px;">
+                    <label>🚀 マーケティング的ヒット要因</label>
+                    <p id="bpHitReason" style="font-size:12px;color:var(--muted);">-</p>
+                  </div>
+                  <div class="blueprint-actions">
+                    <button type="button" class="btn-jev-refresh" id="jevRefreshBtn">
+                      ⚡ Jev AIで企画レシピを再生成（無料枠）
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- SECTION 2: 3-PART DECONSTRUCTION (バズる動画の解体新書) -->
+              <div class="detail-section">
+                <div class="section-title">🎬 バズる動画の解体新書</div>
+                <p class="section-subdesc">伸びている動画が共通して持っている「演出・台本・心理」の3要素</p>
+                <div class="layers">
+                  <div class="layer-card">
+                    <div class="layer-badge">👁 冒頭2秒のフック・演出</div>
+                    <div class="layer-desc" id="detailSurface">-</div>
+                    <small>テロップの入れ方、使われている音源・BGM、冒頭カットの視覚的仕掛け</small>
+                  </div>
+                  <div class="layer-card">
+                    <div class="layer-badge">📐 伸びる動画のストーリー型</div>
+                    <div class="layer-desc" id="detailFormat">-</div>
+                    <small>動画全体の起承転結、話の展開パターン、テンポ</small>
+                  </div>
+                  <div class="layer-card">
+                    <div class="layer-badge">💡 思わず最後まで見ちゃう心理</div>
+                    <div class="layer-desc" id="detailDesire">-</div>
+                    <small>視聴者がスクロールを止めて、最後まで見て、保存やコメントをしたくなった動機</small>
+                  </div>
+                </div>
+              </div>
+
+              <!-- SECTION 3: EVIDENCE SHOWCASE (お手本になったバズ動画) -->
+              <div class="detail-section">
+                <div class="source-title">
+                  <div>
+                    <div class="section-title">📱 お手本になったバズ動画</div>
+                    <p class="section-subdesc" style="margin:0;">この「型」の根拠となった実際の動画（直接再生して学べます）</p>
+                  </div>
+                </div>
+                <div id="detailEvidenceCards" class="evidence-grid">
+                  <p class="empty-hint">証拠動画はありません</p>
+                </div>
+              </div>
+
+              <!-- SECTION 4: TECHNICAL AUDIT FOOTNOTE (COLLAPSIBLE FOR NON-ENGINEERS) -->
+              <div class="detail-section technical-details-box">
+                <details class="tech-details">
+                  <summary>📊 データの収集・検証詳細（非エンジニア向けには非表示）</summary>
+                  <div class="tech-details-body">
+                    <!-- BIAS AUDIT -->
+                    <section class="audit" aria-label="データバイアス監査">
+                      <div class="audit-head">
+                        <div>
+                          <strong>フィルターバブル・バイアス監査</strong>
+                          <small style="display:block;color:var(--muted);font-size:10px;">身内の熱狂（チーム内偏り）と市場伝播の分離検証</small>
+                        </div>
+                        <span class="risk" id="detailAuditRisk">-</span>
+                      </div>
+                      <div class="audit-grid">
+                        <div><small>人手送信比率</small><b id="auditUserShare">-</b></div>
+                        <div><small>送信者集中度 (HHI)</small><b id="auditHhi">-</b></div>
+                        <div><small>独立確認率</small><b id="auditIndepRatio">-</b></div>
+                        <div><small>非人手レーン網羅</small><b id="auditNonUserLanes">-</b></div>
+                      </div>
+                      <div class="audit-note" id="auditNoteText">-</div>
+                    </section>
+
+                    <!-- LANES DISTRIBUTION -->
+                    <div style="margin-top:14px;">
+                      <div class="section-title">4観測レーン分布</div>
+                      <div class="lanes" id="detailLanes"></div>
+                    </div>
+
+                    <!-- FIT SCORES -->
+                    <div style="margin-top:14px;">
+                      <div class="section-title">ブランド適合・再現性スコア</div>
+                      <div id="detailFitScores" class="fit-container"></div>
+                    </div>
+                  </div>
+                </details>
+              </div>
+
+              <!-- CAVEAT -->
+              <div class="caveat" id="detailCaveat" style="display:none;">
+                <b>⚠ ご注意</b><br>
+                <span id="detailCaveatText">-</span>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- COVERAGE PAGE -->
+      <section id="coverage-page" class="hidden">
+        <div class="top">
+          <div>
+            <div class="kicker">FILTER BUBBLE AUDIT</div>
+            <h1>観測の偏りを、先に疑う。</h1>
+          </div>
+        </div>
+
+        <div id="coverageWarningsContainer" class="warnings-area"></div>
+
+        <div class="coverage-grid">
+          <div class="card">
+            <h3>4観測レーン構成比</h3>
+            <p class="card-desc">Personalized（個人おすすめ）に偏っていないかを常時監視し、探索レーンの健全性を維持</p>
+            <div id="coverageLanesList" class="coverage-bars"></div>
+          </div>
+
+          <div class="card">
+            <h3>プラットフォーム構成比</h3>
+            <p class="card-desc">YouTube Shorts / Instagram Reels / TikTokの観測バランス</p>
+            <div id="coveragePlatformsList" class="coverage-bars"></div>
+          </div>
+
+          <div class="card">
+            <h3>上位投稿者への集中度</h3>
+            <p class="card-desc">特定インフルエンサーの独占ではなく、幅広い層への自律伝播を検証</p>
+            <div class="metric-highlight">
+              <strong id="top10RatioText">- %</strong>
+              <small>上位10クリエイターの占有率</small>
+            </div>
+            <div id="topCreatorsList" class="mini-table"></div>
+          </div>
+
+          <div class="card">
+            <h3>過去7日間の日次観測推移</h3>
+            <p class="card-desc">日ごとのキャプチャ件数推移</p>
+            <div id="dailyActivityList" class="activity-bars"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- AUTOMATION PAGE -->
+      <section id="automation-page" class="hidden">
+        <div class="top">
+          <div>
+            <div class="kicker">AUTOMATION CONTROL & AUDIT</div>
+            <h1>閲覧は自動。反応はゼロ。</h1>
+          </div>
+        </div>
+
+        <div class="pulse automation-pulse">
+          <div class="lead">
+            <label>EXECUTED WRITES</label>
+            <strong id="autoExecutedWrites">0</strong>
+            <small>like / follow / comment / DM 実行数 (常時ゼロ保証)</small>
+          </div>
+          <div>
+            <label>BLOCKED WRITES</label>
+            <strong id="autoBlockedWrites">0</strong>
+            <small>安全機構による遮断記録</small>
+          </div>
+          <div>
+            <label>TOTAL AUDIT EVENTS</label>
+            <strong id="autoTotalAudits">0</strong>
+            <small>記録された全操作ログ</small>
+          </div>
+          <div>
+            <label>YOUTUBE QUOTA</label>
+            <strong id="autoYoutubeQuota">0 / 8,000</strong>
+            <small>無料枠消費状況 (8,000 units上限)</small>
+          </div>
+        </div>
+
+        <div class="coverage-grid">
+          <div class="card">
+            <h3>自動巡回エンジン状態</h3>
+            <div class="crawler-status-list">
+              <div class="crawler-item">
+                <div>
+                  <strong>Instagram Reels 巡回</strong>
+                  <p id="igCrawlerMeta">状態: 確認中</p>
+                </div>
+                <span class="badge" id="igCrawlerBadge">-</span>
+              </div>
+              <div class="crawler-item">
+                <div>
+                  <strong>TikTok For You 巡回</strong>
+                  <p id="tiktokCrawlerMeta">状態: 保留中（未ログイン時安全停止）</p>
+                </div>
+                <span class="badge muted" id="tiktokCrawlerBadge">PAUSED</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>外部コネクタ状態</h3>
+            <div class="crawler-status-list">
+              <div class="crawler-item">
+                <div>
+                  <strong>YouTube Data API v3</strong>
+                  <p id="ytConnectorMeta">日次クォータ: 8,000 units上限</p>
+                </div>
+                <span class="badge active" id="ytConnectorBadge">ACTIVE</span>
+              </div>
+              <div class="crawler-item">
+                <div>
+                  <strong>Slack Socket Mode Bot</strong>
+                  <p>#ネタ蓄積 チャンネル自動受信</p>
+                </div>
+                <span class="badge active" id="slackConnectorBadge">RUNNING</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:20px;">
+          <h3>直近の自動操作監査ログ (Audit Log)</h3>
+          <p class="card-desc">Playwright自動操作で実行されたコマンド（navigate, scroll, wait, read_visible）の監査履歴</p>
+          <div id="recentAuditEventsList" class="audit-log-table">
+            <div class="loading-state">監査ログを読み込み中...</div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <!-- BRAND PROFILE MODAL -->
+  <div id="brandProfileModal" class="modal-overlay" style="display:none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>🎯 発信アカウント・自社コンセプト設定</h3>
+        <button type="button" class="btn-modal-close" id="btnCloseProfileModal">✕</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-desc">
+          バズ動画の構成を自分たちのアカウントに落とし込むための前提条件です。設定したターゲットや目的に合わせて、企画レシピ・自社台本が自動パーソナライズされます。
+        </p>
+
+        <div class="preset-section">
+          <label>クイック選択プリセット:</label>
+          <div class="preset-buttons">
+            <button type="button" class="btn-preset active" data-preset="student_org">🎓 学生団体（新歓・動員）</button>
+            <button type="button" class="btn-preset" data-preset="career_service">💼 就活・キャリア支援</button>
+            <button type="button" class="btn-preset" data-preset="skill_school">💻 AI・PCスクール</button>
+            <button type="button" class="btn-preset" data-preset="corporate">🏢 クライアント企業PR</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>組織・アカウント名</label>
+          <input type="text" id="inputProfileName" placeholder="例: 学生団体〇〇、就活キャリアLab" />
+        </div>
+
+        <div class="form-group">
+          <label>メインターゲット（誰に届けるか）</label>
+          <input type="text" id="inputProfileTarget" placeholder="例: 大学1〜2年生（新しい挑戦やサークルを探している学生）" />
+        </div>
+
+        <div class="form-group">
+          <label>発信目的・ゴール (KPI)</label>
+          <input type="text" id="inputProfileGoal" placeholder="例: 新歓・メンバー応募の獲得、イベント参加者動員、団体認知" />
+        </div>
+
+        <div class="form-group">
+          <label>提供価値・強み・テーマ</label>
+          <textarea id="inputProfileValue" rows="2" placeholder="例: 実践的なビジネススキル、同世代の刺激的な仲間コミュニティ、リアルな活動体験"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>トーン＆マナー / NG事項</label>
+          <input type="text" id="inputProfileTone" placeholder="例: 親しみやすい先輩目線。説教くさくなく共感を誘う。過度な煽りはNG。" />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-cancel" id="btnCancelProfile">キャンセル</button>
+        <button type="button" class="btn-save" id="btnSaveProfile">設定を保存して企画レシピを再構成 🚀</button>
+      </div>
+    </div>
+  </div>
+  <script src="/app.js"></script>
+</body>
+</html>

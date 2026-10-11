@@ -7,14 +7,38 @@ const handler = createApiHandler(snapshotApi);
 
 async function toRequest(req: IncomingMessage): Promise<Request> {
   const host = req.headers.host ?? 'localhost';
-  const url = new URL(req.url ?? '/', `https://${host}`);
-  const chunks: Buffer[] = [];
-  for await (const chunk of req) chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk));
-  const body = chunks.length === 0 ? undefined : Buffer.concat(chunks);
+  const rawPath = (req.headers['x-matched-path'] as string | undefined)
+    ?? (req.headers['x-forwarded-uri'] as string | undefined)
+    ?? req.url
+    ?? '/';
+  const url = new URL(rawPath, `https://${host}`);
+  const method = req.method ?? 'GET';
+
+  if (method === 'GET' || method === 'HEAD') {
+    return new Request(url, {
+      method,
+      headers: req.headers as HeadersInit,
+    });
+  }
+
+  let body: Buffer | undefined;
+  const anyReq = req as unknown as { body?: unknown };
+  if (anyReq.body !== undefined) {
+    body = Buffer.isBuffer(anyReq.body)
+      ? anyReq.body
+      : typeof anyReq.body === 'string'
+      ? Buffer.from(anyReq.body)
+      : Buffer.from(JSON.stringify(anyReq.body));
+  } else if (Symbol.asyncIterator in req) {
+    const chunks: Buffer[] = [];
+    for await (const chunk of req) chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk));
+    if (chunks.length > 0) body = Buffer.concat(chunks);
+  }
+
   return new Request(url, {
-    method: req.method ?? 'GET',
+    method,
     headers: req.headers as HeadersInit,
-    ...(body === undefined || req.method === 'GET' || req.method === 'HEAD' ? {} : { body }),
+    ...(body !== undefined ? { body } : {}),
   });
 }
 

@@ -1,7 +1,7 @@
 import { JevClassifier, type BrandProfile, DEFAULT_BRAND_PROFILE } from '../analysis/jevClassifier.ts';
 import type { CaptureApi } from './handler.ts';
 import type { TrendFilters, VideoFilters } from '../analysis/readRepository.ts';
-import snapshotData from '../data/seedSnapshot.json' with { type: 'json' };
+import snapshotData from '../data/seedSnapshot.ts';
 
 export class SnapshotCaptureApi implements CaptureApi {
   private readonly jev: JevClassifier;
