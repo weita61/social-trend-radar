@@ -429,22 +429,44 @@
     try {
       if (syncText) syncText.textContent = '同期中...';
       if (vdbSyncText) vdbSyncText.textContent = '同期中...';
-      let [overview, trends, videos] = await Promise.all([
-        apiGet('/api/overview').catch(() => null),
-        apiGet('/api/trends?layer=format').catch(() => []),
-        apiGet('/api/videos').catch(() => []),
+      const results = await Promise.allSettled([
+        apiGet('/api/overview'),
+        apiGet('/api/trends?layer=format'),
+        apiGet('/api/videos'),
       ]);
+
+      let overview = results[0].status === 'fulfilled' ? results[0].value : null;
+      let trends = results[1].status === 'fulfilled' ? results[1].value : [];
+      let videos = results[2].status === 'fulfilled' ? results[2].value : [];
+
+      if (results[0].status === 'rejected') console.warn('Overview fetch error:', results[0].reason);
+      if (results[1].status === 'rejected') console.warn('Trends fetch error:', results[1].reason);
+      if (results[2].status === 'rejected') console.warn('Videos fetch error:', results[2].reason);
+
+      if (videos.length === 0 && trends.length === 0 && !overview) {
+        console.error('All initial API calls failed.');
+        if (syncText) syncText.textContent = 'API接続確認中';
+        if (vdbSyncText) vdbSyncText.textContent = 'API接続確認中';
+        if (machineDot) machineDot.classList.add('offline');
+        if (machineStatusText) machineStatusText.textContent = 'API応答未取得';
+        renderTrendList();
+        renderVideoDatabase();
+        return;
+      }
 
       // If trends is empty but posts exist, trigger an analysis pass automatically once
       if (trends.length === 0 && overview && overview.totalPosts > 0 && !hasTriggeredInitialAnalysis) {
         hasTriggeredInitialAnalysis = true;
         try {
           await apiPost('/api/analyze').catch(() => null);
-          [trends, videos, overview] = await Promise.all([
-            apiGet('/api/trends?layer=format').catch(() => []),
-            apiGet('/api/videos').catch(() => []),
-            apiGet('/api/overview').catch(() => overview),
+          const refreshResults = await Promise.allSettled([
+            apiGet('/api/trends?layer=format'),
+            apiGet('/api/videos'),
+            apiGet('/api/overview'),
           ]);
+          if (refreshResults[0].status === 'fulfilled') trends = refreshResults[0].value;
+          if (refreshResults[1].status === 'fulfilled') videos = refreshResults[1].value;
+          if (refreshResults[2].status === 'fulfilled') overview = refreshResults[2].value;
         } catch (e) {
           console.warn('Auto-analysis pass error:', e);
         }
@@ -466,8 +488,9 @@
 
       if (machineDot) machineDot.classList.remove('offline');
       if (machineStatusText) machineStatusText.textContent = 'MacBook online';
-      if (syncText) syncText.textContent = '同期完了 ' + new Date().toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-      if (vdbSyncText) vdbSyncText.textContent = '同期完了 ' + new Date().toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      const timeStr = new Date().toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      if (syncText) syncText.textContent = '同期完了 ' + timeStr;
+      if (vdbSyncText) vdbSyncText.textContent = '同期完了 ' + timeStr;
     } catch (err) {
       console.error('Data load error:', err);
       if (syncText) syncText.textContent = '同期確認待';

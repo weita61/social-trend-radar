@@ -6,13 +6,24 @@ import { INDEX_HTML, STYLE_CSS, APP_JS } from './src/webAssets.ts';
 const snapshotApi = new SnapshotCaptureApi();
 const apiHandler = createApiHandler(snapshotApi);
 
-async function toRequest(req: IncomingMessage): Promise<Request> {
+function resolveRequestUrl(req: IncomingMessage): URL {
   const host = req.headers.host ?? 'localhost';
-  const rawPath = (req.headers['x-matched-path'] as string | undefined)
-    ?? (req.headers['x-forwarded-uri'] as string | undefined)
-    ?? req.url
-    ?? '/';
-  const url = new URL(rawPath, `https://${host}`);
+  let path = req.url ?? '/';
+
+  // If an internal reverse proxy or rewrite replaced req.url with a script path, recover original
+  if (path === '/index.ts' || path === '/api/index.ts' || path.startsWith('/index.ts?') || path.startsWith('/api/index.ts?')) {
+    const forwarded = (req.headers['x-forwarded-uri'] as string | undefined)
+      ?? (req.headers['x-original-url'] as string | undefined);
+    if (forwarded) {
+      path = forwarded;
+    }
+  }
+
+  return new URL(path, `https://${host}`);
+}
+
+async function toRequest(req: IncomingMessage): Promise<Request> {
+  const url = resolveRequestUrl(req);
   const method = req.method ?? 'GET';
 
   if (method === 'GET' || method === 'HEAD') {
@@ -47,13 +58,8 @@ async function toRequest(req: IncomingMessage): Promise<Request> {
 }
 
 export default async function (req: IncomingMessage, res: ServerResponse): Promise<void> {
-  const host = req.headers.host ?? 'localhost';
-  const rawPath = (req.headers['x-matched-path'] as string | undefined)
-    ?? (req.headers['x-forwarded-uri'] as string | undefined)
-    ?? req.url
-    ?? '/';
-  const url = new URL(rawPath, `https://${host}`);
-  const pathname = url.pathname;
+  const url = resolveRequestUrl(req);
+  const pathname = url.pathname.length > 1 ? url.pathname.replace(/\/+$/, '') : url.pathname;
 
   // 1. Static web assets served with in-memory caching
   if (req.method === 'GET' || req.method === 'HEAD') {
@@ -67,14 +73,14 @@ export default async function (req: IncomingMessage, res: ServerResponse): Promi
     if (pathname === '/style.css') {
       res.statusCode = 200;
       res.setHeader('content-type', 'text/css; charset=utf-8');
-      res.setHeader('cache-control', 'public, max-age=3600');
+      res.setHeader('cache-control', 'public, max-age=0, must-revalidate');
       res.end(STYLE_CSS);
       return;
     }
     if (pathname === '/app.js') {
       res.statusCode = 200;
       res.setHeader('content-type', 'application/javascript; charset=utf-8');
-      res.setHeader('cache-control', 'public, max-age=3600');
+      res.setHeader('cache-control', 'public, max-age=0, must-revalidate');
       res.end(APP_JS);
       return;
     }

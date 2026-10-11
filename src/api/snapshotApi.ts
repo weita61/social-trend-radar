@@ -35,10 +35,10 @@ export class SnapshotCaptureApi implements CaptureApi {
   listVideos(filters: VideoFilters = {}): Record<string, unknown>[] {
     let list = (this.data.videos ?? []) as unknown as Record<string, unknown>[];
     if (filters.template && filters.template !== 'all') {
-      list = list.filter((v) => v.templateKey === filters.template);
+      list = list.filter((v) => v.templateKey === filters.template || v.template === filters.template);
     }
     if (filters.category && filters.category !== 'all') {
-      list = list.filter((v) => v.category === filters.category);
+      list = list.filter((v) => v.category === filters.category || v.studentCategory === filters.category);
     }
     if (filters.platform && filters.platform !== 'all') {
       list = list.filter((v) => v.platform === filters.platform);
@@ -47,9 +47,11 @@ export class SnapshotCaptureApi implements CaptureApi {
       const q = filters.q.toLowerCase();
       list = list.filter((v) =>
         String(v.title ?? '').toLowerCase().includes(q)
+        || String(v.hook ?? '').toLowerCase().includes(q)
         || String(v.caption ?? '').toLowerCase().includes(q)
         || String(v.creatorHandle ?? '').toLowerCase().includes(q)
         || String(v.templateName ?? '').toLowerCase().includes(q)
+        || String(v.templateLabel ?? '').toLowerCase().includes(q)
       );
     }
     return list;

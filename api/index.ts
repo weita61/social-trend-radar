@@ -5,13 +5,24 @@ import { SnapshotCaptureApi } from '../src/api/snapshotApi.ts';
 const snapshotApi = new SnapshotCaptureApi();
 const handler = createApiHandler(snapshotApi);
 
-async function toRequest(req: IncomingMessage): Promise<Request> {
+function resolveRequestUrl(req: IncomingMessage): URL {
   const host = req.headers.host ?? 'localhost';
-  const rawPath = (req.headers['x-matched-path'] as string | undefined)
-    ?? (req.headers['x-forwarded-uri'] as string | undefined)
-    ?? req.url
-    ?? '/';
-  const url = new URL(rawPath, `https://${host}`);
+  let path = req.url ?? '/';
+
+  // If internal reverse proxy or rewrite replaced req.url with a script path, recover original
+  if (path === '/api/index.ts' || path === '/index.ts' || path.startsWith('/api/[...path]') || path.startsWith('/api/index.ts?') || path.startsWith('/index.ts?')) {
+    const forwarded = (req.headers['x-forwarded-uri'] as string | undefined)
+      ?? (req.headers['x-original-url'] as string | undefined);
+    if (forwarded) {
+      path = forwarded;
+    }
+  }
+
+  return new URL(path, `https://${host}`);
+}
+
+async function toRequest(req: IncomingMessage): Promise<Request> {
+  const url = resolveRequestUrl(req);
   const method = req.method ?? 'GET';
 
   if (method === 'GET' || method === 'HEAD') {

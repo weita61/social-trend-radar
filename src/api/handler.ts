@@ -29,8 +29,10 @@ export interface CaptureApi {
 export function createApiHandler(repository: CaptureApi): (request: Request) => Promise<Response> {
   return async (request: Request): Promise<Response> => {
     const url = new URL(request.url);
+    const rawPath = url.pathname.length > 1 ? url.pathname.replace(/\/+$/, '') : url.pathname;
+    const pathname = rawPath.replace(/\/index(?:\.ts)?$/, '') || '/';
 
-    if (request.method === 'POST' && url.pathname === '/api/captures') {
+    if (request.method === 'POST' && pathname === '/api/captures') {
       try {
         const raw = await request.json();
         const input = validateCaptureInput(raw);
@@ -44,7 +46,7 @@ export function createApiHandler(repository: CaptureApi): (request: Request) => 
       }
     }
 
-    const postMatch = url.pathname.match(/^\/api\/posts\/([^/]+)$/);
+    const postMatch = pathname.match(/^\/api\/posts\/([^/]+)$/);
     if (request.method === 'GET' && postMatch?.[1] !== undefined) {
       const post = await repository.getPost(decodeURIComponent(postMatch[1]));
       return post === null
@@ -52,7 +54,7 @@ export function createApiHandler(repository: CaptureApi): (request: Request) => 
         : json(post);
     }
 
-    if (request.method === 'GET' && url.pathname === '/api/trends' && repository.listTrends !== undefined) {
+    if (request.method === 'GET' && pathname === '/api/trends' && repository.listTrends !== undefined) {
       const layer = url.searchParams.get('layer');
       if (layer !== null && !['surface', 'format', 'desire'].includes(layer)) {
         return json({ error: 'invalid_filter', message: 'layer must be surface, format, or desire' }, 400);
@@ -72,7 +74,7 @@ export function createApiHandler(repository: CaptureApi): (request: Request) => 
       return json(await repository.listTrends(filters));
     }
 
-    if (request.method === 'GET' && url.pathname === '/api/videos' && repository.listVideos !== undefined) {
+    if (request.method === 'GET' && pathname === '/api/videos' && repository.listVideos !== undefined) {
       const template = url.searchParams.get('template') ?? undefined;
       const category = url.searchParams.get('category') ?? undefined;
       const platform = url.searchParams.get('platform') ?? undefined;
@@ -80,7 +82,7 @@ export function createApiHandler(repository: CaptureApi): (request: Request) => 
       return json(await repository.listVideos({ template, category, platform, q }));
     }
 
-    const trendMatch = url.pathname.match(/^\/api\/trends\/([^/]+)$/);
+    const trendMatch = pathname.match(/^\/api\/trends\/([^/]+)$/);
     if (request.method === 'GET' && trendMatch?.[1] !== undefined && repository.getTrend !== undefined) {
       const trend = await repository.getTrend(decodeURIComponent(trendMatch[1]));
       return trend === null
@@ -88,7 +90,7 @@ export function createApiHandler(repository: CaptureApi): (request: Request) => 
         : json(trend);
     }
 
-    const jevMatch = url.pathname.match(/^\/api\/trends\/([^/]+)\/jev-blueprint$/);
+    const jevMatch = pathname.match(/^\/api\/trends\/([^/]+)\/jev-blueprint$/);
     if (request.method === 'POST' && jevMatch?.[1] !== undefined && repository.generateJevBlueprintForTrend !== undefined) {
       const rawBody = await request.json().catch(() => ({}));
       const brandProfile = (rawBody && typeof rawBody === 'object' && 'brandProfile' in rawBody) ? rawBody.brandProfile : undefined;
@@ -98,27 +100,27 @@ export function createApiHandler(repository: CaptureApi): (request: Request) => 
         : json(blueprint);
     }
 
-    if (request.method === 'GET' && url.pathname === '/api/overview' && repository.getOverview !== undefined) {
+    if (request.method === 'GET' && pathname === '/api/overview' && repository.getOverview !== undefined) {
       return json(await repository.getOverview());
     }
 
-    if (request.method === 'GET' && url.pathname === '/api/coverage' && repository.getCoverage !== undefined) {
+    if (request.method === 'GET' && pathname === '/api/coverage' && repository.getCoverage !== undefined) {
       return json(await repository.getCoverage());
     }
 
-    if (request.method === 'GET' && url.pathname === '/api/automation' && repository.getAutomation !== undefined) {
+    if (request.method === 'GET' && pathname === '/api/automation' && repository.getAutomation !== undefined) {
       return json(await repository.getAutomation());
     }
 
-    if (request.method === 'POST' && url.pathname === '/api/analyze' && repository.runAnalysis !== undefined) {
+    if (request.method === 'POST' && pathname === '/api/analyze' && repository.runAnalysis !== undefined) {
       return json(await repository.runAnalysis());
     }
 
-    if (request.method === 'GET' && url.pathname === '/api/profile' && repository.getBrandProfile !== undefined) {
+    if (request.method === 'GET' && pathname === '/api/profile' && repository.getBrandProfile !== undefined) {
       return json(await repository.getBrandProfile());
     }
 
-    if (request.method === 'POST' && url.pathname === '/api/profile' && repository.updateBrandProfile !== undefined) {
+    if (request.method === 'POST' && pathname === '/api/profile' && repository.updateBrandProfile !== undefined) {
       try {
         const body = await request.json() as Record<string, unknown>;
         return json(await repository.updateBrandProfile(body));
@@ -127,7 +129,7 @@ export function createApiHandler(repository: CaptureApi): (request: Request) => 
       }
     }
 
-    if (request.method === 'GET' && url.pathname === '/health') {
+    if (request.method === 'GET' && (pathname === '/health' || pathname === '/api/health' || pathname === '/api')) {
       return json({ ok: true, service: 'social-trend-radar-capture-api' });
     }
 
