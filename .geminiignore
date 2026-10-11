@@ -1,0 +1,31 @@
+# Secrets and local credentials
+.env
+.env.*
+!.env.example
+.dev.vars
+
+# Local source-of-truth databases and backups
+data/
+backups/
+*.sqlite
+*.sqlite3
+*.db
+*.db-wal
+*.db-shm
+*.sqlite-wal
+*.sqlite-shm
+*.duckdb
+
+# Browser sessions and generated artifacts
+browser-profiles/
+node_modules/
+node_modules_stale_*/
+.git/
+.wrangler/
+playwright-report/
+coverage/
+dist/
+.runtime/
+*.log
+.DS_Store
+

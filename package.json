@@ -1,0 +1,50 @@
+{
+  "name": "social-trend-radar",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.8.0",
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "setup:macbook-air": "bash scripts/bootstrap-macbook-air.sh",
+    "stack": "bash scripts/run-local-stack.sh",
+    "service:install": "bash scripts/macbook-air-service.sh install",
+    "service:start": "bash scripts/macbook-air-service.sh start",
+    "service:stop": "bash scripts/macbook-air-service.sh stop",
+    "service:restart": "bash scripts/macbook-air-service.sh restart",
+    "service:status": "bash scripts/macbook-air-service.sh status",
+    "service:validate": "bash scripts/macbook-air-service.sh validate",
+    "service:verify-crawler": "bash scripts/verify-crawler-service.sh",
+    "backup": "bash scripts/backup-database.sh",
+    "dev": "node --env-file-if-exists=.env --experimental-strip-types --watch src/server.ts",
+    "start": "node --env-file-if-exists=.env --experimental-strip-types src/server.ts",
+    "bot": "node --env-file-if-exists=.env --experimental-strip-types apps/bot/src/index.ts",
+    "crawler": "node --env-file-if-exists=.env --experimental-strip-types src/cli/crawl.ts",
+    "crawler:login": "node --env-file-if-exists=.env --experimental-strip-types src/cli/crawlerLogin.ts",
+    "analyze": "node --env-file-if-exists=.env --experimental-strip-types src/cli/analyze.ts",
+    "seed:templates": "node --env-file-if-exists=.env --experimental-strip-types src/cli/seedTemplates.ts",
+    "import:urls": "node --env-file-if-exists=.env --experimental-strip-types src/cli/importUrls.ts",
+    "discover:similar": "node --env-file-if-exists=.env --experimental-strip-types src/cli/discoverSimilar.ts",
+    "export:snapshot": "node --env-file-if-exists=.env --experimental-strip-types scripts/exportSnapshot.ts",
+    "lint": "eslint \"src/**/*.ts\" \"apps/**/*.ts\" \"tests/**/*.ts\"",
+    "typecheck": "tsc --noEmit",
+    "test": "node --experimental-strip-types --test tests/*.test.ts",
+    "migration": "node --env-file-if-exists=.env --experimental-strip-types src/cli/migrate.ts",
+    "check": "pnpm lint && pnpm typecheck && pnpm test"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^22.15.0",
+    "eslint": "^10.12.0",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.71.1"
+  },
+  "dependencies": {
+    "@slack/bolt": "^5.1.0",
+    "discord.js": "^14.27.0",
+    "playwright-core": "1.64.0",
+    "undici": "^7.30.0"
+  }
+}

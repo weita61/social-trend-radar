@@ -1,0 +1,25 @@
+display_information:
+  name: Social Trend Radar
+  description: Saves explicitly shared short-video links to the local Capture API.
+  background_color: "#1F2937"
+features:
+  bot_user:
+    display_name: Social Trend Radar
+    always_online: false
+oauth_config:
+  scopes:
+    bot:
+      - channels:history
+      - groups:history
+      - chat:write
+settings:
+  event_subscriptions:
+    bot_events:
+      - message.channels
+      - message.groups
+  interactivity:
+    is_enabled: false
+  org_deploy_enabled: false
+  socket_mode_enabled: true
+  token_rotation_enabled: false
+

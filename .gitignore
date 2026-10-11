@@ -1,0 +1,28 @@
+node_modules
+node_modules_stale_*/
+.env
+.env.*
+!.env.example
+
+# Local source-of-truth and analytical databases
+*.sqlite
+*.sqlite3
+*.db
+*.db-wal
+*.db-shm
+*.sqlite-wal
+*.sqlite-shm
+*.duckdb
+data/
+backups/
+
+# Browser sessions, credentials, and generated artifacts
+.wrangler/
+.dev.vars
+browser-profiles/
+playwright-report/
+coverage/
+dist/
+.runtime/
+*.log
+.DS_Store
