@@ -1,5 +1,5 @@
 {
-  "exportedAt": "2026-10-11T16:10:45.518Z",
+  "exportedAt": "2026-10-11T16:14:25.663Z",
   "overview": {
     "totalClusters": 43,
     "marketTrendCount": 4,
@@ -11,9 +11,9 @@
     "totalCreators": 34,
     "averageConfidence": 0.68,
     "lastAnalysis": {
-      "id": "analysis_a07bb918e8d94a6f91cd31baa1a18c07",
-      "startedAt": "2026-10-11T16:10:45.495Z",
-      "completedAt": "2026-10-11T16:10:45.495Z",
+      "id": "analysis_c5d9cf5468b74306b5ee4377e3c4d7b3",
+      "startedAt": "2026-10-11T16:14:25.625Z",
+      "completedAt": "2026-10-11T16:14:25.625Z",
       "status": "succeeded",
       "postCount": 25,
       "clusterCount": 43
@@ -36,7 +36,7 @@
       "noveltyCandidate": false,
       "status": "market_trend",
       "gatePassed": true,
-      "universalScore": 62.95121745123626,
+      "universalScore": 62.949544146758875,
       "teamInterestScore": 0,
       "evidenceCount": 5,
       "independentCreatorCount": 4,
@@ -55,7 +55,7 @@
         "crossLane": 75,
         "crossPlatform": 33.33333333333333,
         "engagement": 31.80580019605336,
-        "freshness": 91.95535700224602
+        "freshness": 91.93862395747216
       }
     },
     {
@@ -74,7 +74,7 @@
       "noveltyCandidate": false,
       "status": "market_trend",
       "gatePassed": true,
-      "universalScore": 59.622307578218454,
+      "universalScore": 59.62063427374107,
       "teamInterestScore": 0,
       "evidenceCount": 6,
       "independentCreatorCount": 3,
@@ -93,7 +93,7 @@
         "crossLane": 50,
         "crossPlatform": 66.66666666666666,
         "engagement": 30.982030191690324,
-        "freshness": 91.95535700224602
+        "freshness": 91.93862395747216
       }
     },
     {
@@ -112,7 +112,7 @@
       "noveltyCandidate": true,
       "status": "insufficient_evidence",
       "gatePassed": false,
-      "universalScore": 57.56338347408636,
+      "universalScore": 57.56171016960897,
       "teamInterestScore": 0,
       "evidenceCount": 2,
       "independentCreatorCount": 2,
@@ -131,7 +131,7 @@
         "crossLane": 50,
         "crossPlatform": 33.33333333333333,
         "engagement": 27.6890746124031,
-        "freshness": 91.95535700224602
+        "freshness": 91.93862395747216
       }
     },
     {
@@ -150,7 +150,7 @@
       "noveltyCandidate": true,
       "status": "insufficient_evidence",
       "gatePassed": false,
-      "universalScore": 52.46951569364189,
+      "universalScore": 52.4678423891645,
       "teamInterestScore": 0,
       "evidenceCount": 2,
       "independentCreatorCount": 2,
@@ -169,7 +169,7 @@
         "crossLane": 25,
         "crossPlatform": 33.33333333333333,
         "engagement": 34.25535880708294,
-        "freshness": 91.95535700224602
+        "freshness": 91.93862395747216
       }
     },
     {
@@ -188,7 +188,7 @@
       "noveltyCandidate": true,
       "status": "insufficient_evidence",
       "gatePassed": false,
-      "universalScore": 52.409095029687634,
+      "universalScore": 52.40742172521025,
       "teamInterestScore": 0,
       "evidenceCount": 1,
       "independentCreatorCount": 1,
@@ -207,7 +207,7 @@
         "crossLane": 25,
         "crossPlatform": 33.33333333333333,
         "engagement": 34.476190476190474,
-        "freshness": 91.95535700224602
+        "freshness": 91.93862395747216
       }
     },
     {
@@ -226,7 +226,7 @@
       "noveltyCandidate": true,
       "status": "insufficient_evidence",
       "gatePassed": false,
-      "universalScore": 51.83465875515535,
+      "universalScore": 51.83298545067797,
       "teamInterestScore": 0,
       "evidenceCount": 4,
       "independentCreatorCount": 1,
@@ -245,7 +245,7 @@
         "crossLane": 25,
         "crossPlatform": 33.33333333333333,
         "engagement": 34.48717948717948,
-        "freshness": 91.95535700224602
+        "freshness": 91.93862395747216
       }
     },
     {
@@ -264,7 +264,7 @@
       "noveltyCandidate": true,
       "status": "insufficient_evidence",
       "gatePassed": false,
-      "universalScore": 51.54681214627696,
+      "universalScore": 51.54513884179958,
       "teamInterestScore": 0,
       "evidenceCount": 2,
       "independentCreatorCount": 1,
@@ -283,7 +283,7 @@
         "crossLane": 25,
         "crossPlatform": 33.33333333333333,
         "engagement": 35.27272727272727,
-        "freshness": 91.95535700224602
+        "freshness": 91.93862395747216
       }
     },
     {
@@ -302,7 +302,7 @@
       "noveltyCandidate": true,
       "status": "insufficient_evidence",
       "gatePassed": false,
-      "universalScore": 50.379319380958876,
+      "universalScore": 50.37764607648149,
       "teamInterestScore": 0,
       "evidenceCount": 1,
       "independentCreatorCount": 1,
@@ -321,7 +321,7 @@
         "crossLane": 25,
         "crossPlatform": 33.33333333333333,
         "engagement": 31.303030303030305,
-        "freshness": 91.95535700224602
+        "freshness": 91.93862395747216
       }
     },
     {
@@ -340,7 +340,7 @@
       "noveltyCandidate": true,
       "status": "insufficient_evidence",
       "gatePassed": false,
-      "universalScore": 49.492493003902155,
+      "universalScore": 49.49081969942477,
       "teamInterestScore": 0,
       "evidenceCount": 1,
       "independentCreatorCount": 1,
@@ -359,7 +359,7 @@
         "crossLane": 25,
         "crossPlatform": 33.33333333333333,
         "engagement": 30.43918918918919,
-        "freshness": 91.95535700224602
+        "freshness": 91.93862395747216
       }
     },
     {
@@ -378,7 +378,7 @@
       "noveltyCandidate": true,
       "status": "insufficient_evidence",
       "gatePassed": false,
-      "universalScore": 49.473714597728154,
+      "universalScore": 49.47204129325077,
       "teamInterestScore": 0,
       "evidenceCount": 1,
       "independentCreatorCount": 1,
@@ -397,7 +397,7 @@
         "crossLane": 25,
         "crossPlatform": 33.33333333333333,
         "engagement": 33.241379310344826,
-        "freshness": 91.95535700224602
+        "freshness": 91.93862395747216
       }
     }
   ],
@@ -1247,7 +1247,7 @@
   "automation": {
     "macStatus": {
       "online": true,
-      "lastActiveAt": "2026-10-11T16:10:45.520Z"
+      "lastActiveAt": "2026-10-11T16:14:25.667Z"
     },
     "safetyAudit": {
       "executedWriteCount": 0,
