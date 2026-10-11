@@ -15,7 +15,7 @@ export interface EnrichedVideoInfo {
   hitReason: string;
 }
 
-const TEMPLATE_MAP: Record<string, string> = {
+const TEMPLATE_MAP = {
   failure_first: '⚠️ 【失敗先出し型】',
   shortcut_hack: '⚡ 【裏技・神時短型】',
   how_to: '📚 【手順解説型】',
@@ -26,16 +26,16 @@ const TEMPLATE_MAP: Record<string, string> = {
   recipe: '🍳 【悪魔の時短飯型】',
   before_after: '💄 【劇的変身型】',
   gadget: '📦 【生活激変ガジェット型】',
-};
+} as const;
 
-const CATEGORY_MAP: Record<string, string> = {
+const CATEGORY_MAP = {
   ai_pc_hack: '💻 AI・PC・スマホ裏技',
   study_report: '🎓 勉強・レポート術',
   career_manner: '👔 就活・マナー・英語',
   student_life: '💰 学割・生活ハック',
   gadget_tool: '📱 神アイテム・便利ツール',
   entertainment: '🎭 エンタメ・日常あるある',
-};
+} as const;
 
 export function enrichVideoInformation(input: {
   caption?: string | null;

@@ -17,7 +17,7 @@ export interface CaptureApi {
   listTrends?(filters: TrendFilters): Record<string, unknown>[] | Promise<Record<string, unknown>[]>;
   listVideos?(filters?: VideoFilters): Record<string, unknown>[] | Promise<Record<string, unknown>[]>;
   getTrend?(id: string): Record<string, unknown> | null | Promise<Record<string, unknown> | null>;
-  generateJevBlueprintForTrend?(id: string): Record<string, unknown> | null | Promise<Record<string, unknown> | null>;
+  generateJevBlueprintForTrend?(id: string, brandProfile?: Record<string, unknown>): Record<string, unknown> | null | Promise<Record<string, unknown> | null>;
   getOverview?(): Record<string, unknown> | Promise<Record<string, unknown>>;
   getCoverage?(): Record<string, unknown> | Promise<Record<string, unknown>>;
   getAutomation?(): Record<string, unknown> | Promise<Record<string, unknown>>;

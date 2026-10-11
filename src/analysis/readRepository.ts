@@ -5,17 +5,17 @@ import { enrichVideoInformation, type EnrichedVideoInfo } from './videoEnrichmen
 type Row = Record<string, string | number | null>;
 
 export type TrendFilters = {
-  layer?: 'surface' | 'format' | 'desire';
-  platform?: string;
-  sourceLane?: string;
-  minimumConfidence?: number;
+  layer?: 'surface' | 'format' | 'desire' | undefined;
+  platform?: string | undefined;
+  sourceLane?: string | undefined;
+  minimumConfidence?: number | undefined;
 };
 
 export type VideoFilters = {
-  template?: string;
-  category?: string;
-  platform?: string;
-  q?: string;
+  template?: string | undefined;
+  category?: string | undefined;
+  platform?: string | undefined;
+  q?: string | undefined;
 };
 
 function parseJson(raw: string | number | null | undefined): unknown {
@@ -256,7 +256,7 @@ export class AnalysisReadRepository {
         SELECT id FROM clusters WHERE layer = ? AND label = ?
       )
       ORDER BY tep.rank_order, ms.view_count DESC
-    `).all(cluster.layer, cluster.label) as Row[];
+    `).all(String(cluster.layer ?? ''), String(cluster.label ?? '')) as Row[];
     const fitScores = this.db.prepare(`
       SELECT fp.id, fp.name, fs.reproducibility_score, fs.brand_fit_score,
              fs.audience_fit_score, fs.computed_at
