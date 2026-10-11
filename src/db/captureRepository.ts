@@ -248,6 +248,10 @@ export class CaptureRepository {
     return new AnalysisReadRepository(this.db).getAutomation();
   }
 
+  getPipeline(): Record<string, unknown> {
+    return new AnalysisReadRepository(this.db).getPipeline();
+  }
+
   runAnalysis(): Record<string, unknown> {
     return new LocalAnalysisEngine(this.db).run();
   }

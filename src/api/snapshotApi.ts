@@ -105,6 +105,10 @@ export class SnapshotCaptureApi implements CaptureApi {
     return this.data.automation as Record<string, unknown>;
   }
 
+  getPipeline(): Record<string, unknown> {
+    return (this.data.pipeline ?? {}) as Record<string, unknown>;
+  }
+
   getBrandProfile(): Record<string, unknown> {
     return { profile: this.brandProfile };
   }

@@ -1229,6 +1229,40 @@
       }
     }
 
+    const tiktok = auto.crawlers?.tiktok;
+    if (tiktokCrawlerMeta && tiktokCrawlerBadge) {
+      if (tiktok) {
+        const timeStr = tiktok.startedAt ? new Date(tiktok.startedAt).toLocaleTimeString('ja-JP') : '-';
+        tiktokCrawlerMeta.textContent = `最終巡回: ${timeStr} · 取得: ${tiktok.observedCount ?? 0} · 保存: ${tiktok.savedCount ?? 0}`;
+        tiktokCrawlerBadge.textContent = (tiktok.status || 'succeeded').toUpperCase();
+        tiktokCrawlerBadge.className = `badge ${tiktok.status === 'succeeded' ? 'active' : 'muted'}`;
+      } else {
+        tiktokCrawlerMeta.textContent = '状態: 保留中（未ログイン時安全停止）';
+        tiktokCrawlerBadge.textContent = 'PAUSED';
+        tiktokCrawlerBadge.className = 'badge muted';
+      }
+    }
+
+    const ytMeta = document.getElementById('ytConnectorMeta');
+    const ytBadge = document.getElementById('ytConnectorBadge');
+    if (ytMeta && ytBadge) {
+      const yt = auto.connectors?.youtube;
+      if (yt) {
+        ytMeta.textContent = `日次消費: ${yt.dailyUnitsUsed ?? 0} / ${yt.dailyQuotaLimit ?? 8000} units (${yt.quotaRatio ?? 0}%)`;
+        ytBadge.textContent = (yt.status || 'succeeded').toUpperCase();
+        ytBadge.className = `badge ${yt.status === 'succeeded' || yt.status === 'active' ? 'active' : 'muted'}`;
+      }
+    }
+
+    const slackBadge = document.getElementById('slackConnectorBadge');
+    if (slackBadge) {
+      const sl = auto.connectors?.slack;
+      if (sl) {
+        slackBadge.textContent = (sl.status || 'active').toUpperCase();
+        slackBadge.className = `badge ${sl.status === 'active' ? 'active' : 'muted'}`;
+      }
+    }
+
     if (recentAuditEventsList) {
       const events = auto.safetyAudit?.recentAuditEvents || [];
       if (events.length === 0) {

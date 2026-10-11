@@ -14,6 +14,7 @@ export function exportSnapshot(): void {
       videos: repo.listVideos(),
       coverage: repo.getCoverage(),
       automation: repo.getAutomation(),
+      pipeline: repo.getPipeline(),
       brandProfile: repo.getBrandProfile(),
     };
 

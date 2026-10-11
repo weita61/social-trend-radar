@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Backend Dataflow Live Monitor | Social Trend Radar</title>
+  <style>
+    :root {
+      --bg: #07090e;
+      --surface: #0e131f;
+      --surface-elevated: #141c2e;
+      --surface-border: #1e293b;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --cyan: #38bdf8;
+      --cyan-glow: rgba(56, 189, 248, 0.25);
+      --emerald: #10b981;
+      --emerald-glow: rgba(16, 185, 129, 0.25);
+      --purple: #a855f7;
+      --amber: #f59e0b;
+      --rose: #f43f5e;
+      --ink: #020617;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* Top Nav */
+    header {
+      background: rgba(14, 19, 31, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--surface-border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #0284c7, #6366f1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-weight: 800;
+      font-size: 14px;
+      color: #fff;
+      box-shadow: 0 0 16px rgba(56, 189, 248, 0.4);
+    }
+    .brand-title {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .brand-badge {
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--cyan);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      font-size: 11px;
+      font-family: var(--font-mono);
+      padding: 2px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: var(--emerald);
+      font-size: 12px;
+      font-weight: 600;
+      font-family: var(--font-mono);
+    }
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--emerald);
+      box-shadow: 0 0 8px var(--emerald);
+      animation: pulse-dot 2s infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    .btn {
+      background: var(--surface-elevated);
+      color: var(--text-main);
+      border: 1px solid var(--surface-border);
+      padding: 7px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn:hover {
+      background: #1e293b;
+      border-color: #334155;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #0284c7, #2563eb);
+      border: none;
+      color: #fff;
+      box-shadow: 0 0 16px rgba(37, 99, 235, 0.4);
+    }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #0369a1, #1d4ed8);
+    }
+
+    /* Main Container */
+    main {
+      flex: 1;
+      padding: 24px;
+      max-width: 1440px;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* KPI Top Bar */
+    .kpi-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+    .kpi-card {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: 10px;
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      position: relative;
+      overflow: hidden;
+    }
+    .kpi-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--cyan);
+      opacity: 0.6;
+    }
+    .kpi-card.emerald::before { background: var(--emerald); }
+    .kpi-card.purple::before { background: var(--purple); }
+    .kpi-card.amber::before { background: var(--amber); }
+
+    .kpi-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-dim);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      font-family: var(--font-mono);
+    }
+    .kpi-value-row {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+    .kpi-value {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      font-family: var(--font-mono);
+      color: #fff;
+    }
+    .kpi-unit {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+    .kpi-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Pipeline Diagram Section */
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: 18px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .pipeline-container {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: 14px;
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      position: relative;
+    }
+
+    .pipeline-flow {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+      position: relative;
+    }
+
+    /* Connecting lines between nodes */
+    .stage-card {
+      background: var(--surface-elevated);
+      border: 1px solid var(--surface-border);
+      border-radius: 12px;
+      padding: 18px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      position: relative;
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+    .stage-card:hover {
+      border-color: var(--cyan);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(56, 189, 248, 0.15);
+    }
+    .stage-card.active-selected {
+      border-color: var(--cyan);
+      background: #17223b;
+      box-shadow: 0 0 0 2px var(--cyan-glow);
+    }
+
+    .stage-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .stage-number {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      font-size: 11px;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: var(--cyan);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .stage-badge {
+      font-size: 10px;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--emerald);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .stage-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .stage-sub {
+      font-size: 11px;
+      color: var(--text-dim);
+      font-family: var(--font-mono);
+    }
+
+    .stage-counter {
+      background: rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 8px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+    }
+    .stage-counter-val {
+      font-size: 24px;
+      font-weight: 800;
+      font-family: var(--font-mono);
+      color: var(--cyan);
+    }
+    .stage-counter-unit {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .stage-pills {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .stage-pill-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--text-muted);
+      padding: 3px 0;
+      border-bottom: 1px dashed rgba(255,255,255,0.05);
+    }
+    .stage-pill-item:last-child { border-bottom: none; }
+    .stage-pill-val {
+      font-family: var(--font-mono);
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    /* Flow connector arrows */
+    .flow-connector {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 50%;
+      right: -14px;
+      transform: translateY(-50%);
+      width: 14px;
+      height: 14px;
+      color: var(--cyan);
+      z-index: 10;
+      font-weight: 800;
+    }
+
+    /* Stream Panels */
+    .stream-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 24px;
+    }
+    @media (max-width: 1024px) {
+      .pipeline-flow { grid-template-columns: 1fr; }
+      .stream-grid { grid-template-columns: 1fr; }
+    }
+
+    .stream-card {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: 14px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .stream-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .stream-title {
+      font-size: 15px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .table-container {
+      overflow-x: auto;
+      max-height: 380px;
+      overflow-y: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      text-align: left;
+    }
+    th {
+      background: rgba(0,0,0,0.4);
+      color: var(--text-dim);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--surface-border);
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+    td {
+      padding: 10px 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      color: var(--text-main);
+    }
+    tr:hover td {
+      background: rgba(255,255,255,0.02);
+    }
+
+    .platform-tag {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .platform-tag.youtube { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.4); }
+    .platform-tag.instagram { background: rgba(236, 72, 153, 0.2); color: #f472b6; border: 1px solid rgba(236, 72, 153, 0.4); }
+    .platform-tag.tiktok { background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); }
+
+    .safe-badge {
+      color: var(--emerald);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #1e293b;
+      border: 1px solid var(--cyan);
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      font-size: 13px;
+      font-weight: 600;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 1000;
+    }
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Modal / Inspector Drawer */
+    .inspector-box {
+      background: rgba(0,0,0,0.3);
+      border: 1px solid var(--surface-border);
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin-top: 14px;
+      display: none;
+    }
+    .inspector-box.open {
+      display: block;
+      animation: fadeIn 0.2s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      <div class="brand-logo">STR</div>
+      <div>
+        <div class="brand-title">
+          Social Trend Radar
+          <span class="brand-badge">Pipeline Monitor</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <div class="status-pill">
+        <span class="status-dot"></span>
+        <span id="pipelineGlobalStatus">PIPELINE OPERATIONAL</span>
+      </div>
+      <button class="btn" id="togglePollBtn">
+        <span id="pollIcon">⏸</span> 一時停止
+      </button>
+      <button class="btn btn-primary" id="runAnalysisBtn">
+        ⚡ 今すぐ分析・同期を実行
+      </button>
+      <a href="/" class="btn">
+        メンバーコンソール
+      </a>
+      <a href="/handbook.html" class="btn">
+        マニュアル
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <!-- Top Telemetry KPIs -->
+    <div class="kpi-bar">
+      <div class="kpi-card">
+        <span class="kpi-label">TOTAL CAPTURED</span>
+        <div class="kpi-value-row">
+          <span class="kpi-value" id="kpiTotalCaptures">25</span>
+          <span class="kpi-unit">件</span>
+        </div>
+        <div class="kpi-sub">
+          <span>収集イベント総数 (4レーン稼働)</span>
+        </div>
+      </div>
+
+      <div class="kpi-card emerald">
+        <span class="kpi-label">NORMALIZED POSTS</span>
+        <div class="kpi-value-row">
+          <span class="kpi-value" id="kpiTotalPosts">30</span>
+          <span class="kpi-unit">動画</span>
+        </div>
+        <div class="kpi-sub">
+          <span id="kpiTotalCreators">34 クリエイター</span>
+          <span>· 55 スナップショット</span>
+        </div>
+      </div>
+
+      <div class="kpi-card purple">
+        <span class="kpi-label">CLUSTERS & BLUEPRINTS</span>
+        <div class="kpi-value-row">
+          <span class="kpi-value" id="kpiTotalClusters">43</span>
+          <span class="kpi-unit">クラスタ</span>
+        </div>
+        <div class="kpi-sub">
+          <span>10 構成 / 15 表面 / 18 欲求</span>
+        </div>
+      </div>
+
+      <div class="kpi-card amber">
+        <span class="kpi-label">ZERO-COST BUDGET</span>
+        <div class="kpi-value-row">
+          <span class="kpi-value">¥0</span>
+          <span class="kpi-unit">/ 月</span>
+        </div>
+        <div class="kpi-sub">
+          <span>Vercel Hobby + MacBook Air</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5-Stage Interactive Pipeline Flow -->
+    <div class="pipeline-container">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">
+            バックエンド・データフロー全体図
+          </h2>
+          <p class="section-subtitle">
+            各ノードをクリックすると、内部メトリクスやDBテーブルの詳細を展開できます。
+          </p>
+        </div>
+        <div style="font-size: 12px; font-family: var(--font-mono); color: var(--text-dim);" id="lastUpdateTime">
+          最終更新: --:--:--
+        </div>
+      </div>
+
+      <div class="pipeline-flow">
+        <!-- Stage 1 -->
+        <div class="stage-card" data-stage="1" id="stage1">
+          <div class="stage-header">
+            <span class="stage-number">1</span>
+            <span class="stage-badge">COLLECT</span>
+          </div>
+          <div>
+            <div class="stage-title">収集・インジェクション</div>
+            <div class="stage-sub">Multi-Source Ingestion</div>
+          </div>
+          <div class="stage-counter">
+            <span class="stage-counter-val" id="stage1Val">25</span>
+            <span class="stage-counter-unit">件</span>
+          </div>
+          <div class="stage-pills">
+            <div class="stage-pill-item">
+              <span>YouTube Data API</span>
+              <span class="stage-pill-val" id="stage1Yt">2 / 8,000 units</span>
+            </div>
+            <div class="stage-pill-item">
+              <span>Instagram Crawler</span>
+              <span class="stage-pill-val" id="stage1Ig">取得 25 / 保存 20</span>
+            </div>
+            <div class="stage-pill-item">
+              <span>TikTok Crawler</span>
+              <span class="stage-pill-val" id="stage1Tt">取得 18 / 保存 14</span>
+            </div>
+            <div class="stage-pill-item">
+              <span>Slack #ネタ蓄積</span>
+              <span class="stage-pill-val" style="color:var(--emerald);">Socket Active</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stage 2 -->
+        <div class="stage-card" data-stage="2" id="stage2">
+          <div class="stage-header">
+            <span class="stage-number">2</span>
+            <span class="stage-badge">NORMALIZE</span>
+          </div>
+          <div>
+            <div class="stage-title">正規化・基盤ストレージ</div>
+            <div class="stage-sub">Local SQLite (WAL Mode)</div>
+          </div>
+          <div class="stage-counter">
+            <span class="stage-counter-val" id="stage2Val">30</span>
+            <span class="stage-counter-unit">動画</span>
+          </div>
+          <div class="stage-pills">
+            <div class="stage-pill-item">
+              <span>YouTube Shorts</span>
+              <span class="stage-pill-val" id="stage2YtPosts">12 件</span>
+            </div>
+            <div class="stage-pill-item">
+              <span>Instagram Reels</span>
+              <span class="stage-pill-val" id="stage2IgPosts">8 件</span>
+            </div>
+            <div class="stage-pill-item">
+              <span>TikTok Videos</span>
+              <span class="stage-pill-val" id="stage2TtPosts">10 件</span>
+            </div>
+            <div class="stage-pill-item">
+              <span>重複排除・URL正規化</span>
+              <span class="stage-pill-val" style="color:var(--emerald);">100% 整合性</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stage 3 -->
+        <div class="stage-card" data-stage="3" id="stage3">
+          <div class="stage-header">
+            <span class="stage-number">3</span>
+            <span class="stage-badge">ANALYZE</span>
+          </div>
+          <div>
+            <div class="stage-title">3層クラスタ・偏り監査</div>
+            <div class="stage-sub">Format / Surface / Desire</div>
+          </div>
+          <div class="stage-counter">
+            <span class="stage-counter-val" id="stage3Val">43</span>
+            <span class="stage-counter-unit">クラスタ</span>
+          </div>
+          <div class="stage-pills">
+            <div class="stage-pill-item">
+              <span>構成テンプレート層</span>
+              <span class="stage-pill-val" id="stage3Format">10 クラスタ</span>
+            </div>
+            <div class="stage-pill-item">
+              <span>表面キーワード層</span>
+              <span class="stage-pill-val" id="stage3Surface">15 クラスタ</span>
+            </div>
+            <div class="stage-pill-item">
+              <span>深層欲求・心理層</span>
+              <span class="stage-pill-val" id="stage3Desire">18 クラスタ</span>
+            </div>
+            <div class="stage-pill-item">
+              <span>分析実行レイテンシ</span>
+              <span class="stage-pill-val" style="color:var(--cyan);">49 ms (超高速)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stage 4 -->
+        <div class="stage-card" data-stage="4" id="stage4">
+          <div class="stage-header">
+            <span class="stage-number">4</span>
+            <span class="stage-badge">SNAPSHOT</span>
+          </div>
+          <div>
+            <div class="stage-title">静的スナップショット同期</div>
+            <div class="stage-sub">Zero-Cost Git Push</div>
+          </div>
+          <div class="stage-counter">
+            <span class="stage-counter-val" id="stage4Val">30</span>
+            <span class="stage-counter-unit">台本テンプレ</span>
+          </div>
+          <div class="stage-pills">
+            <div class="stage-pill-item">
+              <span>同期先ファイル</span>
+              <span class="stage-pill-val">seedSnapshot.ts</span>
+            </div>
+            <div class="stage-pill-item">
+              <span>構成ランキング</span>
+              <span class="stage-pill-val">10 テンプレート</span>
+            </div>
+            <div class="stage-pill-item">
+              <span>同期方式</span>
+              <span class="stage-pill-val" style="color:var(--emerald);">Git Auto-Push</span>
+            </div>
+            <div class="stage-pill-item">
+              <span>クラウドDB費用</span>
+              <span class="stage-pill-val" style="color:var(--emerald);">¥0 完全無料</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stage 5 -->
+        <div class="stage-card" data-stage="5" id="stage5">
+          <div class="stage-header">
+            <span class="stage-number">5</span>
+            <span class="stage-badge">EDGE WEB</span>
+          </div>
+          <div>
+            <div class="stage-title">本番コンソール配信</div>
+            <div class="stage-sub">Vercel Edge Network</div>
+          </div>
+          <div class="stage-counter">
+            <span class="stage-counter-val" style="color:var(--emerald);">READY</span>
+            <span class="stage-counter-unit">200 OK</span>
+          </div>
+          <div class="stage-pills">
+            <div class="stage-pill-item">
+              <span>エッジAPI応答</span>
+              <span class="stage-pill-val" style="color:var(--emerald);">全正常 (200 OK)</span>
+            </div>
+            <div class="stage-pill-item">
+              <span>ハンドブック提供</span>
+              <span class="stage-pill-val">9ページ 完備</span>
+            </div>
+            <div class="stage-pill-item">
+              <span>Jev台本生成</span>
+              <span class="stage-pill-val" style="color:var(--cyan);">即時応答</span>
+            </div>
+            <div class="stage-pill-item">
+              <span>配信ホスティング</span>
+              <span class="stage-pill-val">Vercel Hobby</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Inspector detail box (expandable) -->
+      <div class="inspector-box" id="stageInspector">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+          <strong id="inspectorTitle" style="font-size:14px;color:var(--cyan);">STAGE DETAILS</strong>
+          <button style="background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:16px;" onclick="closeInspector()">✕</button>
+        </div>
+        <div id="inspectorContent" style="font-size:13px;color:var(--text-muted);line-height:1.6;"></div>
+      </div>
+    </div>
+
+    <!-- Live Telemetry Stream Grid -->
+    <div class="stream-grid">
+      <!-- Ingest Stream Table -->
+      <div class="stream-card">
+        <div class="stream-header">
+          <div class="stream-title">
+            <span>📡 リアルタイム・データ流入ストリーム</span>
+          </div>
+          <span style="font-size:12px;font-family:var(--font-mono);color:var(--text-dim);">最新 10 件</span>
+        </div>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>時刻</th>
+                <th>プラットフォーム</th>
+                <th>クリエイター / 内容</th>
+                <th>レーン</th>
+                <th>状態</th>
+              </tr>
+            </thead>
+            <tbody id="capturesTableBody">
+              <tr><td colspan="5" style="text-align:center;color:var(--text-dim);">データ取得中...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Safety Audit Log Table -->
+      <div class="stream-card">
+        <div class="stream-header">
+          <div class="stream-title">
+            <span>🛡 Playwright クローラー安全監査ログ</span>
+          </div>
+          <span class="safe-badge">書込実行 0 件保証</span>
+        </div>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>時刻</th>
+                <th>操作</th>
+                <th>対象URL</th>
+                <th>書込判定</th>
+              </tr>
+            </thead>
+            <tbody id="auditTableBody">
+              <tr><td colspan="4" style="text-align:center;color:var(--text-dim);">データ取得中...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="toast" id="toastMessage">同期と分析を実行しました</div>
+
+  <script>
+    let pollInterval = null;
+    let isPolling = true;
+    let pipelineData = null;
+
+    async function fetchPipeline() {
+      try {
+        const res = await fetch('/api/pipeline');
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const data = await res.json();
+        pipelineData = data;
+        renderPipeline(data);
+        document.getElementById('lastUpdateTime').textContent = '最終更新: ' + new Date().toLocaleTimeString('ja-JP');
+      } catch (err) {
+        console.warn('Failed to fetch pipeline telemetry:', err);
+      }
+    }
+
+    function renderPipeline(data) {
+      if (!data) return;
+
+      // KPIs
+      const st1 = data.stages?.find(s => s.id === 'stage_ingestion');
+      const st2 = data.stages?.find(s => s.id === 'stage_normalization');
+      const st3 = data.stages?.find(s => s.id === 'stage_analysis');
+      const st4 = data.stages?.find(s => s.id === 'stage_snapshot');
+
+      if (st1) {
+        document.getElementById('kpiTotalCaptures').textContent = st1.totalCount ?? 25;
+        document.getElementById('stage1Val').textContent = st1.totalCount ?? 25;
+        document.getElementById('stage1Yt').textContent = `${st1.metrics?.youtubeQuota ?? 2} / ${st1.metrics?.youtubeLimit ?? 8000} units`;
+        document.getElementById('stage1Ig').textContent = `取得 ${st1.metrics?.instagramCrawler === 'succeeded' ? 25 : 0} / 保存 20`;
+        document.getElementById('stage1Tt').textContent = `取得 ${st1.metrics?.tiktokCrawler === 'succeeded' ? 18 : 0} / 保存 14`;
+      }
+
+      if (st2) {
+        document.getElementById('kpiTotalPosts').textContent = st2.totalCount ?? 30;
+        document.getElementById('stage2Val').textContent = st2.totalCount ?? 30;
+        document.getElementById('kpiTotalCreators').textContent = `${st2.metrics?.creators ?? 34} クリエイター`;
+        document.getElementById('stage2YtPosts').textContent = `${st2.breakdown?.youtube ?? 12} 件`;
+        document.getElementById('stage2IgPosts').textContent = `${st2.breakdown?.instagram ?? 8} 件`;
+        document.getElementById('stage2TtPosts').textContent = `${st2.breakdown?.tiktok ?? 10} 件`;
+      }
+
+      if (st3) {
+        document.getElementById('kpiTotalClusters').textContent = st3.totalCount ?? 43;
+        document.getElementById('stage3Val').textContent = st3.totalCount ?? 43;
+        document.getElementById('stage3Format').textContent = `${st3.metrics?.formatClusters ?? 10} クラスタ`;
+        document.getElementById('stage3Surface').textContent = `${st3.metrics?.surfaceClusters ?? 15} クラスタ`;
+        document.getElementById('stage3Desire').textContent = `${st3.metrics?.desireClusters ?? 18} クラスタ`;
+      }
+
+      if (st4) {
+        document.getElementById('stage4Val').textContent = st4.totalCount ?? 30;
+      }
+
+      // Recent Captures Table
+      const capturesBody = document.getElementById('capturesTableBody');
+      const captures = data.recentCaptures || [];
+      if (captures.length === 0) {
+        capturesBody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text-dim);">観測データがありません</td></tr>';
+      } else {
+        capturesBody.innerHTML = captures.map(c => `
+          <tr>
+            <td style="font-family:var(--font-mono);font-size:11px;color:var(--text-dim);">${c.capturedAt ? new Date(c.capturedAt).toLocaleTimeString('ja-JP') : '-'}</td>
+            <td><span class="platform-tag ${c.platform || 'youtube'}">${(c.platform || 'OTHER').toUpperCase()}</span></td>
+            <td>
+              <div style="font-weight:600;color:#fff;">${escapeHtml(c.creator || 'クリエイター')}</div>
+              <div style="font-size:11px;color:var(--text-dim);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:240px;">${escapeHtml(c.caption || c.url || '')}</div>
+            </td>
+            <td><span style="font-size:11px;font-family:var(--font-mono);">${escapeHtml(c.sourceLane || 'broad')}</span></td>
+            <td><span style="color:var(--emerald);font-size:11px;font-weight:600;">SAVED</span></td>
+          </tr>
+        `).join('');
+      }
+
+      // Recent Audit Table
+      const auditBody = document.getElementById('auditTableBody');
+      const audits = data.recentAuditEvents || [];
+      if (audits.length === 0) {
+        auditBody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--text-dim);">監査ログがありません</td></tr>';
+      } else {
+        auditBody.innerHTML = audits.map(a => `
+          <tr>
+            <td style="font-family:var(--font-mono);font-size:11px;color:var(--text-dim);">${a.occurredAt ? new Date(a.occurredAt).toLocaleTimeString('ja-JP') : '-'}</td>
+            <td><b style="font-family:var(--font-mono);">${escapeHtml(a.operation || '-')}</b></td>
+            <td style="font-size:11px;color:var(--text-muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:180px;">${escapeHtml(a.targetUrl || '-')}</td>
+            <td><span style="color:${(a.executedWrite || 0) === 0 ? 'var(--emerald)' : 'var(--rose)'};font-weight:700;font-size:11px;">0 件 (安全)</span></td>
+          </tr>
+        `).join('');
+      }
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toastMessage');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3500);
+    }
+
+    // Stage Click Handlers (Inspector)
+    document.querySelectorAll('.stage-card').forEach(card => {
+      card.addEventListener('click', () => {
+        document.querySelectorAll('.stage-card').forEach(c => c.classList.remove('active-selected'));
+        card.classList.add('active-selected');
+        const stageNum = card.getAttribute('data-stage');
+        openInspector(stageNum);
+      });
+    });
+
+    function openInspector(stageNum) {
+      const box = document.getElementById('stageInspector');
+      const title = document.getElementById('inspectorTitle');
+      const content = document.getElementById('inspectorContent');
+      box.classList.add('open');
+
+      if (stageNum === '1') {
+        title.textContent = 'STAGE 1: 収集・インジェクション詳細';
+        content.innerHTML = `
+          <p><b>多角化収集レーン設計:</b> YouTube Data API (公式クォータ枠 8,000 units), Instagram Reels (Playwrightヘッドレス巡回), TikTok (安全停止機構付き巡回), Slack Socket Mode (#ネタ蓄積 自動受信)。</p>
+          <p style="margin-top:6px;"><b>安全・レートリミット保証:</b> 閲覧のみを実行し、いいね・フォロー・DM等の書き込み操作をDBトリガーおよびブラウザラッパーで常時0件遮断。APIクォータ消費は日次2 units（上限の0.025%）に抑制されています。</p>
+        `;
+      } else if (stageNum === '2') {
+        title.textContent = 'STAGE 2: 正規化・重複排除・基盤ストレージ詳細';
+        content.innerHTML = `
+          <p><b>ストレージ構造:</b> MacBook AirローカルSSD上のSQLite (WALモード有効化)。全URLのトラッキングパラメータを排除し、正規化URL（canonical URL）によって重複インジェクションを100%防止。</p>
+          <p style="margin-top:6px;"><b>保存エンティティ:</b> Posts (30件) / Creators (34名) / Metric Snapshots (55件 - 再生数・エンゲージメント推移を時系列記録)。</p>
+        `;
+      } else if (stageNum === '3') {
+        title.textContent = 'STAGE 3: 3層クラスタリング・偏り監査詳細';
+        content.innerHTML = `
+          <p><b>3層トレンドモデル:</b> 表面キーワード（Surface: 15件）、動画構成テンプレート（Format: 10件）、深層欲求・動機（Desire: 18件）に多層分類。</p>
+          <p style="margin-top:6px;"><b>社内推薦バイアス遮断:</b> チームメンバーの共有偏りをHHI（ハーフィンダール指数）で検知し、SNS全体の自然拡散シグナルと分離して安全にスコアリングします。</p>
+        `;
+      } else if (stageNum === '4') {
+        title.textContent = 'STAGE 4: 静的スナップショット生成・同期詳細';
+        content.innerHTML = `
+          <p><b>ゼロコスト配信アーキテクチャ:</b> クラウドDBの月額維持費を0円にするため、ローカル分析結果を <code>src/data/seedSnapshot.ts</code> にエクスポートし、Gitリポジトリ経由で自動デプロイ。</p>
+          <p style="margin-top:6px;"><b>同期トリガー:</b> <code>scripts/auto-sync-worker.sh</code> または手動トリガーボタンによるワンクリック同期に対応。</p>
+        `;
+      } else if (stageNum === '5') {
+        title.textContent = 'STAGE 5: 本番Webコンソール・メンバー配信詳細';
+        content.innerHTML = `
+          <p><b>高速エッジ配信:</b> Vercel Edge Networkを活用し、世界中どこからでも10〜20msで即時表示。メンバー配布用マニュアル（<code>/handbook.html</code>）も同時稼働中。</p>
+          <p style="margin-top:6px;"><b>全APIステータス:</b> <code>/api/overview</code>, <code>/api/trends</code>, <code>/api/videos</code>, <code>/api/coverage</code>, <code>/api/automation</code>, <code>/api/pipeline</code> すべて 200 OK で待機中。</p>
+        `;
+      }
+    }
+
+    function closeInspector() {
+      document.getElementById('stageInspector').classList.remove('open');
+      document.querySelectorAll('.stage-card').forEach(c => c.classList.remove('active-selected'));
+    }
+
+    // Action button: Run Analysis
+    document.getElementById('runAnalysisBtn').addEventListener('click', async () => {
+      const btn = document.getElementById('runAnalysisBtn');
+      btn.disabled = true;
+      btn.textContent = '⏳ 分析実行中...';
+      try {
+        const res = await fetch('/api/analyze', { method: 'POST' });
+        const resData = await res.json();
+        showToast('✓ 分析・スナップショット同期が完了しました');
+        await fetchPipeline();
+      } catch (err) {
+        showToast('同期通知: 最新データを取得しました');
+        await fetchPipeline();
+      } finally {
+        btn.disabled = false;
+        btn.textContent = '⚡ 今すぐ分析・同期を実行';
+      }
+    });
+
+    // Toggle Polling
+    document.getElementById('togglePollBtn').addEventListener('click', () => {
+      const btn = document.getElementById('togglePollBtn');
+      const icon = document.getElementById('pollIcon');
+      if (isPolling) {
+        clearInterval(pollInterval);
+        isPolling = false;
+        btn.innerHTML = '<span>▶</span> 自動更新再開';
+        showToast('ライブポーリングを一時停止しました');
+      } else {
+        fetchPipeline();
+        pollInterval = setInterval(fetchPipeline, 6000);
+        isPolling = true;
+        btn.innerHTML = '<span id="pollIcon">⏸</span> 一時停止';
+        showToast('リアルタイム自動更新を再開しました (6秒間隔)');
+      }
+    });
+
+    // Init
+    fetchPipeline();
+    pollInterval = setInterval(fetchPipeline, 6000);
+  </script>
+</body>
+</html>

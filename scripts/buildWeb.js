@@ -9,6 +9,11 @@ if (existsSync('apps/web/index.html')) {
   if (existsSync('docs/member-handbook.html')) {
     cpSync('docs/member-handbook.html', 'public/handbook.html');
   }
+  if (existsSync('apps/web/pipeline.html')) {
+    cpSync('apps/web/pipeline.html', 'public/pipeline.html');
+    mkdirSync('docs', { recursive: true });
+    cpSync('apps/web/pipeline.html', 'docs/pipeline.html');
+  }
   console.log('✓ Successfully copied apps/web assets to public/');
 
   const html = readFileSync('apps/web/index.html', 'utf-8');

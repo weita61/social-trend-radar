@@ -53,4 +53,13 @@ test('read repository and API provide overview, coverage, and automation data', 
   assert.equal(autoData.safetyAudit.executedWriteCount, 0);
   assert.equal(autoData.safetyAudit.verifiedSafe, true);
   assert.ok(autoData.macStatus.online);
+
+  // Test /api/pipeline
+  const pipeRes = await handler(new Request('http://localhost/api/pipeline'));
+  assert.equal(pipeRes.status, 200);
+  const pipeData = await pipeRes.json();
+  assert.equal(pipeData.systemHealth, 'operational');
+  assert.equal(pipeData.budget.cloudCostYen, 0);
+  assert.equal(pipeData.stages.length, 5);
+  assert.ok(pipeData.stages[0].totalCount >= 1);
 });

@@ -21,6 +21,7 @@ export interface CaptureApi {
   getOverview?(): Record<string, unknown> | Promise<Record<string, unknown>>;
   getCoverage?(): Record<string, unknown> | Promise<Record<string, unknown>>;
   getAutomation?(): Record<string, unknown> | Promise<Record<string, unknown>>;
+  getPipeline?(): Record<string, unknown> | Promise<Record<string, unknown>>;
   runAnalysis?(): Record<string, unknown> | Promise<Record<string, unknown>>;
   getBrandProfile?(): Record<string, unknown> | Promise<Record<string, unknown>>;
   updateBrandProfile?(profile: Record<string, unknown>): Record<string, unknown> | Promise<Record<string, unknown>>;
@@ -129,6 +130,10 @@ export function createApiHandler(repository: CaptureApi): (request: Request) => 
 
     if (request.method === 'GET' && pathname === '/api/automation' && repository.getAutomation !== undefined) {
       return json(await repository.getAutomation());
+    }
+
+    if (request.method === 'GET' && pathname === '/api/pipeline' && repository.getPipeline !== undefined) {
+      return json(await repository.getPipeline());
     }
 
     if (request.method === 'POST' && pathname === '/api/analyze' && repository.runAnalysis !== undefined) {
