@@ -1,10 +1,14 @@
-import { LocalAnalysisEngine } from '../analysis/engine.ts';
+import { ResilientAnalysisRunner } from '../analysis/resilientRunner.ts';
 import { openDatabase } from '../db/database.ts';
 
 const db = openDatabase();
 try {
-  const summary = new LocalAnalysisEngine(db).run();
-  console.log(JSON.stringify(summary, null, 2));
+  const runner = new ResilientAnalysisRunner(db);
+  const result = runner.run();
+  console.log(JSON.stringify(result, null, 2));
+  if (result.status === 'failed') {
+    process.exit(1);
+  }
 } finally {
   db.close();
 }

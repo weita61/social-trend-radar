@@ -6,12 +6,19 @@ import snapshotData from '../data/seedSnapshot.ts';
 export class SnapshotCaptureApi implements CaptureApi {
   private readonly jev: JevClassifier;
   private brandProfile: BrandProfile;
-  private readonly data: typeof snapshotData;
+  private data: typeof snapshotData;
 
   constructor(customSnapshot?: typeof snapshotData) {
     this.data = customSnapshot ?? snapshotData;
     this.jev = new JevClassifier();
     this.brandProfile = (this.data.brandProfile as unknown as BrandProfile) ?? DEFAULT_BRAND_PROFILE;
+  }
+
+  updateSnapshot(newSnapshot: Record<string, unknown>): void {
+    this.data = newSnapshot as unknown as typeof snapshotData;
+    if (this.data.brandProfile) {
+      this.brandProfile = (this.data.brandProfile as unknown as BrandProfile);
+    }
   }
 
   getOverview(): Record<string, unknown> {

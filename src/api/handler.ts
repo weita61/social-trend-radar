@@ -24,6 +24,7 @@ export interface CaptureApi {
   runAnalysis?(): Record<string, unknown> | Promise<Record<string, unknown>>;
   getBrandProfile?(): Record<string, unknown> | Promise<Record<string, unknown>>;
   updateBrandProfile?(profile: Record<string, unknown>): Record<string, unknown> | Promise<Record<string, unknown>>;
+  updateSnapshot?(snapshot: Record<string, unknown>): void | Promise<void>;
 }
 
 export function createApiHandler(repository: CaptureApi): (request: Request) => Promise<Response> {
@@ -31,6 +32,24 @@ export function createApiHandler(repository: CaptureApi): (request: Request) => 
     const url = new URL(request.url);
     const rawPath = url.pathname.length > 1 ? url.pathname.replace(/\/+$/, '') : url.pathname;
     const pathname = rawPath.replace(/\/index(?:\.ts)?$/, '') || '/';
+
+    if (request.method === 'POST' && pathname === '/api/sync/snapshot') {
+      const authHeader = request.headers.get('authorization') ?? '';
+      const token = authHeader.replace(/^Bearer\s+/i, '').trim();
+      const expectedSecret = process.env.SYNC_SECRET;
+      if (!expectedSecret || token !== expectedSecret) {
+        return json({ error: 'unauthorized', message: 'Invalid or missing SYNC_SECRET' }, 401);
+      }
+      try {
+        const payload = (await request.json()) as Record<string, unknown>;
+        if (repository.updateSnapshot) {
+          await repository.updateSnapshot(payload);
+        }
+        return json({ ok: true, message: 'Snapshot synced successfully', exportedAt: payload.exportedAt });
+      } catch (err) {
+        return json({ error: 'invalid_payload', message: String(err) }, 400);
+      }
+    }
 
     if (request.method === 'POST' && pathname === '/api/captures') {
       try {
