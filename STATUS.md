@@ -1,10 +1,10 @@
 # STATUS — Social Trend Radar
 
-**最終更新**: 2026-10-10 / by Gemini Spark
+**最終更新**: 2026-10-11 / by Gemini Spark
 
 ## 状態
 
-- フェーズ: Phase 0・1・2・4完了／Phase 5分析エンジン実装・実DB検証完了／Radar・Trend Detail・Coverage・Automationローカル閲覧UI実装完了／Vercelデプロイ設定作成済み／MacBook Air常駐サービス反映待ち
+- フェーズ: Phase 0・1・2・4完了／Phase 5分析エンジン実装・実DB検証完了／Radar・Trend Detail・Coverage・Automationローカル閲覧UI実装完了／Vercelデプロイ設定作成済み／リモートpush完了（origin/main）／MacBook Air常駐サービス反映待ち
 - 承認状態: 基本構成図・統合最終要件・Phase 0・1は本人承認済み／外部API登録も本人許可済み
 - 実装: Capture Backbone、Discord Bot、Slack Socket Mode、YouTube Data API、Instagram・TikTok閲覧専用巡回エンジン、許可操作監査、緊急停止、送信者HMAC匿名化、ローカル3層分析エンジン、Bias Audit、ローカルWebコンソール（Radar / Trend Detail / Coverage / Automation）を実装済み
 - 外部API: Slackアプリ登録・`#ネタ蓄積`実投稿保存まで確認済み、Google Cloudプロジェクト作成・YouTube Data API v3有効化・制限付きキー接続済み、Discordは後回し／デプロイは未実施
@@ -40,13 +40,14 @@
 ## 次アクション
 
 1. MacBook Air側で新リリース（Phase 5分析エンジン・新マイグレーション・ローカルWeb）を常駐サービスへ反映（`pnpm migration && pnpm analyze && pnpm service:install`）
-2. Git commit / push を行い、Vercel連携で管理画面を公開（他メンバー共有用）
+2. VercelのデプロイURL・本番反映確認（GitHub連携による自動デプロイ確認）
 3. TikTokはログイン状態が確定するまで巡回対象外を維持
 4. 固定クリエイターパネルを本人が選定後、Fixed Panel巡回を追加
 5. Discord設定は本人の希望どおり後回し
 
 ## 作業ログ
 
+- 2026-10-11: 本人承認に基づきGit pushを実行。リモート（`origin/main` / `git@github.com:weita61/social-trend-radar.git`）へのSSH経由pushを確認（コミット `c1990c6` にて最新状態であることを確認）。
 - 2026-10-10: Gemini Sparkによりローカル閲覧UI（Radar / Trend Detail / Coverage / Automation）および実データRead Model API（`/api/overview`, `/api/coverage`, `/api/automation`）を実装。プロトタイプに基づくEditorial Intelligence Console（新聞紙面調の白黒・洗練デザイン、3層分析、Bias Audit、具体証拠動画リンク、4レーン比率、書き込み操作0件監査）を構築し、静的配信とVercel用設定（`vercel.json`）を配備。全35件のユニットテストが通過。
 - 2026-10-10: Phase 5のローカル分析エンジン（3層特徴抽出、クラスタリング、Bias Audit、通常値比MADロバスト上振れ、スコアリング）を実データ（`./data/social-trend-radar.sqlite`）に対して実行・検証。`0004_local_analysis.sql`の適用およびバックアップ（`social-trend-radar-20261010-171254.sqlite`）を完了。
 - 2026-10-10: 本人がAirの`service:verify-crawler`受け入れ結果を確認。Instagram自動巡回、Capture API、自動保存、TikTok巡回0件、実行書き込み0件を稼働確定とし、Phase 4のInstagram閲覧専用巡回を完了扱いにした。TikTokは引き続き保留。次工程はPhase 5ローカル分析と閲覧フロント。
