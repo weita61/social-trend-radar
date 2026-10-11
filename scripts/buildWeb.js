@@ -6,6 +6,9 @@ if (existsSync('apps/web/index.html')) {
   cpSync('apps/web/index.html', 'public/index.html');
   cpSync('apps/web/style.css', 'public/style.css');
   cpSync('apps/web/app.js', 'public/app.js');
+  if (existsSync('docs/member-handbook.html')) {
+    cpSync('docs/member-handbook.html', 'public/handbook.html');
+  }
   console.log('✓ Successfully copied apps/web assets to public/');
 
   const html = readFileSync('apps/web/index.html', 'utf-8');

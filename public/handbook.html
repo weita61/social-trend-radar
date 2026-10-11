@@ -1,0 +1,1133 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Social Trend Radar メンバー利用・活用ハンドブック</title>
+  <style>
+    @charset "utf-8";
+
+    :root {
+      --primary: #172033;
+      --primary-light: #2b364a;
+      --accent: #2563eb;
+      --accent-soft: #eff6ff;
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --border: #e2e8f0;
+      --border-dark: #cbd5e1;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --success: #15803d;
+      --success-bg: #f0fdf4;
+      --warning: #b45309;
+      --warning-bg: #fefce8;
+      --font-display: "Hiragino Mincho ProN", "Yu Mincho", serif;
+      --font-body: "Hiragino Kaku Gothic ProN", "Yu Gothic", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: #525659;
+      color: var(--text-main);
+      line-height: 1.68;
+      font-size: 13.5px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Print action bar */
+    .print-bar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: #1e293b;
+      color: #ffffff;
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    .print-bar-title {
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.04em;
+    }
+
+    .print-actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .btn-print {
+      background: var(--accent);
+      color: #ffffff;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.15s ease;
+    }
+
+    .btn-print:hover {
+      background: #1d4ed8;
+    }
+
+    .print-note {
+      font-size: 11px;
+      color: #cbd5e1;
+    }
+
+    /* Page container for A4 preview */
+    .page-container {
+      max-width: 860px;
+      margin: 30px auto;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .paper-sheet {
+      background: var(--surface);
+      padding: 48px 56px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      border-radius: 4px;
+      position: relative;
+    }
+
+    /* Header & Footer on each sheet */
+    .sheet-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+      margin-bottom: 28px;
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+    }
+
+    .sheet-header-title {
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .sheet-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border);
+      padding-top: 10px;
+      margin-top: 36px;
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+
+    /* Typography */
+    h1.doc-main-title {
+      font-family: var(--font-display);
+      font-size: 32px;
+      line-height: 1.25;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+
+    .doc-subtitle {
+      font-size: 15px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      font-weight: 500;
+      line-height: 1.5;
+    }
+
+    h2.section-heading {
+      font-family: var(--font-display);
+      font-size: 21px;
+      font-weight: 700;
+      color: var(--primary);
+      border-left: 4px solid var(--accent);
+      padding-left: 12px;
+      margin: 28px 0 16px;
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    h2.section-heading:first-of-type {
+      margin-top: 0;
+    }
+
+    .section-num {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h3.sub-heading {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 18px 0 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    p {
+      margin-bottom: 12px;
+      color: #334155;
+    }
+
+    strong {
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    /* Cover specific */
+    .cover-sheet {
+      min-height: 980px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 64px 64px 48px;
+      background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+    }
+
+    .cover-top {
+      border-top: 6px solid var(--primary);
+      padding-top: 24px;
+    }
+
+    .cover-kicker {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .cover-lead {
+      background: #f1f5f9;
+      border-left: 4px solid var(--primary);
+      padding: 16px 20px;
+      border-radius: 4px;
+      margin: 24px 0 32px;
+      font-size: 14px;
+      color: #1e293b;
+      line-height: 1.65;
+    }
+
+    .cover-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin: 32px 0;
+    }
+
+    .meta-box {
+      border: 1px solid var(--border);
+      background: #ffffff;
+      padding: 16px;
+      border-radius: 6px;
+    }
+
+    .meta-box label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+      text-transform: uppercase;
+    }
+
+    .meta-box strong {
+      font-size: 14px;
+      color: var(--primary);
+    }
+
+    .cover-footer {
+      border-top: 1px solid var(--border);
+      padding-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* Cards & Components */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin: 16px 0 20px;
+    }
+
+    .card-grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin: 16px 0 20px;
+    }
+
+    .feature-card {
+      border: 1px solid var(--border);
+      background: #ffffff;
+      padding: 18px;
+      border-radius: 6px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+    }
+
+    .feature-card-header {
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--primary);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .feature-card p {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.55;
+      margin-bottom: 0;
+    }
+
+    .feature-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 3px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      border: 1px solid #bfdbfe;
+    }
+
+    /* Callout & Highlights */
+    .callout {
+      border-radius: 6px;
+      padding: 16px 20px;
+      margin: 16px 0;
+      border-left: 4px solid;
+    }
+
+    .callout-info {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      color: #1e3a8a;
+    }
+
+    .callout-success {
+      background: var(--success-bg);
+      border-color: var(--success);
+      color: #14532d;
+    }
+
+    .callout-warning {
+      background: var(--warning-bg);
+      border-color: var(--warning);
+      color: #78350f;
+    }
+
+    .callout-title {
+      font-weight: 800;
+      font-size: 13px;
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    .callout p {
+      margin-bottom: 0;
+      font-size: 12.5px;
+      line-height: 1.6;
+    }
+
+    /* Steps Flow */
+    .step-flow {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin: 20px 0;
+    }
+
+    .step-item {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: #ffffff;
+      overflow: hidden;
+    }
+
+    .step-badge-col {
+      background: #0f172a;
+      color: #ffffff;
+      padding: 16px 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .step-num {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 800;
+      color: #38bdf8;
+      line-height: 1;
+    }
+
+    .step-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      margin-top: 4px;
+      color: #94a3b8;
+    }
+
+    .step-content {
+      padding: 16px 20px;
+    }
+
+    .step-heading {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+
+    .step-desc {
+      font-size: 12.5px;
+      color: #334155;
+      line-height: 1.55;
+      margin-bottom: 8px;
+    }
+
+    .step-action-hint {
+      background: #f8fafc;
+      border: 1px dashed var(--border-dark);
+      padding: 8px 12px;
+      border-radius: 4px;
+      font-size: 11.5px;
+      color: #475569;
+    }
+
+    /* UI Diagram Mockups */
+    .ui-mockup-frame {
+      border: 1px solid var(--border-dark);
+      border-radius: 6px;
+      background: #f8fafc;
+      overflow: hidden;
+      margin: 16px 0 20px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+    }
+
+    .ui-mockup-bar {
+      background: #1e293b;
+      color: #ffffff;
+      padding: 8px 14px;
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .ui-mockup-body {
+      padding: 16px;
+      display: grid;
+      gap: 12px;
+      background: #ffffff;
+    }
+
+    .mockup-header-sample {
+      background: #0f172a;
+      color: #ffffff;
+      padding: 14px 18px;
+      border-radius: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .mockup-btn-close {
+      background: rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .mockup-blueprint-box {
+      border: 1px solid #bfdbfe;
+      background: #eff6ff;
+      border-radius: 6px;
+      padding: 14px 16px;
+    }
+
+    .mockup-hook-item {
+      background: #fff1f2;
+      border-left: 3px solid #e11d48;
+      padding: 10px 14px;
+      border-radius: 3px;
+      margin: 8px 0;
+    }
+
+    .mockup-timeline-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .mockup-timeline-row {
+      display: flex;
+      gap: 8px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      padding: 8px 12px;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+
+    .mockup-timeline-bullet {
+      color: var(--accent);
+      font-weight: 800;
+      font-size: 10px;
+      margin-top: 2px;
+    }
+
+    /* Comparison Table */
+    .table-container {
+      margin: 16px 0 24px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      text-align: left;
+    }
+
+    table.data-table th {
+      background: #f1f5f9;
+      color: var(--primary);
+      font-weight: 700;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    table.data-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      color: #334155;
+      line-height: 1.5;
+    }
+
+    table.data-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    table.data-table tr:nth-child(even) {
+      background: #f8fafc;
+    }
+
+    /* Checklist */
+    .check-list {
+      list-style: none;
+      margin: 12px 0;
+    }
+
+    .check-list li {
+      position: relative;
+      padding-left: 22px;
+      margin-bottom: 8px;
+      font-size: 12.5px;
+      color: #334155;
+    }
+
+    .check-list li::before {
+      content: "[CHECK]";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: 800;
+      font-size: 11px;
+    }
+
+    /* Print styles */
+    @media print {
+      body {
+        background: #ffffff;
+        color: #000000;
+        font-size: 11pt;
+        line-height: 1.55;
+      }
+
+      .no-print {
+        display: none !important;
+      }
+
+      .page-container {
+        max-width: 100%;
+        margin: 0;
+        gap: 0;
+      }
+
+      .paper-sheet {
+        box-shadow: none;
+        padding: 0;
+        border-radius: 0;
+        page-break-after: always;
+        break-after: page;
+        min-height: auto;
+      }
+
+      .cover-sheet {
+        min-height: 95vh;
+        page-break-after: always;
+        break-after: page;
+      }
+
+      @page {
+        size: A4;
+        margin: 14mm 16mm;
+      }
+
+      .ui-mockup-frame,
+      .feature-card,
+      .step-item,
+      .table-container {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Print Control (Hidden in Print) -->
+  <div class="print-bar no-print">
+    <div class="print-bar-title">Social Trend Radar メンバー配布用説明資料</div>
+    <div class="print-actions">
+      <span class="print-note">ブラウザの「印刷」ダイアログから「PDFとして保存」を選択してください</span>
+      <button type="button" class="btn-print" onclick="window.print()">
+        PDF出力 / 印刷
+      </button>
+    </div>
+  </div>
+
+  <div class="page-container">
+
+    <!-- PAGE 1: COVER SHEET -->
+    <section class="paper-sheet cover-sheet">
+      <div class="cover-top">
+        <div class="cover-kicker">Short Video Planning Console</div>
+        <h1 class="doc-main-title">Social Trend Radar<br>メンバー活用ハンドブック</h1>
+        <div class="doc-subtitle">
+          リサーチ時間をゼロにし、検証済みのバズ構成から「自社専用の企画台本」を最短5分で起こす実用ガイド
+        </div>
+
+        <div class="cover-lead">
+          <strong>【本資料の目的】</strong><br>
+          ショート動画制作において「何を撮れば伸びるのかわからない」「台本の構成に何時間も悩んでしまう」という課題を根本から解消するために開発された専用ツールです。実社会で実際に急上昇している動画の構造を瞬時に抽出し、自社アカウントに最適化された撮影台本として活用する手順をまとめました。
+        </div>
+
+        <div class="cover-meta-grid">
+          <div class="meta-box">
+            <label>対象読者</label>
+            <strong>SNSマーケター・企画担当・動画制作メンバー</strong>
+          </div>
+          <div class="meta-box">
+            <label>対応プラットフォーム</label>
+            <strong>YouTube Shorts / Instagram Reels / TikTok</strong>
+          </div>
+          <div class="meta-box">
+            <label>アクセス環境</label>
+            <strong>Webブラウザ（PC・スマートフォン両対応）</strong>
+          </div>
+          <div class="meta-box">
+            <label>安全性・セキュリティ</label>
+            <strong>完全閲覧専用（書き込みゼロ保証・アカウント安全稼働）</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="cover-footer">
+        <span>発行: Social Trend Radar プロジェクト</span>
+        <span>Version 1.0 (最新運用版)</span>
+      </div>
+    </section>
+
+    <!-- PAGE 2: WHY THIS TOOL & CORE VALUE -->
+    <section class="paper-sheet">
+      <header class="sheet-header">
+        <span class="sheet-header-title">Social Trend Radar 活用ハンドブック</span>
+        <span>第1章 導入の背景とメリット</span>
+      </header>
+
+      <span class="section-num">Chapter 01</span>
+      <h2 class="section-heading">なぜこのツールを使うのか？（導入メリットと解決できる課題）</h2>
+
+      <p>
+        これまでのショート動画制作では、個人のスマートフォンで「おすすめ欄」を何時間もスクロールし、感覚に頼ってネタを探すケースが一般的でした。しかし、この方法にはチーム運用を停滞させる3大の壁が存在します。
+      </p>
+
+      <div class="card-grid">
+        <div class="feature-card">
+          <div class="feature-card-header">
+            <span>課題 1: リサーチの浪費</span>
+            <span class="feature-badge">時間コスト</span>
+          </div>
+          <p>
+            動画を何本も見ても「自社で真似できる構造」が見えず、台本制作に入るまでに数時間以上を費やしてしまう。
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-header">
+            <span>課題 2: 冒頭2秒の離脱</span>
+            <span class="feature-badge">視聴維持率</span>
+          </div>
+          <p>
+            内容は良いのに冒頭のフック（掴みのセリフやテロップ演出）が弱く、1秒以内にスワイプされて伸び悩む。
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-header">
+            <span>課題 3: 属人化・再現性不足</span>
+            <span class="feature-badge">品質のばらつき</span>
+          </div>
+          <p>
+            担当者のセンスや好みだけに依存し、チーム全体で安定して成果を出すノウハウが蓄積されない。
+          </p>
+        </div>
+      </div>
+
+      <h3 class="sub-heading">■ Social Trend Radarがもたらす3つのバリュー</h3>
+      <p>
+        当ツールは、単なるAI作文ツールではありません。<strong>「実際に市場で数十万〜数百万再生を獲得している実績動画」</strong>を基点に、その骨格だけを抜き出して自社の目的にパーソナライズする仕組みです。
+      </p>
+
+      <div class="callout callout-success">
+        <span class="callout-title">メリット 1: リサーチ時間をゼロへ。お手本動画が常時ストック</span>
+        <p>
+          日本の学生や若手層に確実に刺さる「実用ノウハウ・裏技・ライフハック・就活」に特化した動画が自動集積されています。プラットフォームやジャンルで絞り込むだけで、今日真似すべきお手本が1分で見つかります。
+        </p>
+      </div>
+
+      <div class="callout callout-info">
+        <span class="callout-title">メリット 2: 冒頭2秒のフックと秒数構成（起承転結）を完全可視化</span>
+        <p>
+          バズった動画の「冒頭0〜2秒のセリフ案」「タイムライン秒数構成」「演出・テロップの急所」が最初から言語化されています。白紙から台本を考える苦痛がなくなります。
+        </p>
+      </div>
+
+      <div class="callout callout-warning">
+        <span class="callout-title">メリット 3: 自社アカウントの目的に合わせた「具体台本」へワンクリック変換</span>
+        <p>
+          学生団体、就活支援、スクール、企業PRなど、自社のアカウント設定をあらかじめ指定しておくことで、お手本動画の構成をそのまま自社のセリフやオチに落とし込んだ台本案が自動提示されます。
+        </p>
+      </div>
+
+      <footer class="sheet-footer">
+        <span>Social Trend Radar — Member Handbook</span>
+        <span>Page 2</span>
+      </footer>
+    </section>
+
+    <!-- PAGE 3: FEATURES & SYSTEM OVERVIEW -->
+    <section class="paper-sheet">
+      <header class="sheet-header">
+        <span class="sheet-header-title">Social Trend Radar 活用ハンドブック</span>
+        <span>第2章 できることと基本機能</span>
+      </header>
+
+      <span class="section-num">Chapter 02</span>
+      <h2 class="section-heading">できることと基本機能（3大コア機能の全体像）</h2>
+
+      <p>
+        コンソール画面は、動画制作担当者が迷わず直感的に操作できるよう、目的別に画面が整理されています。メンバーが日常的に活用するのは主に「01」と「02」の2画面です。
+      </p>
+
+      <div class="card-grid-2">
+        <div class="feature-card">
+          <div class="feature-card-header">
+            <span>01 動画データベース</span>
+            <span class="feature-badge">厳選動画集積</span>
+          </div>
+          <p>
+            <strong>【お手本動画の探索】</strong><br>
+            YouTube Shorts、Instagram Reels、TikTokの3媒体から、情報伝達率の高い実用ショート動画を網羅。9大テンプレ（型）や学生向けテーマ（就活、AI、学割等）で瞬時に絞り込みが可能です。各カードから元動画を直接再生して確認できます。
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-card-header">
+            <span>02 テンプレ企画書・企画レシピ</span>
+            <span class="feature-badge">台本生成・解体</span>
+          </div>
+          <p>
+            <strong>【自社台本の即時作成】</strong><br>
+            選択した動画の「冒頭2秒フック台詞」「秒数タイムライン台本（起承転結）」「撮影・演出の急所」「なぜ刺さるかの心理」を詳細表示。自社アレンジのテーマ例がそのまま撮影指示書として機能します。
+          </p>
+        </div>
+      </div>
+
+      <h3 class="sub-heading">■ 自社コンセプト設定（アカウントプロファイル連動）</h3>
+      <p>
+        画面上部にある「アカウント設定」ボタンから、自社のアカウント特性を選択・編集できます。設定内容に応じて、企画台本のセリフやオチがリアルタイムに最適化されます。
+      </p>
+
+      <div class="table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 28%;">プリセット名</th>
+              <th style="width: 32%;">メインターゲット</th>
+              <th style="width: 40%;">生成される台本の方向性・トーン</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>学生団体（新歓・動員）</strong></td>
+              <td>大学1〜2年生（熱中できる環境を探す学生）</td>
+              <td>親しみやすい先輩目線。怪しい勧誘感を排除し、活動のリアルなやりがいを等身大で伝える。</td>
+            </tr>
+            <tr>
+              <td><strong>就活・キャリア支援</strong></td>
+              <td>就活生、選考対策に悩む大学生</td>
+              <td>頼れるプロメンター目線。論理的で即効性のあるノウハウ。過度な不安煽りは行わない。</td>
+            </tr>
+            <tr>
+              <td><strong>AI・PCスキルスクール</strong></td>
+              <td>効率化・リスキリングに関心のある学生・若手</td>
+              <td>スマートかつ即試したくなる時短解説。未経験でも再現できるステップ構成。</td>
+            </tr>
+            <tr>
+              <td><strong>クライアント企業PR</strong></td>
+              <td>見込み客および新卒・中途採用候補者</td>
+              <td>清潔感と誠実さのある裏側見せ・社員密着。現場カルチャーを親しみやすく訴求。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <footer class="sheet-footer">
+        <span>Social Trend Radar — Member Handbook</span>
+        <span>Page 3</span>
+      </footer>
+    </section>
+
+    <!-- PAGE 4: PRACTICAL 4-STEP WORKFLOW & SCREEN INSTRUCTIONS -->
+    <section class="paper-sheet">
+      <header class="sheet-header">
+        <span class="sheet-header-title">Social Trend Radar 活用ハンドブック</span>
+        <span>第3章 画面構成と実際の操作手順</span>
+      </header>
+
+      <span class="section-num">Chapter 03</span>
+      <h2 class="section-heading">メンバー向け 実践活用4ステップ（操作マニュアル）</h2>
+
+      <p>
+        日々の動画企画では、以下の4ステップに沿って操作するだけで、迷うことなく完成台本まで到達できます。
+      </p>
+
+      <div class="step-flow">
+        <div class="step-item">
+          <div class="step-badge-col">
+            <span class="step-num">01</span>
+            <span class="step-label">SETTING</span>
+          </div>
+          <div class="step-content">
+            <div class="step-heading">自社アカウントの前提を確認・選択する</div>
+            <div class="step-desc">
+              画面上部の「アカウント設定・自社コンセプト変更」をクリックし、現在運用しているアカウントのプリセット（学生団体・就活・スクール等）を選択します。一度設定すれば自動保存されます。
+            </div>
+            <div class="step-action-hint">操作: ヘッダーの「アカウント設定」ボタンを押して保存</div>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-badge-col">
+            <span class="step-num">02</span>
+            <span class="step-label">EXPLORE</span>
+          </div>
+          <div class="step-content">
+            <div class="step-heading">動画データベースで真似したいお手本を探す</div>
+            <div class="step-desc">
+              画面「01 動画データベース」を開きます。上部のツールバーで「テーマ（例: 就活・マナー、AI・PC）」や「型（例: 失敗先出し型、まとめBEST型）」を選び、気になる動画カードを見つけます。
+            </div>
+            <div class="step-action-hint">操作: 「元動画を開く」を押すと実際のSNS上で再生確認可能</div>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-badge-col">
+            <span class="step-num">03</span>
+            <span class="step-label">BLUEPRINT</span>
+          </div>
+          <div class="step-content">
+            <div class="step-heading">「この型の企画台本を見る」をクリックして台本を確認</div>
+            <div class="step-desc">
+              動画カード右下のボタンを押すと、右側の詳細パネルが自動展開され、自社アカウントに転用した具体的なセリフ案、冒頭2秒フック、起承転結の秒数構成が表示されます。
+            </div>
+            <div class="step-action-hint">ポイント: 画面右上の「閉じる」ボタンまたはEscキーでいつでも動画一覧に即座に復帰できます</div>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-badge-col">
+            <span class="step-num">04</span>
+            <span class="step-label">ACTION</span>
+          </div>
+          <div class="step-content">
+            <div class="step-heading">台本をもとに撮影・テロップ入れ・投稿</div>
+            <div class="step-desc">
+              表示されたタイムライン台本と演出の急所（テロップ配置・BGMテンポ）に沿って撮影を進めます。検証済みのバズ構造をなぞるため、構成のブレが起きません。
+            </div>
+            <div class="step-action-hint">活用例: 自社アレンジテーマのセリフをそのまま撮影チェックリストとして共有</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- UI Mockup Wireframe -->
+      <h3 class="sub-heading">■ 実際の画面イメージ（企画台本パネルの構成）</h3>
+      <div class="ui-mockup-frame">
+        <div class="ui-mockup-bar">
+          <span>企画レシピ表示領域（画面右ペイン）</span>
+          <span>単一クローズボタン仕様</span>
+        </div>
+        <div class="ui-mockup-body">
+          <div class="mockup-header-sample">
+            <div>
+              <div style="font-size:11px; color:#38bdf8; font-weight:700;">萌芽トレンド / 企画・構成パターン</div>
+              <div style="font-size:15px; font-weight:700; margin-top:3px;">【日常あるある型】共感とシェアで伸ばす学生あるある構成</div>
+            </div>
+            <span class="mockup-btn-close">閉じる</span>
+          </div>
+
+          <div class="mockup-blueprint-box">
+            <div style="font-size:12px; font-weight:800; color:#1e3a8a;">この動画を自社でやるなら？（企画・撮影レシピ）</div>
+
+            <div class="mockup-hook-item">
+              <span style="font-size:10px; font-weight:800; color:#e11d48; display:block;">冒頭2秒のキラーワード / テロップ案 (Hook)</span>
+              <strong style="font-size:13px; color:#881337;">「大学生、絶対に1回はやったことある説」「〇〇な人しか共感できないあるある」</strong>
+            </div>
+
+            <div class="mockup-timeline-steps">
+              <div class="mockup-timeline-row">
+                <span class="mockup-timeline-bullet">▶</span>
+                <span><strong>【0〜3秒】</strong>誰もが「わかる！」となる強烈なあるあるシーンから一言でスタート</span>
+              </div>
+              <div class="mockup-timeline-row">
+                <span class="mockup-timeline-bullet">▶</span>
+                <span><strong>【3〜12秒】</strong>徐々にエスカレートし、焦るリアクションや共感を加速</span>
+              </div>
+              <div class="mockup-timeline-row">
+                <span class="mockup-timeline-bullet">▶</span>
+                <span><strong>【20〜25秒】</strong>「みんなはどれ当てはまった？コメントで教えて！」とコメント欄へ誘導</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="sheet-footer">
+        <span>Social Trend Radar — Member Handbook</span>
+        <span>Page 4</span>
+      </footer>
+    </section>
+
+    <!-- PAGE 5: 9 PROVEN FRAMEWORKS & SAFETY -->
+    <section class="paper-sheet">
+      <header class="sheet-header">
+        <span class="sheet-header-title">Social Trend Radar 活用ハンドブック</span>
+        <span>第4章 9大バズ構成と安全性</span>
+      </header>
+
+      <span class="section-num">Chapter 04</span>
+      <h2 class="section-heading">9大バズ構成テンプレート一覧と使い分け</h2>
+
+      <p>
+        ショート動画で再生回数が伸びる構造は、概ね以下の9つのパターンに類型化されます。企画テーマに応じて型を使い分けることで、高い打率を維持できます。
+      </p>
+
+      <div class="table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 22%;">テンプレート名</th>
+              <th style="width: 40%;">構成の特徴（起承転結のツボ）</th>
+              <th style="width: 38%;">おすすめのテーマ・活用シーン</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>失敗先出し型</strong></td>
+              <td>「これやると損する」等のNG例を冒頭で提示し、正しい解決策を後から解説する。</td>
+              <td>就活マナー、エントリーシートNG例、勉強法の落とし穴</td>
+            </tr>
+            <tr>
+              <td><strong>裏技・神時短型</strong></td>
+              <td>知るだけで作業時間が激変するテクニックをテンポよく実演する。</td>
+              <td>ChatGPT時短術、Excel/Canva裏技、スマホ活用法</td>
+            </tr>
+            <tr>
+              <td><strong>手順解説型</strong></td>
+              <td>「STEP1〜3」で迷わず実行できる完全チュートリアル形式。保存率が極めて高い。</td>
+              <td>無料ツールの初期設定、学割申請手順、レポート執筆術</td>
+            </tr>
+            <tr>
+              <td><strong>まとめ・BEST型</strong></td>
+              <td>「神ツール3選」「買ってよかった学割BEST5」などランキング形式で紹介。</td>
+              <td>便利ガジェット紹介、おすすめWEBサイト、イベント情報</td>
+            </tr>
+            <tr>
+              <td><strong>日常あるある型</strong></td>
+              <td>「講義中の寝落ち」「テスト前日」など共感性の高いリアクションで視聴維持を稼ぐ。</td>
+              <td>学生生活のリアル、インターン体験談、サークル活動風景</td>
+            </tr>
+            <tr>
+              <td><strong>悪魔の時短飯型</strong></td>
+              <td>短時間・低予算で圧倒的においしい調理法を小気味よいテンポで魅せる。</td>
+              <td>一人暮らし自炊ハック、深夜の夜食レシピ、節約飯</td>
+            </tr>
+            <tr>
+              <td><strong>劇的変身型</strong></td>
+              <td>Before（垢抜けない状態）からAfter（完成形）のギャップで魅了する。</td>
+              <td>面接前の身だしなみ、垢抜けヘアメイク、デスク環境改善</td>
+            </tr>
+            <tr>
+              <td><strong>ルーティン型</strong></td>
+              <td>「大学生の1日」「テスト期間のモーニングルーティン」など世界観で見せる。</td>
+              <td>社員・メンバーの密着、勉強Vlog、イベント準備の裏側</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <span class="section-num">Chapter 05</span>
+      <h2 class="section-heading">安心して使える理由（安全性と観測データの信頼性）</h2>
+
+      <p>
+        当ツールは、SNSアカウントのセキュリティとデータの客観性を最重要視して設計されています。
+      </p>
+
+      <div class="card-grid-2">
+        <div class="feature-card">
+          <div class="feature-card-header">
+            <span>完全閲覧専用（書き込みゼロ保証）</span>
+            <span class="feature-badge">アカウント安全性</span>
+          </div>
+          <p>
+            自動巡回システムは画面の閲覧と構造解析のみを行います。いいね、フォロー、コメント、DMなどのアクションを送信する機能はシステムレベルで一切存在せず、遮断ログを常時記録しています。アカウント停止や規約違反のリスクはゼロです。
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-card-header">
+            <span>客観的な4レーン分散観測</span>
+            <span class="feature-badge">フィルターバブル防止</span>
+          </div>
+          <p>
+            1台の端末や特定個人の「おすすめ欄」に偏らないよう、独立した探索レーンから動画を収集しています。身内の熱狂と市場全体の広がりを統計的に分離検証しているため、本当に世の中で伸びているトレンドだけが抽出されます。
+          </p>
+        </div>
+      </div>
+
+      <footer class="sheet-footer">
+        <span>Social Trend Radar — Member Handbook</span>
+        <span>Page 5</span>
+      </footer>
+    </section>
+
+    <!-- PAGE 6: FAQ & TEAM ONBOARDING ACTION -->
+    <section class="paper-sheet">
+      <header class="sheet-header">
+        <span class="sheet-header-title">Social Trend Radar 活用ハンドブック</span>
+        <span>第6章 よくある質問と始め方</span>
+      </header>
+
+      <span class="section-num">Chapter 06</span>
+      <h2 class="section-heading">よくある質問（FAQ）と今日から始めるアクション</h2>
+
+      <div class="callout callout-info" style="margin-top: 0;">
+        <span class="callout-title">Q1. 初めて企画を作る時、どのテンプレートから選べば良いですか？</span>
+        <p>
+          まずは<strong>「裏技・神時短型」</strong>または<strong>「失敗先出し型」</strong>から試すのがおすすめです。冒頭2秒で「知らないと損」「これ一発で解決」という強いフックを打ち出しやすく、初心者でもスワイプされにくい動画を容易に作成できます。
+        </p>
+      </div>
+
+      <div class="callout callout-info">
+        <span class="callout-title">Q2. AIが提案したセリフをそのまま読まないといけませんか？</span>
+        <p>
+          いいえ。企画レシピは「骨組み・タイムライン」です。出演者の話し言葉やチームのトーンに合わせて、語尾や固有名詞は自由にカスタマイズしてください。重要なのは「起承転結の秒数配分」と「冒頭2秒で結論を出すテンポ感」を守ることです。
+        </p>
+      </div>
+
+      <div class="callout callout-info">
+        <span class="callout-title">Q3. モバイル端末（スマートフォン）からでも確認できますか？</span>
+        <p>
+          はい。PC・タブレット・スマートフォンの全ブラウザに対応しています。移動中や撮影の直前にスマートフォンで画面を開き、台本や演出メモを確認しながら撮影を進めることができます。
+        </p>
+      </div>
+
+      <h3 class="sub-heading">■ チーム導入チェックリスト（明日からの運用アクション）</h3>
+      <p>ツールを形式的なものにせず、日々の制作習慣に落とし込むための推奨アクションです。</p>
+
+      <ul class="check-list">
+        <li><strong>初期設定の確認:</strong> 画面上部の「アカウント設定」で、自社の発信目的に最も近いプリセットを選択する。</li>
+        <li><strong>週1回15分のネタ出し:</strong> 企画会議の前に「01 動画データベース」を開き、自社で真似したい候補を2〜3本ピックアップしておく。</li>
+        <li><strong>台本のワンクリック確認:</strong> 「この型の企画台本を見る」を押し、冒頭2秒フックとタイムライン秒数を撮影指示書としてチームに共有する。</li>
+        <li><strong>撮影後の確認と復帰:</strong> 台本を確認し終えたら、右上の「閉じる」ボタンを押してスムーズに次の動画候補を探索する。</li>
+      </ul>
+
+      <div class="callout callout-success" style="margin-top: 24px;">
+        <span class="callout-title">まとめ: 迷いをなくし、クリエイティブに集中するために</span>
+        <p>
+          動画制作で最もエネルギーを使うべきなのは「構成に悩む時間」ではなく、「自社らしい熱量や価値を映像に込める時間」です。構成と台本の骨格はSocial Trend Radarに任せ、魅力的な発信をスピーディーに生み出していきましょう。
+        </p>
+      </div>
+
+      <footer class="sheet-footer">
+        <span>Social Trend Radar — Member Handbook</span>
+        <span>Page 6 (End)</span>
+      </footer>
+    </section>
+
+  </div>
+
+</body>
+</html>
