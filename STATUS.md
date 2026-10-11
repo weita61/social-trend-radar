@@ -47,6 +47,7 @@
 
 ## 作業ログ
 
+- 2026-10-12: Vercelビルド時の型検査エラー（RequestInitのbody型不一致TS2379、seedSnapshot.tsのreadonlyタプル型変換TS2352）を解消。index.ts/api/index.tsのRequestInit生成をUint8Array化し、seedSnapshot.tsのas constを除去の上、snapshotApi.tsで型変換を安全化。コミット（5c10d9d）してpush完了。
 - 2026-10-12: Vercelがsrc/server.tsをルート関数として誤検出し全トラフィックを奪っていた問題を根本解消。src/server.tsをsrc/localServer.tsへ完全リネーム・移動し、package.jsonのdev/startスクリプトを更新。コミット（c6c63cb）してリモートへpush完了。これによりVercelはpublic/の静的ファイルを直接CDN配信する。
 - 2026-10-12: 本番Vercelで発生した500 FUNCTION_INVOCATION_FAILEDを解消。原因は(1) .gitignoreのdata/記述によりsrc/data/seedSnapshot.jsonがGit除外されていたこと、(2) buildスクリプト不在によりsrc/server.tsが誤ってルート関数扱いされていたこと、(3) api/index.tsでGETリクエスト時のストリーム消費起因。public/への静的アセット配置、seedSnapshot.tsのTSバンドル化、toRequestの安全なURL/Method判定を実装しコミット（6a9ff86）してpush完了。
 - 2026-10-11: Vercelビルド時のTypeScript型検査エラー（exactOptionalPropertyTypesおよびnoUncheckedIndexedAccess制約）を解消。readRepository.ts、videoEnrichment.ts、handler.tsの型定義・プロパティ参照を修正し、コミット（d41aaf5）してリモートへpush完了。テスト36件合格。
