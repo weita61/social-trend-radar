@@ -80,6 +80,11 @@
   const jevRefreshBtn = document.getElementById('jevRefreshBtn');
   const bpTargetVideoBanner = document.getElementById('bpTargetVideoBanner');
   const bpTargetVideoTitle = document.getElementById('bpTargetVideoTitle');
+  const btnBackToVdb = document.getElementById('btnBackToVdb');
+  const btnCloseEvidence = document.getElementById('btnCloseEvidence');
+  const btnHeaderCloseVdb = document.getElementById('btnHeaderCloseVdb');
+  const btnBannerClose = document.getElementById('btnBannerClose');
+  const btnBpBackToVdb = document.getElementById('btnBpBackToVdb');
 
   function renderStepsHtml(rawText) {
     if (!rawText) return '<div class="timeline-step"><span class="step-text">-</span></div>';
@@ -259,9 +264,31 @@
       if (e.target === brandProfileModal) closeProfileModal();
     });
   }
+
+  function returnToVideoDb() {
+    currentPage = 'video-db';
+    navButtons.forEach((b) => b.classList.toggle('active', b.dataset.page === 'video-db'));
+    Object.keys(pages).forEach((p) => {
+      if (pages[p]) pages[p].classList.toggle('hidden', p !== 'video-db');
+    });
+    if (vdbCardsContainer) {
+      vdbCardsContainer.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
+  if (btnBackToVdb) btnBackToVdb.addEventListener('click', returnToVideoDb);
+  if (btnCloseEvidence) btnCloseEvidence.addEventListener('click', returnToVideoDb);
+  if (btnHeaderCloseVdb) btnHeaderCloseVdb.addEventListener('click', returnToVideoDb);
+  if (btnBannerClose) btnBannerClose.addEventListener('click', returnToVideoDb);
+  if (btnBpBackToVdb) btnBpBackToVdb.addEventListener('click', returnToVideoDb);
+
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && brandProfileModal && brandProfileModal.style.display === 'flex') {
-      closeProfileModal();
+    if (e.key === 'Escape') {
+      if (brandProfileModal && brandProfileModal.style.display === 'flex') {
+        closeProfileModal();
+      } else if (currentPage === 'radar') {
+        returnToVideoDb();
+      }
     }
   });
 
@@ -625,7 +652,7 @@
           <a class="btn-open-video" href="${escapeHtml(v.canonicalUrl || '#')}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">
             元動画を開く ↗
           </a>
-          <button class="btn-view-blueprint" data-cluster-id="${escapeHtml(v.formatClusterId || '')}" data-template-key="${escapeHtml(v.templateKey || '')}">
+          <button class="btn-view-blueprint" data-cluster-id="${escapeHtml(v.formatClusterId || '')}" data-template-key="${escapeHtml(v.templateKey || '')}" data-video-title="${escapeHtml(v.title || '')}" data-creator-handle="${escapeHtml(v.creatorHandle || '')}">
             この型の企画台本を見る 📝
           </button>
         </div>
@@ -638,12 +665,14 @@
       btn.addEventListener('click', () => {
         const clusterId = btn.dataset.clusterId;
         const templateKey = btn.dataset.templateKey;
-        switchToRadarAndSelectTemplate(clusterId, templateKey);
+        const videoTitle = btn.dataset.videoTitle;
+        const creatorHandle = btn.dataset.creatorHandle;
+        switchToRadarAndSelectTemplate(clusterId, templateKey, { title: videoTitle, creator: creatorHandle });
       });
     });
   }
 
-  function switchToRadarAndSelectTemplate(clusterId, templateKey) {
+  function switchToRadarAndSelectTemplate(clusterId, templateKey, sourceVideo = null) {
     currentPage = 'radar';
     navButtons.forEach((b) => b.classList.toggle('active', b.dataset.page === 'radar'));
     Object.keys(pages).forEach((p) => {
@@ -667,6 +696,13 @@
       loadTrendDetail(target.id);
       const evPanel = document.getElementById('evidencePanel');
       if (evPanel) evPanel.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    if (sourceVideo && sourceVideo.title) {
+      if (bpTargetVideoBanner && bpTargetVideoTitle) {
+        bpTargetVideoTitle.textContent = `${sourceVideo.creator ? '@' + sourceVideo.creator + ' ' : ''}「${sourceVideo.title}」`;
+        bpTargetVideoBanner.style.display = 'flex';
+      }
     }
   }
 

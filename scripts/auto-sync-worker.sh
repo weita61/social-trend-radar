@@ -14,6 +14,17 @@ log_error() {
 
 cd "${PROJECT_DIR}"
 
+# Ensure standard Node, pnpm, and Homebrew paths are in PATH
+if ! command -v node >/dev/null 2>&1; then
+  if [[ -d "${HOME}/.nvm/versions/node" ]]; then
+    LATEST_NVM="$(ls -1 "${HOME}/.nvm/versions/node" 2>/dev/null | tail -n 1 || true)"
+    if [[ -n "${LATEST_NVM}" && -d "${HOME}/.nvm/versions/node/${LATEST_NVM}/bin" ]]; then
+      export PATH="${HOME}/.nvm/versions/node/${LATEST_NVM}/bin:${PATH:-}"
+    fi
+  fi
+fi
+export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:${PATH:-}"
+
 if [[ -f .env ]]; then
   # shellcheck disable=SC1091
   set -a
