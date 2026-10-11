@@ -47,6 +47,7 @@
 
 ## 作業ログ
 
+- 2026-10-11: Vercelビルド時のTypeScript型検査エラー（exactOptionalPropertyTypesおよびnoUncheckedIndexedAccess制約）を解消。readRepository.ts、videoEnrichment.ts、handler.tsの型定義・プロパティ参照を修正し、コミット（d41aaf5）してリモートへpush完了。テスト36件合格。
 - 2026-10-11: 本人承認に基づきGit pushを実行。リモート（`origin/main` / `git@github.com:weita61/social-trend-radar.git`）へのSSH経由pushを確認（コミット `c1990c6` にて最新状態であることを確認）。
 - 2026-10-10: Gemini Sparkによりローカル閲覧UI（Radar / Trend Detail / Coverage / Automation）および実データRead Model API（`/api/overview`, `/api/coverage`, `/api/automation`）を実装。プロトタイプに基づくEditorial Intelligence Console（新聞紙面調の白黒・洗練デザイン、3層分析、Bias Audit、具体証拠動画リンク、4レーン比率、書き込み操作0件監査）を構築し、静的配信とVercel用設定（`vercel.json`）を配備。全35件のユニットテストが通過。
 - 2026-10-10: Phase 5のローカル分析エンジン（3層特徴抽出、クラスタリング、Bias Audit、通常値比MADロバスト上振れ、スコアリング）を実データ（`./data/social-trend-radar.sqlite`）に対して実行・検証。`0004_local_analysis.sql`の適用およびバックアップ（`social-trend-radar-20261010-171254.sqlite`）を完了。
