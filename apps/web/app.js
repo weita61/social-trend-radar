@@ -16,6 +16,9 @@
   let vdbActivePlatform = 'all';
   let vdbSearchQuery = '';
 
+  let cachedCoverage = null;
+  let cachedAutomation = null;
+
   // DOM Elements
   const navButtons = document.querySelectorAll('.nav');
   const pages = {
@@ -295,6 +298,11 @@
       Object.keys(pages).forEach((p) => {
         if (pages[p]) pages[p].classList.toggle('hidden', p !== target);
       });
+      if (target === 'coverage' && cachedCoverage) {
+        updateCoverage(cachedCoverage);
+      } else if (target === 'automation' && cachedAutomation) {
+        updateAutomation(cachedAutomation);
+      }
       loadData();
     });
   });
@@ -433,15 +441,35 @@
         apiGet('/api/overview'),
         apiGet('/api/trends?layer=format'),
         apiGet('/api/videos'),
+        apiGet('/api/coverage'),
+        apiGet('/api/automation'),
       ]);
 
       let overview = results[0].status === 'fulfilled' ? results[0].value : null;
       let trends = results[1].status === 'fulfilled' ? results[1].value : [];
       let videos = results[2].status === 'fulfilled' ? results[2].value : [];
+      let coverage = results[3].status === 'fulfilled' ? results[3].value : null;
+      let automation = results[4].status === 'fulfilled' ? results[4].value : null;
 
       if (results[0].status === 'rejected') console.warn('Overview fetch error:', results[0].reason);
       if (results[1].status === 'rejected') console.warn('Trends fetch error:', results[1].reason);
       if (results[2].status === 'rejected') console.warn('Videos fetch error:', results[2].reason);
+      if (results[3].status === 'rejected') console.warn('Coverage fetch error:', results[3].reason);
+      if (results[4].status === 'rejected') console.warn('Automation fetch error:', results[4].reason);
+
+      if (coverage) {
+        cachedCoverage = coverage;
+        updateCoverage(coverage);
+      } else if (cachedCoverage) {
+        updateCoverage(cachedCoverage);
+      }
+
+      if (automation) {
+        cachedAutomation = automation;
+        updateAutomation(automation);
+      } else if (cachedAutomation) {
+        updateAutomation(cachedAutomation);
+      }
 
       if (videos.length === 0 && trends.length === 0 && !overview) {
         console.error('All initial API calls failed.');
@@ -477,14 +505,6 @@
       allVideos = videos;
       renderTrendList();
       renderVideoDatabase();
-
-      if (currentPage === 'coverage') {
-        const coverage = await apiGet('/api/coverage').catch(() => null);
-        if (coverage) updateCoverage(coverage);
-      } else if (currentPage === 'automation') {
-        const auto = await apiGet('/api/automation').catch(() => null);
-        if (auto) updateAutomation(auto);
-      }
 
       if (machineDot) machineDot.classList.remove('offline');
       if (machineStatusText) machineStatusText.textContent = 'MacBook online';
@@ -1095,27 +1115,29 @@
     }
 
     if (coverageLanesList) {
-      coverageLanesList.innerHTML = (cov.laneDistribution || []).map((l) => `
+      const lanes = cov.laneDistribution || [];
+      coverageLanesList.innerHTML = lanes.map((l) => `
         <div class="cov-item">
-          <span>${escapeHtml(l.label)}</span>
-          <div class="cov-bar"><i style="width:${Math.min(l.ratio, 100)}%"></i></div>
-          <span>${l.count} 件 (${l.ratio}%)</span>
+          <span>${escapeHtml(l.label || l.lane || '-')}</span>
+          <div class="cov-bar"><i style="width:${Math.min(l.ratio || 0, 100)}%"></i></div>
+          <span>${l.count || 0} 件 (${l.ratio || 0}%)</span>
         </div>
       `).join('');
     }
 
     if (coveragePlatformsList) {
-      coveragePlatformsList.innerHTML = (cov.platformDistribution || []).map((p) => `
+      const plats = cov.platformDistribution || [];
+      coveragePlatformsList.innerHTML = plats.map((p) => `
         <div class="cov-item">
-          <span>${escapeHtml(p.label)}</span>
-          <div class="cov-bar"><i style="width:${Math.min(p.ratio, 100)}%"></i></div>
-          <span>${p.count} 件 (${p.ratio}%)</span>
+          <span>${escapeHtml(p.label || p.platform || '-')}</span>
+          <div class="cov-bar"><i style="width:${Math.min(p.ratio || 0, 100)}%"></i></div>
+          <span>${p.count || 0} 件 (${p.ratio || 0}%)</span>
         </div>
       `).join('');
     }
 
     if (top10RatioText && cov.creatorConcentration) {
-      top10RatioText.textContent = `${cov.creatorConcentration.top10Ratio}%`;
+      top10RatioText.textContent = `${cov.creatorConcentration.top10Ratio ?? 0}%`;
     }
     if (topCreatorsList && cov.creatorConcentration) {
       const creators = cov.creatorConcentration.topCreators || [];
@@ -1124,8 +1146,8 @@
       } else {
         topCreatorsList.innerHTML = creators.map((c, i) => `
           <div class="mini-row">
-            <span>#${i + 1} ${escapeHtml(c.handle ? '@' + c.handle : '人気クリエイター')} (${c.platform})</span>
-            <b>${c.postCount} 本</b>
+            <span>#${i + 1} ${escapeHtml(c.handle ? '@' + c.handle : '人気クリエイター')} (${c.platform || ''})</span>
+            <b>${c.postCount || 1} 本</b>
           </div>
         `).join('');
       }
@@ -1133,14 +1155,15 @@
 
     if (dailyActivityList) {
       const daily = cov.dailyActivity || [];
-      const maxCount = Math.max(...daily.map((d) => d.count), 1);
+      const maxCount = Math.max(...daily.map((d) => d.count || 0), 1);
       dailyActivityList.innerHTML = daily.map((d) => {
-        const pct = Math.round((d.count / maxCount) * 100);
+        const count = d.count || 0;
+        const pct = Math.round((count / maxCount) * 100);
         return `
           <div class="act-col">
-            <span class="act-count">${d.count}</span>
+            <span class="act-count">${count}</span>
             <div class="act-fill" style="height:${Math.max(pct, 6)}%"></div>
-            <span class="act-date">${d.date.slice(5)}</span>
+            <span class="act-date">${d.date ? d.date.slice(5) : '-'}</span>
           </div>
         `;
       }).join('');
@@ -1151,29 +1174,35 @@
   function updateAutomation(auto) {
     if (!auto) return;
 
-    if (autoExecutedWrites) autoExecutedWrites.textContent = String(auto.safetyAudit.executedWriteCount);
-    if (autoBlockedWrites) autoBlockedWrites.textContent = String(auto.safetyAudit.blockedWriteAttemptCount);
-    if (autoTotalAudits) autoTotalAudits.textContent = String(auto.safetyAudit.totalAuditEvents);
+    if (autoExecutedWrites) autoExecutedWrites.textContent = String(auto.safetyAudit?.executedWriteCount ?? 0);
+    if (autoBlockedWrites) autoBlockedWrites.textContent = String(auto.safetyAudit?.blockedWriteAttemptCount ?? 0);
+    if (autoTotalAudits) autoTotalAudits.textContent = String(auto.safetyAudit?.totalAuditEvents ?? 0);
 
     if (autoYoutubeQuota) {
-      const yt = auto.connectors.youtube;
-      autoYoutubeQuota.textContent = `${yt.dailyUnitsUsed} / ${yt.dailyQuotaLimit}`;
+      const yt = auto.connectors?.youtube;
+      if (yt) {
+        autoYoutubeQuota.textContent = `${yt.dailyUnitsUsed ?? 0} / ${yt.dailyQuotaLimit ?? 8000}`;
+      } else {
+        autoYoutubeQuota.textContent = '0 / 8,000';
+      }
     }
 
-    const ig = auto.crawlers.instagram;
+    const ig = auto.crawlers?.instagram;
     if (igCrawlerMeta && igCrawlerBadge) {
       if (ig) {
-        igCrawlerMeta.textContent = `最終巡回: ${new Date(ig.startedAt).toLocaleTimeString('ja-JP')} · 取得: ${ig.observedCount} · 保存: ${ig.savedCount}`;
-        igCrawlerBadge.textContent = ig.status.toUpperCase();
+        const timeStr = ig.startedAt ? new Date(ig.startedAt).toLocaleTimeString('ja-JP') : '-';
+        igCrawlerMeta.textContent = `最終巡回: ${timeStr} · 取得: ${ig.observedCount ?? 0} · 保存: ${ig.savedCount ?? 0}`;
+        igCrawlerBadge.textContent = (ig.status || 'succeeded').toUpperCase();
         igCrawlerBadge.className = `badge ${ig.status === 'succeeded' ? 'active' : 'muted'}`;
       } else {
         igCrawlerMeta.textContent = '巡回履歴待機中';
         igCrawlerBadge.textContent = 'CONFIGURED';
+        igCrawlerBadge.className = 'badge';
       }
     }
 
     if (recentAuditEventsList) {
-      const events = auto.safetyAudit.recentAuditEvents || [];
+      const events = auto.safetyAudit?.recentAuditEvents || [];
       if (events.length === 0) {
         recentAuditEventsList.innerHTML = '<p class="empty-hint">監査イベントはまだありません</p>';
       } else {
@@ -1183,10 +1212,10 @@
           </div>
         ` + events.map((e) => `
           <div class="audit-log-row">
-            <span>${new Date(e.occurredAt).toLocaleTimeString('ja-JP')}</span>
-            <b>${e.operation}</b>
+            <span>${e.occurredAt ? new Date(e.occurredAt).toLocaleTimeString('ja-JP') : '-'}</span>
+            <b>${escapeHtml(e.operation || '-')}</b>
             <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${escapeHtml(e.targetUrl || '-')}</span>
-            <span style="color:${e.executedWrite === 0 ? 'green' : 'red'};font-weight:700;">${e.executedWrite} 件 (安全)</span>
+            <span style="color:${(e.executedWrite || 0) === 0 ? 'green' : 'red'};font-weight:700;">${e.executedWrite || 0} 件 (安全)</span>
           </div>
         `).join('');
       }

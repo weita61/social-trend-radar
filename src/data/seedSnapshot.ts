@@ -1236,8 +1236,12 @@ export const snapshotData = {
     },
     "dailyActivity": [
       {
+        "date": "2026-10-09",
+        "count": 2
+      },
+      {
         "date": "2026-10-10",
-        "count": 25
+        "count": 23
       }
     ],
     "laneWarnings": [
@@ -1247,30 +1251,67 @@ export const snapshotData = {
   "automation": {
     "macStatus": {
       "online": true,
-      "lastActiveAt": "2026-10-11T14:08:13.332Z"
+      "lastActiveAt": "2026-10-12T00:50:00.000Z"
     },
     "safetyAudit": {
       "executedWriteCount": 0,
       "blockedWriteAttemptCount": 0,
-      "totalAuditEvents": 0,
+      "totalAuditEvents": 84,
       "verifiedSafe": true,
-      "recentAuditEvents": []
+      "recentAuditEvents": [
+        {
+          "occurredAt": "2026-10-10T16:55:12.000Z",
+          "operation": "read_visible",
+          "targetUrl": "https://www.instagram.com/reels/",
+          "executedWrite": 0
+        },
+        {
+          "occurredAt": "2026-10-10T16:54:30.000Z",
+          "operation": "scroll",
+          "targetUrl": "https://www.instagram.com/reels/",
+          "executedWrite": 0
+        },
+        {
+          "occurredAt": "2026-10-10T16:53:15.000Z",
+          "operation": "navigate",
+          "targetUrl": "https://www.instagram.com/reels/",
+          "executedWrite": 0
+        },
+        {
+          "occurredAt": "2026-10-09T12:23:55.000Z",
+          "operation": "youtube_api_fetch",
+          "targetUrl": "https://youtube.com/shorts/8VpIQ74iekk",
+          "executedWrite": 0
+        },
+        {
+          "occurredAt": "2026-10-09T07:36:06.000Z",
+          "operation": "slack_event_receive",
+          "targetUrl": "slack://channel/C0C7UDBQH9B",
+          "executedWrite": 0
+        }
+      ]
     },
     "crawlers": {
-      "instagram": null,
+      "instagram": {
+        "status": "succeeded",
+        "startedAt": "2026-10-10T16:52:45.000Z",
+        "observedCount": 84,
+        "savedCount": 4,
+        "duplicatesCount": 1
+      },
       "tiktok": null
     },
     "connectors": {
       "youtube": {
         "status": "succeeded",
-        "dailyUnitsUsed": 0,
+        "dailyUnitsUsed": 2,
         "dailyQuotaLimit": 8000,
-        "quotaRatio": 0,
+        "quotaRatio": 0.00025,
         "lastRunAt": "2026-10-09T12:23:55.411Z"
       },
       "slack": {
         "status": "active",
-        "lastRunAt": null
+        "lastRunAt": "2026-10-09T07:36:06.000Z"
       }
     },
     "recentRuns": []
