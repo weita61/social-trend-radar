@@ -69,8 +69,8 @@ export class CaptureService {
     return this.repository.getAutomation();
   }
 
-  getPipeline(): Record<string, unknown> {
-    return this.repository.getPipeline();
+  getPipeline(hours?: number | string): Record<string, unknown> {
+    return this.repository.getPipeline(hours);
   }
 
   runAnalysis(): Record<string, unknown> {

@@ -1,5 +1,5 @@
 {
-  "exportedAt": "2026-10-11T17:32:14.596Z",
+  "exportedAt": "2026-10-11T17:51:51.753Z",
   "overview": {
     "totalClusters": 51,
     "marketTrendCount": 4,
@@ -429,7 +429,7 @@
       "likeCount": 135000,
       "commentCount": 2400,
       "usualValueRatio": 1.3662790697674418,
-      "publishedAt": "2026-10-09T12:00:00.000Z"
+      "publishedAt": "2026-10-11T12:39:20.019Z"
     },
     {
       "id": "seed_post_23",
@@ -458,7 +458,36 @@
       "likeCount": 112000,
       "commentCount": 4500,
       "usualValueRatio": 1.4527027027027026,
-      "publishedAt": "2026-10-09T12:00:00.000Z"
+      "publishedAt": "2026-10-11T08:49:20.019Z"
+    },
+    {
+      "id": "seed_post_11",
+      "platform": "tiktok",
+      "canonicalUrl": "https://www.tiktok.com/@iphone_waza/video/7300000000000000006",
+      "creatorHandle": "iphone_waza",
+      "creatorProfileUrl": "https://tiktok.com/@iphone_waza",
+      "caption": "大学のプリント、コンビニでスキャンしてない？iPhoneのメモ機能で一瞬で歪みなしPDF化する裏技 #iphone #スマホ裏技 #スキャン #pdf #大学生 #how_to",
+      "title": "📱 【スマホ裏技】iPhoneのメモ機能でプリントを一瞬で歪みなしPDF化する神技",
+      "hook": "「大学のプリント、わざわざコンビニでスキャンしてない？iPhoneで1秒でできるよ」",
+      "conceptSummary": "標準メモアプリの書類スキャン機能を使った歪み補正・文字検索可能PDFの作成手順。",
+      "studentAppeal": "プリント紛失を防ぎ、iPadやPCとの共有も一瞬で完結する必須スマホテク。",
+      "templateKey": "shortcut_hack",
+      "templateLabel": "⚡ 【裏技・神時短型】",
+      "studentCategory": "ai_pc_hack",
+      "studentCategoryLabel": "💻 AI・PC・スマホ裏技",
+      "actionableArrangement": "日常の身近なツールの隠れた神機能を「意外性フック」で紹介。",
+      "timelineOutline": "【0〜2秒】「大学のプリント、わざわざコンビニ行ってない？」と問いかけ\n→ 【3〜8秒】メモアプリ起動 → カメラアイコン → 「書類をスキャン」をタップ\n→ 【9〜16秒】斜めから撮っても自動でまっすぐ補正される神実演\n→ 【17〜24秒】「AirDropでiPadやPCに送ればレポート完成！保存して試してね」",
+      "selfHook": "「実はiPhoneのこの機能、9割の人が使ってない神機能です」",
+      "selfScriptOutline": "【0〜2秒】身近な標準アプリの隠れた便利技を宣言\n→ 【3〜9秒】画面操作のタップ箇所をわかりやすく拡大実演\n→ 【10〜17秒】一瞬で悩み（歪み・PDF化）が解決するシーン\n→ 【18〜24秒】「忘れないうちに保存しておいてね」",
+      "filmingTips": "iPhoneの画面操作を画面録画で高画質に収録。タップする指の動きやフォーカスを効果音とともに見せる。",
+      "hitReason": "専用アプリを入れずに標準アプリだけで解決できる手軽さと、圧倒的な便利さ。",
+      "formatClusterId": "cluster_ee0d1edfddd0fc1c06916c47",
+      "durationSeconds": null,
+      "viewCount": 2100000,
+      "likeCount": 138000,
+      "commentCount": 3200,
+      "usualValueRatio": 1.4189189189189189,
+      "publishedAt": "2026-10-11T15:23:20.019Z"
     },
     {
       "id": "sim_post_univ_saver_1791640812431",
@@ -490,35 +519,6 @@
       "publishedAt": "2026-10-09T14:00:12.430Z"
     },
     {
-      "id": "seed_post_11",
-      "platform": "tiktok",
-      "canonicalUrl": "https://www.tiktok.com/@iphone_waza/video/7300000000000000006",
-      "creatorHandle": "iphone_waza",
-      "creatorProfileUrl": "https://tiktok.com/@iphone_waza",
-      "caption": "大学のプリント、コンビニでスキャンしてない？iPhoneのメモ機能で一瞬で歪みなしPDF化する裏技 #iphone #スマホ裏技 #スキャン #pdf #大学生 #how_to",
-      "title": "📱 【スマホ裏技】iPhoneのメモ機能でプリントを一瞬で歪みなしPDF化する神技",
-      "hook": "「大学のプリント、わざわざコンビニでスキャンしてない？iPhoneで1秒でできるよ」",
-      "conceptSummary": "標準メモアプリの書類スキャン機能を使った歪み補正・文字検索可能PDFの作成手順。",
-      "studentAppeal": "プリント紛失を防ぎ、iPadやPCとの共有も一瞬で完結する必須スマホテク。",
-      "templateKey": "shortcut_hack",
-      "templateLabel": "⚡ 【裏技・神時短型】",
-      "studentCategory": "ai_pc_hack",
-      "studentCategoryLabel": "💻 AI・PC・スマホ裏技",
-      "actionableArrangement": "日常の身近なツールの隠れた神機能を「意外性フック」で紹介。",
-      "timelineOutline": "【0〜2秒】「大学のプリント、わざわざコンビニ行ってない？」と問いかけ\n→ 【3〜8秒】メモアプリ起動 → カメラアイコン → 「書類をスキャン」をタップ\n→ 【9〜16秒】斜めから撮っても自動でまっすぐ補正される神実演\n→ 【17〜24秒】「AirDropでiPadやPCに送ればレポート完成！保存して試してね」",
-      "selfHook": "「実はiPhoneのこの機能、9割の人が使ってない神機能です」",
-      "selfScriptOutline": "【0〜2秒】身近な標準アプリの隠れた便利技を宣言\n→ 【3〜9秒】画面操作のタップ箇所をわかりやすく拡大実演\n→ 【10〜17秒】一瞬で悩み（歪み・PDF化）が解決するシーン\n→ 【18〜24秒】「忘れないうちに保存しておいてね」",
-      "filmingTips": "iPhoneの画面操作を画面録画で高画質に収録。タップする指の動きやフォーカスを効果音とともに見せる。",
-      "hitReason": "専用アプリを入れずに標準アプリだけで解決できる手軽さと、圧倒的な便利さ。",
-      "formatClusterId": "cluster_ee0d1edfddd0fc1c06916c47",
-      "durationSeconds": null,
-      "viewCount": 2100000,
-      "likeCount": 138000,
-      "commentCount": 3200,
-      "usualValueRatio": 1.4189189189189189,
-      "publishedAt": "2026-10-09T12:00:00.000Z"
-    },
-    {
       "id": "seed_post_7",
       "platform": "instagram",
       "canonicalUrl": "https://www.instagram.com/reel/C1000000010/",
@@ -545,7 +545,7 @@
       "likeCount": 125000,
       "commentCount": 3400,
       "usualValueRatio": 1.3655172413793104,
-      "publishedAt": "2026-10-09T12:00:00.000Z"
+      "publishedAt": "2026-10-10T23:49:20.019Z"
     },
     {
       "id": "seed_post_14",
@@ -574,7 +574,7 @@
       "likeCount": 128000,
       "commentCount": 2900,
       "usualValueRatio": 1.1337209302325582,
-      "publishedAt": "2026-10-09T12:00:00.000Z"
+      "publishedAt": "2026-10-11T14:39:20.019Z"
     },
     {
       "id": "seed_post_24",
@@ -603,7 +603,7 @@
       "likeCount": 98000,
       "commentCount": 3800,
       "usualValueRatio": 1.1162790697674418,
-      "publishedAt": "2026-10-09T12:00:00.000Z"
+      "publishedAt": "2026-10-11T08:04:20.019Z"
     },
     {
       "id": "sim_post_ai_gakusei_pro_1791640812431",
@@ -661,7 +661,7 @@
       "likeCount": 115000,
       "commentCount": 2200,
       "usualValueRatio": 1.0755813953488371,
-      "publishedAt": "2026-10-09T12:00:00.000Z"
+      "publishedAt": "2026-10-11T15:31:20.019Z"
     },
     {
       "id": "seed_post_1",
@@ -690,7 +690,7 @@
       "likeCount": 18000,
       "commentCount": 53,
       "usualValueRatio": 1.2689655172413794,
-      "publishedAt": "2026-10-09T12:00:00.000Z"
+      "publishedAt": "2026-10-11T15:39:20.019Z"
     },
     {
       "id": "sim_post_pc_hack_sensei_1791640812431",
@@ -748,36 +748,7 @@
       "likeCount": 94000,
       "commentCount": 3100,
       "usualValueRatio": 0.9297297297297298,
-      "publishedAt": "2026-10-09T12:00:00.000Z"
-    },
-    {
-      "id": "seed_post_8",
-      "platform": "instagram",
-      "canonicalUrl": "https://www.instagram.com/reel/C1000000011/",
-      "creatorHandle": "univ_money_tips",
-      "creatorProfileUrl": "https://instagram.com/univ_money_tips",
-      "caption": "大学生限定で無料or月額半額になる神サブスクまとめ。Prime Student、Apple Music学割、Notion Pro #学割 #大学生 #サブスク #節約 #お得情報 #list",
-      "title": "💰 【学割の裏技】知らないと年間10万損する！学生証見せるだけでタダ・半額になる神施設5選",
-      "hook": "「これ知らずに普通料金払ってる大学生、ガチで大損してます…」",
-      "conceptSummary": "映画館や美術館だけじゃない！学生証提示で無料・格安になる隠れた神施設・制度・サブスクまとめ。",
-      "studentAppeal": "知っているだけで大学4年間の出費が圧倒的に浮く、お金のない学生に刺さる生活ハック。",
-      "templateKey": "best_list",
-      "templateLabel": "🏆 【まとめ・BEST型】",
-      "studentCategory": "student_life",
-      "studentCategoryLabel": "💰 学割・生活ハック",
-      "actionableArrangement": "自社商品・サービスの学割プランや若手優待、特典を「知らなきゃ損するリスト」形式で紹介。",
-      "timelineOutline": "【0〜2秒】「これ知らずに正規料金払ってる大学生、大損です」と宣言\n→ 【3〜8秒】第1位〜第2位：知られざる美術館・映画・交通の学生優待\n→ 【9〜16秒】第3位〜第4位：AdobeやApple、Notionなどの神学割制度\n→ 【17〜24秒】「1番ヤバい最後の1つは…」と最後まで見せ、保存を推奨",
-      "selfHook": "「知らないと損する！〇〇の特典・優待BEST5」",
-      "selfScriptOutline": "【0〜2秒】知らなきゃ損するお得情報の総数・損失額を冒頭で提示\n→ 【3〜10秒】前半2つをテンポよくポンポンと紹介\n→ 【11〜18秒】意外性の高い後半の特典を紹介\n→ 【19〜25秒】「友達にも教えてあげてね」とシェア・保存誘導",
-      "filmingTips": "画面右上に「①/⑤」の進捗カウンターを表示して途中離脱を防止。各項目の金額差（通常料金 vs 学生料金）を赤字で強調。",
-      "hitReason": "「無料・半額」という直接的な金銭的メリットと、見返すための保存率の高さ。",
-      "formatClusterId": "cluster_ffebf9803732744d8c88cabc",
-      "durationSeconds": null,
-      "viewCount": 1650000,
-      "likeCount": 110000,
-      "commentCount": 2800,
-      "usualValueRatio": 1.1379310344827587,
-      "publishedAt": "2026-10-09T12:00:00.000Z"
+      "publishedAt": "2026-10-10T21:49:20.019Z"
     },
     {
       "id": "seed_post_17",
@@ -806,7 +777,36 @@
       "likeCount": 98000,
       "commentCount": 1700,
       "usualValueRatio": 0.8918918918918919,
-      "publishedAt": "2026-10-09T12:00:00.000Z"
+      "publishedAt": "2026-10-11T13:45:20.019Z"
+    },
+    {
+      "id": "seed_post_8",
+      "platform": "instagram",
+      "canonicalUrl": "https://www.instagram.com/reel/C1000000011/",
+      "creatorHandle": "univ_money_tips",
+      "creatorProfileUrl": "https://instagram.com/univ_money_tips",
+      "caption": "大学生限定で無料or月額半額になる神サブスクまとめ。Prime Student、Apple Music学割、Notion Pro #学割 #大学生 #サブスク #節約 #お得情報 #list",
+      "title": "💰 【学割の裏技】知らないと年間10万損する！学生証見せるだけでタダ・半額になる神施設5選",
+      "hook": "「これ知らずに普通料金払ってる大学生、ガチで大損してます…」",
+      "conceptSummary": "映画館や美術館だけじゃない！学生証提示で無料・格安になる隠れた神施設・制度・サブスクまとめ。",
+      "studentAppeal": "知っているだけで大学4年間の出費が圧倒的に浮く、お金のない学生に刺さる生活ハック。",
+      "templateKey": "best_list",
+      "templateLabel": "🏆 【まとめ・BEST型】",
+      "studentCategory": "student_life",
+      "studentCategoryLabel": "💰 学割・生活ハック",
+      "actionableArrangement": "自社商品・サービスの学割プランや若手優待、特典を「知らなきゃ損するリスト」形式で紹介。",
+      "timelineOutline": "【0〜2秒】「これ知らずに正規料金払ってる大学生、大損です」と宣言\n→ 【3〜8秒】第1位〜第2位：知られざる美術館・映画・交通の学生優待\n→ 【9〜16秒】第3位〜第4位：AdobeやApple、Notionなどの神学割制度\n→ 【17〜24秒】「1番ヤバい最後の1つは…」と最後まで見せ、保存を推奨",
+      "selfHook": "「知らないと損する！〇〇の特典・優待BEST5」",
+      "selfScriptOutline": "【0〜2秒】知らなきゃ損するお得情報の総数・損失額を冒頭で提示\n→ 【3〜10秒】前半2つをテンポよくポンポンと紹介\n→ 【11〜18秒】意外性の高い後半の特典を紹介\n→ 【19〜25秒】「友達にも教えてあげてね」とシェア・保存誘導",
+      "filmingTips": "画面右上に「①/⑤」の進捗カウンターを表示して途中離脱を防止。各項目の金額差（通常料金 vs 学生料金）を赤字で強調。",
+      "hitReason": "「無料・半額」という直接的な金銭的メリットと、見返すための保存率の高さ。",
+      "formatClusterId": "cluster_ffebf9803732744d8c88cabc",
+      "durationSeconds": null,
+      "viewCount": 1650000,
+      "likeCount": 110000,
+      "commentCount": 2800,
+      "usualValueRatio": 1.1379310344827587,
+      "publishedAt": "2026-10-10T22:49:20.019Z"
     },
     {
       "id": "seed_post_18",
@@ -835,7 +835,7 @@
       "likeCount": 92000,
       "commentCount": 2100,
       "usualValueRatio": 1.0675675675675675,
-      "publishedAt": "2026-10-09T12:00:00.000Z"
+      "publishedAt": "2026-10-11T13:27:20.019Z"
     },
     {
       "id": "sim_post_global_biz_eng_1791640812431",
@@ -893,7 +893,7 @@
       "likeCount": 88000,
       "commentCount": 2100,
       "usualValueRatio": 1.0405405405405406,
-      "publishedAt": "2026-10-09T12:00:00.000Z"
+      "publishedAt": "2026-10-11T15:15:20.019Z"
     },
     {
       "id": "seed_post_20",
@@ -922,36 +922,7 @@
       "likeCount": 85000,
       "commentCount": 1500,
       "usualValueRatio": 0.961038961038961,
-      "publishedAt": "2026-10-09T12:00:00.000Z"
-    },
-    {
-      "id": "seed_post_4",
-      "platform": "tiktok",
-      "canonicalUrl": "https://www.tiktok.com/@study_ai_lab/video/7300000000000000004",
-      "creatorHandle": "study_ai_lab",
-      "creatorProfileUrl": "https://tiktok.com/@study_ai_lab",
-      "caption": "大学生必見！ChatGPTでレポートの文献検索・目次作成を5倍速にする神プロンプト。教授に怒られない構成の作り方 #chatgpt #レポート #大学 #aiプロンプト #仕事術 #how_to",
-      "title": "📑 【レポート爆速化】ChatGPTで文献検索・目次構成を5倍速にする神プロンプト",
-      "hook": "「レポートまだ一から自力で書いてる？このプロンプト知れば一瞬で骨組み完成するのに…」",
-      "conceptSummary": "丸投げして教授に怒られないための「構成案・参考文献の抽出」に特化した賢い指示文の具体例。",
-      "studentAppeal": "締め切り前夜の課題地獄から脱出できる、全大学生必須の即効ライフハック。",
-      "templateKey": "shortcut_hack",
-      "templateLabel": "⚡ 【裏技・神時短型】",
-      "studentCategory": "ai_pc_hack",
-      "studentCategoryLabel": "💻 AI・PC・スマホ裏技",
-      "actionableArrangement": "自社ツールやサービスの導入で作業時間が劇的に短縮される具体的な指示プロンプトや手順を実演。",
-      "timelineOutline": "【0〜2秒】「レポートまだ自力で書いてる？」と非効率な作業を否定\n→ 【3〜8秒】ChatGPTにコピペするだけの厳選プロンプト画面を提示\n→ 【9〜18秒】論文構成と参考文献候補が10秒で出力される劇的実演\n→ 【19〜25秒】「プロンプトの全文はコメント欄に固定したよ」とコメント誘導",
-      "selfHook": "「まだこの作業を手作業でやってる人、今すぐこのAIプロンプト使って！」",
-      "selfScriptOutline": "【0〜2秒】自社ターゲットが日々苦労している重い作業の提示\n→ 【3〜8秒】自社おすすめのAIプロンプト・自動化コマンドの入力\n→ 【9〜18秒】一瞬で成果物が出来上がる画面録画の実演\n→ 【19〜25秒】「試したい人はコメントで教えて！」とアクション喚起",
-      "filmingTips": "画面録画をメインにし、重要なコマンド部分は画面中央に大きく太字ゴシックでテロップ表示。1.2倍速のテンポ感。",
-      "hitReason": "明確な時間短縮のインパクトと、後で手元で試すための「保存欲求」が極めて高い。",
-      "formatClusterId": "cluster_6dc09ae48f1a61552e18ad70",
-      "durationSeconds": null,
-      "viewCount": 1450000,
-      "likeCount": 98000,
-      "commentCount": 2400,
-      "usualValueRatio": 0.9415584415584416,
-      "publishedAt": "2026-10-09T12:00:00.000Z"
+      "publishedAt": "2026-10-11T11:49:20.019Z"
     },
     {
       "id": "seed_post_25",
@@ -980,7 +951,65 @@
       "likeCount": 91000,
       "commentCount": 1800,
       "usualValueRatio": 0.9294871794871795,
-      "publishedAt": "2026-10-09T12:00:00.000Z"
+      "publishedAt": "2026-10-11T07:19:20.019Z"
+    },
+    {
+      "id": "seed_post_4",
+      "platform": "tiktok",
+      "canonicalUrl": "https://www.tiktok.com/@study_ai_lab/video/7300000000000000004",
+      "creatorHandle": "study_ai_lab",
+      "creatorProfileUrl": "https://tiktok.com/@study_ai_lab",
+      "caption": "大学生必見！ChatGPTでレポートの文献検索・目次作成を5倍速にする神プロンプト。教授に怒られない構成の作り方 #chatgpt #レポート #大学 #aiプロンプト #仕事術 #how_to",
+      "title": "📑 【レポート爆速化】ChatGPTで文献検索・目次構成を5倍速にする神プロンプト",
+      "hook": "「レポートまだ一から自力で書いてる？このプロンプト知れば一瞬で骨組み完成するのに…」",
+      "conceptSummary": "丸投げして教授に怒られないための「構成案・参考文献の抽出」に特化した賢い指示文の具体例。",
+      "studentAppeal": "締め切り前夜の課題地獄から脱出できる、全大学生必須の即効ライフハック。",
+      "templateKey": "shortcut_hack",
+      "templateLabel": "⚡ 【裏技・神時短型】",
+      "studentCategory": "ai_pc_hack",
+      "studentCategoryLabel": "💻 AI・PC・スマホ裏技",
+      "actionableArrangement": "自社ツールやサービスの導入で作業時間が劇的に短縮される具体的な指示プロンプトや手順を実演。",
+      "timelineOutline": "【0〜2秒】「レポートまだ自力で書いてる？」と非効率な作業を否定\n→ 【3〜8秒】ChatGPTにコピペするだけの厳選プロンプト画面を提示\n→ 【9〜18秒】論文構成と参考文献候補が10秒で出力される劇的実演\n→ 【19〜25秒】「プロンプトの全文はコメント欄に固定したよ」とコメント誘導",
+      "selfHook": "「まだこの作業を手作業でやってる人、今すぐこのAIプロンプト使って！」",
+      "selfScriptOutline": "【0〜2秒】自社ターゲットが日々苦労している重い作業の提示\n→ 【3〜8秒】自社おすすめのAIプロンプト・自動化コマンドの入力\n→ 【9〜18秒】一瞬で成果物が出来上がる画面録画の実演\n→ 【19〜25秒】「試したい人はコメントで教えて！」とアクション喚起",
+      "filmingTips": "画面録画をメインにし、重要なコマンド部分は画面中央に大きく太字ゴシックでテロップ表示。1.2倍速のテンポ感。",
+      "hitReason": "明確な時間短縮のインパクトと、後で手元で試すための「保存欲求」が極めて高い。",
+      "formatClusterId": "cluster_6dc09ae48f1a61552e18ad70",
+      "durationSeconds": null,
+      "viewCount": 1450000,
+      "likeCount": 98000,
+      "commentCount": 2400,
+      "usualValueRatio": 0.9415584415584416,
+      "publishedAt": "2026-10-11T05:49:20.019Z"
+    },
+    {
+      "id": "seed_post_15",
+      "platform": "tiktok",
+      "canonicalUrl": "https://www.tiktok.com/@study_ai_lab/video/7300000000000000008",
+      "creatorHandle": "study_ai_lab",
+      "creatorProfileUrl": "https://tiktok.com/@study_ai_lab",
+      "caption": "単語帳を何周しても覚えられない人がやってしまっているNG暗記法。見るだけは脳が覚えない #英語 #暗記法 #勉強法 #英単語 #資格勉強 #失敗",
+      "title": "📚 【試験対策】テスト前夜の一夜漬けで80点取るための『過去問逆算暗記法』",
+      "hook": "「テスト前日に教科書1ページ目から読んでる人、今すぐやめて！それ落ちます」",
+      "conceptSummary": "出題頻度の高い過去問とレジュメの太字から逆算して最短で合格ラインに達する暗記ステップ。",
+      "studentAppeal": "単位を落とせない絶体絶命のテスト期間を乗り切る現実的な勉強テクニック。",
+      "templateKey": "how_to",
+      "templateLabel": "📚 【手順解説型】",
+      "studentCategory": "study_report",
+      "studentCategoryLabel": "🎓 勉強・レポート術",
+      "actionableArrangement": "最短で結果を出すステップを「NG行動の指摘 → 正しい順序の実演」で構成。",
+      "timelineOutline": "【0〜2秒】「テスト前日に教科書読んでる人、落ちます」とNG行動を否定\n→ 【3〜8秒】ステップ①：まず過去問を解かずに答えを赤ペンで書き込む\n→ 【9〜16秒】ステップ②＆③：出題されている用語だけを逆算して暗記する\n→ 【17〜24秒】「これで単位拾えるから今夜すぐ試して保存して！」と誘導",
+      "selfHook": "「まだ普通に勉強してるの？最短で結果を出す逆算ステップがこれ」",
+      "selfScriptOutline": "【0〜2秒】非効率な従来の方法を否定\n→ 【3〜9秒】最短最速のステップ①を具体的に実演\n→ 【10〜17秒】結果を出すための重要ポイントの解説\n→ 【18〜24秒】「テスト期間中に見返せるよう保存推奨」",
+      "filmingTips": "机の上に過去問やテキストを広げた主観視点（POV）カメラ。赤ペンの動きや付箋をテンポよく映す。",
+      "hitReason": "「単位を落としたくない」という学生の緊急性の高いニーズに即答し、ブックマーク（保存）が爆発。",
+      "formatClusterId": "cluster_60034c0c892d206996ab9d27",
+      "durationSeconds": null,
+      "viewCount": 1420000,
+      "likeCount": 89000,
+      "commentCount": 1900,
+      "usualValueRatio": 0.922077922077922,
+      "publishedAt": "2026-10-11T14:21:20.019Z"
     },
     {
       "id": "sim_post_shukatsu_ace_1791640812431",
@@ -1012,35 +1041,6 @@
       "publishedAt": "2026-10-09T14:00:12.430Z"
     },
     {
-      "id": "seed_post_15",
-      "platform": "tiktok",
-      "canonicalUrl": "https://www.tiktok.com/@study_ai_lab/video/7300000000000000008",
-      "creatorHandle": "study_ai_lab",
-      "creatorProfileUrl": "https://tiktok.com/@study_ai_lab",
-      "caption": "単語帳を何周しても覚えられない人がやってしまっているNG暗記法。見るだけは脳が覚えない #英語 #暗記法 #勉強法 #英単語 #資格勉強 #失敗",
-      "title": "📚 【試験対策】テスト前夜の一夜漬けで80点取るための『過去問逆算暗記法』",
-      "hook": "「テスト前日に教科書1ページ目から読んでる人、今すぐやめて！それ落ちます」",
-      "conceptSummary": "出題頻度の高い過去問とレジュメの太字から逆算して最短で合格ラインに達する暗記ステップ。",
-      "studentAppeal": "単位を落とせない絶体絶命のテスト期間を乗り切る現実的な勉強テクニック。",
-      "templateKey": "how_to",
-      "templateLabel": "📚 【手順解説型】",
-      "studentCategory": "study_report",
-      "studentCategoryLabel": "🎓 勉強・レポート術",
-      "actionableArrangement": "最短で結果を出すステップを「NG行動の指摘 → 正しい順序の実演」で構成。",
-      "timelineOutline": "【0〜2秒】「テスト前日に教科書読んでる人、落ちます」とNG行動を否定\n→ 【3〜8秒】ステップ①：まず過去問を解かずに答えを赤ペンで書き込む\n→ 【9〜16秒】ステップ②＆③：出題されている用語だけを逆算して暗記する\n→ 【17〜24秒】「これで単位拾えるから今夜すぐ試して保存して！」と誘導",
-      "selfHook": "「まだ普通に勉強してるの？最短で結果を出す逆算ステップがこれ」",
-      "selfScriptOutline": "【0〜2秒】非効率な従来の方法を否定\n→ 【3〜9秒】最短最速のステップ①を具体的に実演\n→ 【10〜17秒】結果を出すための重要ポイントの解説\n→ 【18〜24秒】「テスト期間中に見返せるよう保存推奨」",
-      "filmingTips": "机の上に過去問やテキストを広げた主観視点（POV）カメラ。赤ペンの動きや付箋をテンポよく映す。",
-      "hitReason": "「単位を落としたくない」という学生の緊急性の高いニーズに即答し、ブックマーク（保存）が爆発。",
-      "formatClusterId": "cluster_60034c0c892d206996ab9d27",
-      "durationSeconds": null,
-      "viewCount": 1420000,
-      "likeCount": 89000,
-      "commentCount": 1900,
-      "usualValueRatio": 0.922077922077922,
-      "publishedAt": "2026-10-09T12:00:00.000Z"
-    },
-    {
       "id": "seed_post_5",
       "platform": "tiktok",
       "canonicalUrl": "https://www.tiktok.com/@tech_hack_jp/video/7300000000000000005",
@@ -1067,7 +1067,7 @@
       "likeCount": 78000,
       "commentCount": 1800,
       "usualValueRatio": 0.8571428571428571,
-      "publishedAt": "2026-10-09T12:00:00.000Z"
+      "publishedAt": "2026-10-11T01:49:20.019Z"
     },
     {
       "id": "seed_post_21",
@@ -1096,7 +1096,7 @@
       "likeCount": 76000,
       "commentCount": 1400,
       "usualValueRatio": 0.8012820512820513,
-      "publishedAt": "2026-10-09T12:00:00.000Z"
+      "publishedAt": "2026-10-11T11:24:20.019Z"
     },
     {
       "id": "seed_post_16",
@@ -1125,7 +1125,7 @@
       "likeCount": 74000,
       "commentCount": 1300,
       "usualValueRatio": 0.6594594594594595,
-      "publishedAt": "2026-10-09T12:00:00.000Z"
+      "publishedAt": "2026-10-11T14:03:20.019Z"
     },
     {
       "id": "seed_post_13",
@@ -1154,7 +1154,7 @@
       "likeCount": 67000,
       "commentCount": 1600,
       "usualValueRatio": 0.717948717948718,
-      "publishedAt": "2026-10-09T12:00:00.000Z"
+      "publishedAt": "2026-10-11T15:07:20.019Z"
     },
     {
       "id": "seed_post_22",
@@ -1183,7 +1183,7 @@
       "likeCount": 69000,
       "commentCount": 1100,
       "usualValueRatio": 0.5837837837837838,
-      "publishedAt": "2026-10-09T12:00:00.000Z"
+      "publishedAt": "2026-10-11T10:59:20.019Z"
     },
     {
       "id": "seed_post_6",
@@ -1212,7 +1212,7 @@
       "likeCount": 61000,
       "commentCount": 1500,
       "usualValueRatio": 0.518918918918919,
-      "publishedAt": "2026-10-09T12:00:00.000Z"
+      "publishedAt": "2026-10-11T00:49:20.019Z"
     },
     {
       "id": "seed_post_3",
@@ -1241,7 +1241,7 @@
       "likeCount": 52000,
       "commentCount": 1400,
       "usualValueRatio": 0.5974025974025974,
-      "publishedAt": "2026-10-09T12:00:00.000Z"
+      "publishedAt": "2026-10-11T06:34:20.019Z"
     },
     {
       "id": "seed_post_2",
@@ -1270,7 +1270,7 @@
       "likeCount": 45000,
       "commentCount": 1900,
       "usualValueRatio": 0.5641025641025641,
-      "publishedAt": "2026-10-09T12:00:00.000Z"
+      "publishedAt": "2026-10-11T12:14:20.019Z"
     }
   ],
   "coverage": {
@@ -1382,7 +1382,11 @@
     "dailyActivity": [
       {
         "date": "2026-10-10",
-        "count": 25
+        "count": 1
+      },
+      {
+        "date": "2026-10-11",
+        "count": 24
       }
     ],
     "laneWarnings": [
@@ -1392,7 +1396,7 @@
   "automation": {
     "macStatus": {
       "online": true,
-      "lastActiveAt": "2026-10-11T17:32:14.599Z"
+      "lastActiveAt": "2026-10-11T17:51:51.762Z"
     },
     "safetyAudit": {
       "executedWriteCount": 0,
@@ -1401,90 +1405,90 @@
       "verifiedSafe": true,
       "recentAuditEvents": [
         {
-          "id": "audit_ig_48",
-          "runId": "autorun_ig_01",
-          "occurredAt": "2026-10-10T11:59:06.000Z",
+          "id": "audit_evt_18",
+          "runId": "autorun_1",
+          "occurredAt": "2026-10-11T17:18:35.019Z",
           "operation": "scroll",
           "targetUrl": "https://www.instagram.com/reels/",
           "attemptedWrite": false,
           "executedWrite": 0
         },
         {
-          "id": "audit_ig_47",
-          "runId": "autorun_ig_01",
-          "occurredAt": "2026-10-10T11:58:48.000Z",
+          "id": "audit_evt_17",
+          "runId": "autorun_1",
+          "occurredAt": "2026-10-11T17:18:20.019Z",
           "operation": "read_visible",
           "targetUrl": "https://www.instagram.com/reels/",
           "attemptedWrite": false,
           "executedWrite": 0
         },
         {
-          "id": "audit_ig_46",
-          "runId": "autorun_ig_01",
-          "occurredAt": "2026-10-10T11:58:30.000Z",
+          "id": "audit_evt_16",
+          "runId": "autorun_1",
+          "occurredAt": "2026-10-11T17:18:05.019Z",
           "operation": "navigate",
-          "targetUrl": "https://www.instagram.com/reel/Ddiufd9zvm45/",
+          "targetUrl": "https://www.instagram.com/reels/",
           "attemptedWrite": false,
           "executedWrite": 0
         },
         {
-          "id": "audit_ig_45",
-          "runId": "autorun_ig_01",
-          "occurredAt": "2026-10-10T11:58:12.000Z",
+          "id": "audit_evt_15",
+          "runId": "autorun_1",
+          "occurredAt": "2026-10-11T17:17:50.019Z",
           "operation": "wait",
           "targetUrl": "https://www.instagram.com/reels/",
           "attemptedWrite": false,
           "executedWrite": 0
         },
         {
-          "id": "audit_ig_44",
-          "runId": "autorun_ig_01",
-          "occurredAt": "2026-10-10T11:57:54.000Z",
+          "id": "audit_evt_14",
+          "runId": "autorun_1",
+          "occurredAt": "2026-10-11T17:17:35.019Z",
           "operation": "capture",
           "targetUrl": "https://www.instagram.com/reels/",
           "attemptedWrite": false,
           "executedWrite": 0
         },
         {
-          "id": "audit_ig_43",
-          "runId": "autorun_ig_01",
-          "occurredAt": "2026-10-10T11:57:36.000Z",
+          "id": "audit_evt_13",
+          "runId": "autorun_1",
+          "occurredAt": "2026-10-11T17:17:20.019Z",
           "operation": "scroll",
-          "targetUrl": "https://www.instagram.com/reel/Ddiufd9zvm42/",
+          "targetUrl": "https://www.instagram.com/reels/",
           "attemptedWrite": false,
           "executedWrite": 0
         },
         {
-          "id": "audit_ig_42",
-          "runId": "autorun_ig_01",
-          "occurredAt": "2026-10-10T11:57:18.000Z",
+          "id": "audit_evt_12",
+          "runId": "autorun_1",
+          "occurredAt": "2026-10-11T17:17:05.019Z",
           "operation": "read_visible",
           "targetUrl": "https://www.instagram.com/reels/",
           "attemptedWrite": false,
           "executedWrite": 0
         },
         {
-          "id": "audit_ig_41",
-          "runId": "autorun_ig_01",
-          "occurredAt": "2026-10-10T11:57:00.000Z",
+          "id": "audit_evt_11",
+          "runId": "autorun_1",
+          "occurredAt": "2026-10-11T17:16:50.019Z",
           "operation": "navigate",
           "targetUrl": "https://www.instagram.com/reels/",
           "attemptedWrite": false,
           "executedWrite": 0
         },
         {
-          "id": "audit_ig_40",
-          "runId": "autorun_ig_01",
-          "occurredAt": "2026-10-10T11:56:42.000Z",
+          "id": "audit_evt_10",
+          "runId": "autorun_1",
+          "occurredAt": "2026-10-11T17:16:35.019Z",
           "operation": "wait",
-          "targetUrl": "https://www.instagram.com/reel/Ddiufd9zvm39/",
+          "targetUrl": "https://www.instagram.com/reels/",
           "attemptedWrite": false,
           "executedWrite": 0
         },
         {
-          "id": "audit_ig_39",
-          "runId": "autorun_ig_01",
-          "occurredAt": "2026-10-10T11:56:24.000Z",
+          "id": "audit_evt_9",
+          "runId": "autorun_1",
+          "occurredAt": "2026-10-11T17:16:20.019Z",
           "operation": "capture",
           "targetUrl": "https://www.instagram.com/reels/",
           "attemptedWrite": false,
@@ -1494,23 +1498,23 @@
     },
     "crawlers": {
       "instagram": {
-        "id": "autorun_ig_01",
+        "id": "autorun_1",
         "status": "succeeded",
-        "startedAt": "2026-10-10T11:45:00.000Z",
-        "completedAt": "2026-10-10T12:00:00.000Z",
-        "observedCount": 25,
-        "savedCount": 20,
-        "duplicateCount": 5,
+        "startedAt": "2026-10-11T17:14:20.019Z",
+        "completedAt": "2026-10-11T17:19:20.019Z",
+        "observedCount": 6,
+        "savedCount": 5,
+        "duplicateCount": 1,
         "errorCode": null
       },
       "tiktok": {
-        "id": "autorun_tt_01",
+        "id": "autorun_2",
         "status": "succeeded",
-        "startedAt": "2026-10-10T11:30:00.000Z",
-        "completedAt": "2026-10-10T11:42:00.000Z",
-        "observedCount": 18,
-        "savedCount": 14,
-        "duplicateCount": 4,
+        "startedAt": "2026-10-11T15:39:20.019Z",
+        "completedAt": "2026-10-11T15:44:20.019Z",
+        "observedCount": 6,
+        "savedCount": 5,
+        "duplicateCount": 1,
         "errorCode": null
       }
     },
@@ -1529,37 +1533,78 @@
     },
     "recentRuns": [
       {
-        "id": "autorun_ig_01",
+        "id": "autorun_1",
         "platform": "instagram",
         "targetUrl": "https://www.instagram.com/reels/",
         "sourceLane": "broad",
         "status": "succeeded",
-        "startedAt": "2026-10-10T11:45:00.000Z",
-        "observedCount": 25,
-        "savedCount": 20,
-        "duplicateCount": 5,
+        "startedAt": "2026-10-11T17:14:20.019Z",
+        "observedCount": 6,
+        "savedCount": 5,
+        "duplicateCount": 1,
         "errorCode": null
       },
       {
-        "id": "autorun_tt_01",
+        "id": "autorun_2",
         "platform": "tiktok",
         "targetUrl": "https://www.tiktok.com/foryou",
         "sourceLane": "fixed_panel",
         "status": "succeeded",
-        "startedAt": "2026-10-10T11:30:00.000Z",
-        "observedCount": 18,
-        "savedCount": 14,
-        "duplicateCount": 4,
+        "startedAt": "2026-10-11T15:39:20.019Z",
+        "observedCount": 6,
+        "savedCount": 5,
+        "duplicateCount": 1,
+        "errorCode": null
+      },
+      {
+        "id": "autorun_3",
+        "platform": "instagram",
+        "targetUrl": "https://www.instagram.com/reels/",
+        "sourceLane": "broad",
+        "status": "succeeded",
+        "startedAt": "2026-10-11T13:29:20.019Z",
+        "observedCount": 6,
+        "savedCount": 5,
+        "duplicateCount": 1,
+        "errorCode": null
+      },
+      {
+        "id": "autorun_4",
+        "platform": "tiktok",
+        "targetUrl": "https://www.tiktok.com/foryou",
+        "sourceLane": "fixed_panel",
+        "status": "succeeded",
+        "startedAt": "2026-10-11T09:29:20.019Z",
+        "observedCount": 5,
+        "savedCount": 5,
+        "duplicateCount": 0,
+        "errorCode": null
+      },
+      {
+        "id": "autorun_5",
+        "platform": "instagram",
+        "targetUrl": "https://www.instagram.com/reels/",
+        "sourceLane": "external",
+        "status": "succeeded",
+        "startedAt": "2026-10-11T01:59:20.019Z",
+        "observedCount": 5,
+        "savedCount": 5,
+        "duplicateCount": 0,
         "errorCode": null
       }
     ]
   },
   "pipeline": {
-    "timestamp": "2026-10-11T17:32:14.600Z",
+    "timestamp": "2026-10-11T17:51:51.763Z",
+    "filter": {
+      "hours": "all",
+      "label": "全期間 (All Time)",
+      "cutoffTime": null
+    },
     "systemHealth": "operational",
     "budget": {
       "cloudCostYen": 0,
-      "vercelPlan": "Hobby ($0/mo)",
+      "vercelPlan": "Hobby (/bin/sh/mo)",
       "daemonHost": "Local MacBook Air (Background Daemon)",
       "storageType": "SQLite + WAL Mode (Local SSD)",
       "zeroCostGuaranteed": true
@@ -1686,7 +1731,7 @@
     "recentCaptures": [
       {
         "id": "seed_cap_1",
-        "capturedAt": "2026-10-10T12:00:00.000Z",
+        "capturedAt": "2026-10-11T17:39:20.019Z",
         "platform": "instagram",
         "sourceLane": "broad",
         "selectionMethod": "auto_observed",
@@ -1696,7 +1741,7 @@
       },
       {
         "id": "seed_cap_10",
-        "capturedAt": "2026-10-10T12:00:00.000Z",
+        "capturedAt": "2026-10-11T17:31:20.019Z",
         "platform": "youtube",
         "sourceLane": "broad",
         "selectionMethod": "auto_observed",
@@ -1706,7 +1751,7 @@
       },
       {
         "id": "seed_cap_11",
-        "capturedAt": "2026-10-10T12:00:00.000Z",
+        "capturedAt": "2026-10-11T17:23:20.019Z",
         "platform": "tiktok",
         "sourceLane": "external",
         "selectionMethod": "auto_observed",
@@ -1716,7 +1761,7 @@
       },
       {
         "id": "seed_cap_12",
-        "capturedAt": "2026-10-10T12:00:00.000Z",
+        "capturedAt": "2026-10-11T17:15:20.019Z",
         "platform": "tiktok",
         "sourceLane": "broad",
         "selectionMethod": "auto_observed",
@@ -1726,7 +1771,7 @@
       },
       {
         "id": "seed_cap_13",
-        "capturedAt": "2026-10-10T12:00:00.000Z",
+        "capturedAt": "2026-10-11T17:07:20.019Z",
         "platform": "instagram",
         "sourceLane": "fixed_panel",
         "selectionMethod": "auto_observed",
@@ -1736,7 +1781,7 @@
       },
       {
         "id": "seed_cap_14",
-        "capturedAt": "2026-10-10T12:00:00.000Z",
+        "capturedAt": "2026-10-11T16:39:20.019Z",
         "platform": "youtube",
         "sourceLane": "broad",
         "selectionMethod": "auto_observed",
@@ -1746,7 +1791,7 @@
       },
       {
         "id": "seed_cap_15",
-        "capturedAt": "2026-10-10T12:00:00.000Z",
+        "capturedAt": "2026-10-11T16:21:20.019Z",
         "platform": "tiktok",
         "sourceLane": "external",
         "selectionMethod": "auto_observed",
@@ -1756,7 +1801,7 @@
       },
       {
         "id": "seed_cap_16",
-        "capturedAt": "2026-10-10T12:00:00.000Z",
+        "capturedAt": "2026-10-11T16:03:20.019Z",
         "platform": "youtube",
         "sourceLane": "fixed_panel",
         "selectionMethod": "auto_observed",
@@ -1766,7 +1811,7 @@
       },
       {
         "id": "seed_cap_17",
-        "capturedAt": "2026-10-10T12:00:00.000Z",
+        "capturedAt": "2026-10-11T15:45:20.019Z",
         "platform": "youtube",
         "sourceLane": "broad",
         "selectionMethod": "auto_observed",
@@ -1776,103 +1821,293 @@
       },
       {
         "id": "seed_cap_18",
-        "capturedAt": "2026-10-10T12:00:00.000Z",
+        "capturedAt": "2026-10-11T15:27:20.019Z",
         "platform": "tiktok",
         "sourceLane": "external",
         "selectionMethod": "auto_observed",
         "creator": "tech_hack_jp",
         "caption": "ダイソーで買える！一人暮らし大学生が自炊を圧倒的にサボれる神キッチングッズBEST3 #ダイソー #100均 #一人暮らし #自炊 #便利グ",
         "url": "https://www.tiktok.com/@tech_hack_jp/video/7300000000000000009"
+      },
+      {
+        "id": "seed_cap_19",
+        "capturedAt": "2026-10-11T14:39:20.019Z",
+        "platform": "youtube",
+        "sourceLane": "broad",
+        "selectionMethod": "auto_observed",
+        "creator": "ryuji_foodlab",
+        "caption": "フライパン1つで5分！自炊面倒な一人暮らし大学生のための悪魔の時短飯レシピ。外食行く気なくなる #料理 #レシピ #時短飯 #ズボラ飯 #一",
+        "url": "https://www.youtube.com/shorts/quick_meshi_ryu_01"
+      },
+      {
+        "id": "seed_cap_2",
+        "capturedAt": "2026-10-11T14:14:20.019Z",
+        "platform": "instagram",
+        "sourceLane": "fixed_panel",
+        "selectionMethod": "auto_observed",
+        "creator": "biz_skills",
+        "caption": "メール送信でやってはいけない重大なNGミスと失敗回避の手順。宛先と敬称の落とし穴 #失敗 #how_to #ビジネスマナー #就活",
+        "url": "https://www.instagram.com/reel/C1000000001/"
+      },
+      {
+        "id": "seed_cap_20",
+        "capturedAt": "2026-10-11T13:49:20.019Z",
+        "platform": "tiktok",
+        "sourceLane": "external",
+        "selectionMethod": "auto_observed",
+        "creator": "zubora_meshi",
+        "caption": "レンジで3分！深夜のテスト勉強中に食べる背徳の夜食レシピ。包丁も火も使わない #料理 #レシピ #夜食 #ズボラ飯 #gourmet_rec",
+        "url": "https://www.tiktok.com/@zubora_meshi/video/7300000000000000010"
+      },
+      {
+        "id": "seed_cap_21",
+        "capturedAt": "2026-10-11T13:24:20.019Z",
+        "platform": "instagram",
+        "sourceLane": "fixed_panel",
+        "selectionMethod": "auto_observed",
+        "creator": "morning_vlog",
+        "caption": "テスト前日のリアルな1日・勉強と自炊の密着Vlog。大学生の一人暮らし日常 #ルーティン #vlog #大学生 #一人暮らし #日常 #ro",
+        "url": "https://www.instagram.com/reel/C1000000013/"
+      },
+      {
+        "id": "seed_cap_22",
+        "capturedAt": "2026-10-11T12:59:20.019Z",
+        "platform": "youtube",
+        "sourceLane": "broad",
+        "selectionMethod": "auto_observed",
+        "creator": "weekend_chill",
+        "caption": "休日にレポート終わらせて自分を甘やかす大学生のVlog。部屋作りとカフェ時間 #routine #vlog #大学生 #休日 #日常",
+        "url": "https://www.youtube.com/shorts/chill_weekend_univ_02"
+      },
+      {
+        "id": "seed_cap_23",
+        "capturedAt": "2026-10-11T10:49:20.019Z",
+        "platform": "tiktok",
+        "sourceLane": "external",
+        "selectionMethod": "auto_observed",
+        "creator": "comedy_japan",
+        "caption": "大学生が講義中に一度はやらかすあるあるシチュエーション5選 #あるある #コント #大学生 #学校 #日常",
+        "url": "https://www.tiktok.com/@comedy_japan/video/7300000000000000011"
+      },
+      {
+        "id": "seed_cap_24",
+        "capturedAt": "2026-10-11T10:04:20.019Z",
+        "platform": "youtube",
+        "sourceLane": "broad",
+        "selectionMethod": "auto_observed",
+        "creator": "hikakin",
+        "caption": "単位を落とした瞬間の大学生のリアルなリアクションあるある #あるある #コント #大学生 #shorts #日常",
+        "url": "https://www.youtube.com/shorts/tani_otoshita_aruaru_02"
+      },
+      {
+        "id": "seed_cap_25",
+        "capturedAt": "2026-10-11T09:19:20.019Z",
+        "platform": "instagram",
+        "sourceLane": "broad",
+        "selectionMethod": "auto_observed",
+        "creator": "biyou_ch",
+        "caption": "これに変えたら肌褒められまくった！ドラッグストアで買える学生向けプチプラ名品コスメで垢抜け #美容 #コスメ #垢抜け #ビフォーアフター ",
+        "url": "https://www.instagram.com/reel/C1000000014/"
+      },
+      {
+        "id": "seed_cap_3",
+        "capturedAt": "2026-10-11T08:34:20.019Z",
+        "platform": "tiktok",
+        "sourceLane": "external",
+        "selectionMethod": "auto_observed",
+        "creator": "shukatsu_god",
+        "caption": "バイトで使ってはいけない『バイト敬語』NG集。「よろしかったでしょうか」「〜のほう」の正しい言い換え #バイト敬語 #ビジネスマナー #就活",
+        "url": "https://www.tiktok.com/@shukatsu_god/video/7300000000000000012"
+      },
+      {
+        "id": "seed_cap_4",
+        "capturedAt": "2026-10-11T07:49:20.019Z",
+        "platform": "tiktok",
+        "sourceLane": "broad",
+        "selectionMethod": "auto_observed",
+        "creator": "study_ai_lab",
+        "caption": "大学生必見！ChatGPTでレポートの文献検索・目次作成を5倍速にする神プロンプト。教授に怒られない構成の作り方 #chatgpt #レポー",
+        "url": "https://www.tiktok.com/@study_ai_lab/video/7300000000000000004"
       }
     ],
     "recentAuditEvents": [
       {
-        "id": "audit_ig_48",
-        "runId": "autorun_ig_01",
-        "occurredAt": "2026-10-10T11:59:06.000Z",
+        "id": "audit_evt_18",
+        "runId": "autorun_1",
+        "occurredAt": "2026-10-11T17:18:35.019Z",
         "operation": "scroll",
         "targetUrl": "https://www.instagram.com/reels/",
         "attemptedWrite": false,
         "executedWrite": 0
       },
       {
-        "id": "audit_ig_47",
-        "runId": "autorun_ig_01",
-        "occurredAt": "2026-10-10T11:58:48.000Z",
+        "id": "audit_evt_17",
+        "runId": "autorun_1",
+        "occurredAt": "2026-10-11T17:18:20.019Z",
         "operation": "read_visible",
         "targetUrl": "https://www.instagram.com/reels/",
         "attemptedWrite": false,
         "executedWrite": 0
       },
       {
-        "id": "audit_ig_46",
-        "runId": "autorun_ig_01",
-        "occurredAt": "2026-10-10T11:58:30.000Z",
+        "id": "audit_evt_16",
+        "runId": "autorun_1",
+        "occurredAt": "2026-10-11T17:18:05.019Z",
         "operation": "navigate",
-        "targetUrl": "https://www.instagram.com/reel/Ddiufd9zvm45/",
+        "targetUrl": "https://www.instagram.com/reels/",
         "attemptedWrite": false,
         "executedWrite": 0
       },
       {
-        "id": "audit_ig_45",
-        "runId": "autorun_ig_01",
-        "occurredAt": "2026-10-10T11:58:12.000Z",
+        "id": "audit_evt_15",
+        "runId": "autorun_1",
+        "occurredAt": "2026-10-11T17:17:50.019Z",
         "operation": "wait",
         "targetUrl": "https://www.instagram.com/reels/",
         "attemptedWrite": false,
         "executedWrite": 0
       },
       {
-        "id": "audit_ig_44",
-        "runId": "autorun_ig_01",
-        "occurredAt": "2026-10-10T11:57:54.000Z",
+        "id": "audit_evt_14",
+        "runId": "autorun_1",
+        "occurredAt": "2026-10-11T17:17:35.019Z",
         "operation": "capture",
         "targetUrl": "https://www.instagram.com/reels/",
         "attemptedWrite": false,
         "executedWrite": 0
       },
       {
-        "id": "audit_ig_43",
-        "runId": "autorun_ig_01",
-        "occurredAt": "2026-10-10T11:57:36.000Z",
+        "id": "audit_evt_13",
+        "runId": "autorun_1",
+        "occurredAt": "2026-10-11T17:17:20.019Z",
         "operation": "scroll",
-        "targetUrl": "https://www.instagram.com/reel/Ddiufd9zvm42/",
+        "targetUrl": "https://www.instagram.com/reels/",
         "attemptedWrite": false,
         "executedWrite": 0
       },
       {
-        "id": "audit_ig_42",
-        "runId": "autorun_ig_01",
-        "occurredAt": "2026-10-10T11:57:18.000Z",
+        "id": "audit_evt_12",
+        "runId": "autorun_1",
+        "occurredAt": "2026-10-11T17:17:05.019Z",
         "operation": "read_visible",
         "targetUrl": "https://www.instagram.com/reels/",
         "attemptedWrite": false,
         "executedWrite": 0
       },
       {
-        "id": "audit_ig_41",
-        "runId": "autorun_ig_01",
-        "occurredAt": "2026-10-10T11:57:00.000Z",
+        "id": "audit_evt_11",
+        "runId": "autorun_1",
+        "occurredAt": "2026-10-11T17:16:50.019Z",
         "operation": "navigate",
         "targetUrl": "https://www.instagram.com/reels/",
         "attemptedWrite": false,
         "executedWrite": 0
       },
       {
-        "id": "audit_ig_40",
-        "runId": "autorun_ig_01",
-        "occurredAt": "2026-10-10T11:56:42.000Z",
+        "id": "audit_evt_10",
+        "runId": "autorun_1",
+        "occurredAt": "2026-10-11T17:16:35.019Z",
         "operation": "wait",
-        "targetUrl": "https://www.instagram.com/reel/Ddiufd9zvm39/",
+        "targetUrl": "https://www.instagram.com/reels/",
         "attemptedWrite": false,
         "executedWrite": 0
       },
       {
-        "id": "audit_ig_39",
-        "runId": "autorun_ig_01",
-        "occurredAt": "2026-10-10T11:56:24.000Z",
+        "id": "audit_evt_9",
+        "runId": "autorun_1",
+        "occurredAt": "2026-10-11T17:16:20.019Z",
         "operation": "capture",
         "targetUrl": "https://www.instagram.com/reels/",
+        "attemptedWrite": false,
+        "executedWrite": 0
+      },
+      {
+        "id": "audit_evt_8",
+        "runId": "autorun_1",
+        "occurredAt": "2026-10-11T17:16:05.019Z",
+        "operation": "scroll",
+        "targetUrl": "https://www.instagram.com/reels/",
+        "attemptedWrite": false,
+        "executedWrite": 0
+      },
+      {
+        "id": "audit_evt_7",
+        "runId": "autorun_1",
+        "occurredAt": "2026-10-11T17:15:50.019Z",
+        "operation": "read_visible",
+        "targetUrl": "https://www.instagram.com/reels/",
+        "attemptedWrite": false,
+        "executedWrite": 0
+      },
+      {
+        "id": "audit_evt_6",
+        "runId": "autorun_1",
+        "occurredAt": "2026-10-11T17:15:35.019Z",
+        "operation": "navigate",
+        "targetUrl": "https://www.instagram.com/reels/",
+        "attemptedWrite": false,
+        "executedWrite": 0
+      },
+      {
+        "id": "audit_evt_5",
+        "runId": "autorun_1",
+        "occurredAt": "2026-10-11T17:15:20.019Z",
+        "operation": "wait",
+        "targetUrl": "https://www.instagram.com/reels/",
+        "attemptedWrite": false,
+        "executedWrite": 0
+      },
+      {
+        "id": "audit_evt_4",
+        "runId": "autorun_1",
+        "occurredAt": "2026-10-11T17:15:05.019Z",
+        "operation": "capture",
+        "targetUrl": "https://www.instagram.com/reels/",
+        "attemptedWrite": false,
+        "executedWrite": 0
+      },
+      {
+        "id": "audit_evt_3",
+        "runId": "autorun_1",
+        "occurredAt": "2026-10-11T17:14:50.019Z",
+        "operation": "scroll",
+        "targetUrl": "https://www.instagram.com/reels/",
+        "attemptedWrite": false,
+        "executedWrite": 0
+      },
+      {
+        "id": "audit_evt_2",
+        "runId": "autorun_1",
+        "occurredAt": "2026-10-11T17:14:35.019Z",
+        "operation": "read_visible",
+        "targetUrl": "https://www.instagram.com/reels/",
+        "attemptedWrite": false,
+        "executedWrite": 0
+      },
+      {
+        "id": "audit_evt_1",
+        "runId": "autorun_1",
+        "occurredAt": "2026-10-11T17:14:20.019Z",
+        "operation": "navigate",
+        "targetUrl": "https://www.instagram.com/reels/",
+        "attemptedWrite": false,
+        "executedWrite": 0
+      },
+      {
+        "id": "audit_evt_36",
+        "runId": "autorun_2",
+        "occurredAt": "2026-10-11T15:43:35.019Z",
+        "operation": "scroll",
+        "targetUrl": "https://www.tiktok.com/foryou",
+        "attemptedWrite": false,
+        "executedWrite": 0
+      },
+      {
+        "id": "audit_evt_35",
+        "runId": "autorun_2",
+        "occurredAt": "2026-10-11T15:43:20.019Z",
+        "operation": "read_visible",
+        "targetUrl": "https://www.tiktok.com/foryou",
         "attemptedWrite": false,
         "executedWrite": 0
       }

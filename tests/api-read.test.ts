@@ -62,4 +62,11 @@ test('read repository and API provide overview, coverage, and automation data', 
   assert.equal(pipeData.budget.cloudCostYen, 0);
   assert.equal(pipeData.stages.length, 5);
   assert.ok(pipeData.stages[0].totalCount >= 1);
+
+  // Test /api/pipeline with hours filter
+  const pipe1hRes = await handler(new Request('http://localhost/api/pipeline?hours=1'));
+  assert.equal(pipe1hRes.status, 200);
+  const pipe1hData = await pipe1hRes.json();
+  assert.equal(pipe1hData.filter.hours, 1);
+  assert.ok(typeof pipe1hData.stages[0].totalCount === 'number');
 });

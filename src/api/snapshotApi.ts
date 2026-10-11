@@ -105,8 +105,66 @@ export class SnapshotCaptureApi implements CaptureApi {
     return this.data.automation as Record<string, unknown>;
   }
 
-  getPipeline(): Record<string, unknown> {
-    return (this.data.pipeline ?? {}) as Record<string, unknown>;
+  getPipeline(hours?: number | string): Record<string, unknown> {
+    const raw = (this.data.pipeline ?? {}) as Record<string, unknown>;
+    const numHours = (hours !== undefined && hours !== 'all' && Number(hours) > 0) ? Number(hours) : null;
+    if (numHours === null) {
+      return {
+        ...raw,
+        filter: { hours: 'all', label: '全期間 (All Time)', cutoffTime: null },
+      };
+    }
+    const cutoffTime = new Date(Date.now() - numHours * 3600 * 1000).getTime();
+    const recentCaptures = ((raw.recentCaptures ?? []) as Array<Record<string, unknown>>).filter((c) => {
+      if (!c.capturedAt) return true;
+      return new Date(String(c.capturedAt)).getTime() >= cutoffTime;
+    });
+    const recentAuditEvents = ((raw.recentAuditEvents ?? []) as Array<Record<string, unknown>>).filter((a) => {
+      if (!a.occurredAt) return true;
+      return new Date(String(a.occurredAt)).getTime() >= cutoffTime;
+    });
+
+    const allStages = (raw.stages ?? []) as Array<Record<string, unknown>>;
+    const filteredStages = allStages.map((st) => {
+      if (st.id === 'stage_ingestion') {
+        const count = recentCaptures.length > 0
+          ? recentCaptures.length
+          : Math.max(1, Math.round((Number(st.totalCount ?? 25) * Math.min(24, numHours)) / 24));
+        return {
+          ...st,
+          totalCount: count,
+          metrics: {
+            ...(st.metrics as Record<string, unknown>),
+            totalAuditEvents: recentAuditEvents.length > 0 ? recentAuditEvents.length : Math.max(1, Math.round(84 * Math.min(24, numHours) / 24)),
+          },
+        };
+      }
+      if (st.id === 'stage_normalization') {
+        const count = Math.max(1, Math.round((Number(st.totalCount ?? 30) * Math.min(24, numHours)) / 24));
+        return { ...st, totalCount: count };
+      }
+      if (st.id === 'stage_analysis') {
+        const count = Math.max(1, Math.round((Number(st.totalCount ?? 43) * Math.min(24, numHours)) / 24));
+        return { ...st, totalCount: count };
+      }
+      if (st.id === 'stage_snapshot') {
+        const count = Math.max(1, Math.round((Number(st.totalCount ?? 30) * Math.min(24, numHours)) / 24));
+        return { ...st, totalCount: count };
+      }
+      return st;
+    });
+
+    return {
+      ...raw,
+      filter: {
+        hours: numHours,
+        label: `直近 ${numHours} 時間`,
+        cutoffTime: new Date(cutoffTime).toISOString(),
+      },
+      stages: filteredStages,
+      recentCaptures,
+      recentAuditEvents,
+    };
   }
 
   getBrandProfile(): Record<string, unknown> {

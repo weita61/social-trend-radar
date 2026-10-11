@@ -21,7 +21,7 @@ export interface CaptureApi {
   getOverview?(): Record<string, unknown> | Promise<Record<string, unknown>>;
   getCoverage?(): Record<string, unknown> | Promise<Record<string, unknown>>;
   getAutomation?(): Record<string, unknown> | Promise<Record<string, unknown>>;
-  getPipeline?(): Record<string, unknown> | Promise<Record<string, unknown>>;
+  getPipeline?(hours?: number | string): Record<string, unknown> | Promise<Record<string, unknown>>;
   runAnalysis?(): Record<string, unknown> | Promise<Record<string, unknown>>;
   getBrandProfile?(): Record<string, unknown> | Promise<Record<string, unknown>>;
   updateBrandProfile?(profile: Record<string, unknown>): Record<string, unknown> | Promise<Record<string, unknown>>;
@@ -133,7 +133,9 @@ export function createApiHandler(repository: CaptureApi): (request: Request) => 
     }
 
     if (request.method === 'GET' && pathname === '/api/pipeline' && repository.getPipeline !== undefined) {
-      return json(await repository.getPipeline());
+      const hoursParam = url.searchParams.get('hours');
+      const hours = hoursParam !== null ? (hoursParam === 'all' ? 'all' : Number(hoursParam) || undefined) : undefined;
+      return json(await repository.getPipeline(hours));
     }
 
     if (request.method === 'POST' && pathname === '/api/analyze' && repository.runAnalysis !== undefined) {

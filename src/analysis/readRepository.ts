@@ -785,52 +785,151 @@ export class AnalysisReadRepository {
     });
   }
 
-  getPipeline(): Record<string, unknown> {
+  getPipeline(hours?: number | string): Record<string, unknown> {
+    const numHours = (hours !== undefined && hours !== 'all' && Number(hours) > 0) ? Number(hours) : null;
+    const cutoffIso = numHours !== null ? new Date(Date.now() - numHours * 3600 * 1000).toISOString() : null;
+
     const automation = this.getAutomation();
     const trends = this.listTrends();
     const videos = this.listVideos();
 
-    const captureCountRow = this.db.prepare('SELECT COUNT(*) AS total FROM capture_events').get() as Row | undefined;
-    const postCountRow = this.db.prepare('SELECT COUNT(*) AS total FROM posts').get() as Row | undefined;
-    const creatorCountRow = this.db.prepare('SELECT COUNT(*) AS total FROM creators').get() as Row | undefined;
-    const metricCountRow = this.db.prepare('SELECT COUNT(*) AS total FROM metric_snapshots').get() as Row | undefined;
-    const clusterCountRow = this.db.prepare('SELECT COUNT(*) AS total FROM clusters').get() as Row | undefined;
-    const auditCountRow = this.db.prepare('SELECT COUNT(*) AS total FROM automation_audit_events').get() as Row | undefined;
+    let captureCountRow: Row | undefined;
+    let postCountRow: Row | undefined;
+    let creatorCountRow: Row | undefined;
+    let metricCountRow: Row | undefined;
+    let clusterCountRow: Row | undefined;
+    let auditCountRow: Row | undefined;
+    let capturePlatformRows: Row[];
+    let laneRows: Row[];
+    let layerRows: Row[];
+    let assessmentRows: Row[];
+    let recentCaptures: Row[];
+    let recentAuditEvents: Row[];
 
-    const capturePlatformRows = this.db.prepare(`
-      SELECT p.platform, COUNT(ce.id) as count
-      FROM capture_events ce
-      JOIN posts p ON p.id = ce.post_id
-      GROUP BY p.platform
-    `).all() as Row[];
+    if (cutoffIso !== null) {
+      captureCountRow = this.db.prepare('SELECT COUNT(*) AS total FROM capture_events WHERE captured_at >= ?').get(cutoffIso) as Row | undefined;
+      postCountRow = this.db.prepare(`
+        SELECT COUNT(DISTINCT p.id) AS total
+        FROM posts p
+        JOIN capture_events ce ON ce.post_id = p.id
+        WHERE ce.captured_at >= ?
+      `).get(cutoffIso) as Row | undefined;
+      creatorCountRow = this.db.prepare(`
+        SELECT COUNT(DISTINCT p.creator_id) AS total
+        FROM posts p
+        JOIN capture_events ce ON ce.post_id = p.id
+        WHERE ce.captured_at >= ? AND p.creator_id IS NOT NULL
+      `).get(cutoffIso) as Row | undefined;
+      metricCountRow = this.db.prepare('SELECT COUNT(*) AS total FROM metric_snapshots WHERE observed_at >= ?').get(cutoffIso) as Row | undefined;
+      clusterCountRow = this.db.prepare(`
+        SELECT COUNT(DISTINCT cm.cluster_id) AS total
+        FROM cluster_members cm
+        JOIN capture_events ce ON ce.post_id = cm.post_id
+        WHERE ce.captured_at >= ?
+      `).get(cutoffIso) as Row | undefined;
+      auditCountRow = this.db.prepare('SELECT COUNT(*) AS total FROM automation_audit_events WHERE occurred_at >= ?').get(cutoffIso) as Row | undefined;
 
-    const laneRows = this.db.prepare(`
-      SELECT source_lane, COUNT(*) as count
-      FROM capture_events
-      GROUP BY source_lane
-    `).all() as Row[];
+      capturePlatformRows = this.db.prepare(`
+        SELECT p.platform, COUNT(ce.id) as count
+        FROM capture_events ce
+        JOIN posts p ON p.id = ce.post_id
+        WHERE ce.captured_at >= ?
+        GROUP BY p.platform
+      `).all(cutoffIso) as Row[];
 
-    const layerRows = this.db.prepare(`
-      SELECT layer, COUNT(*) as count
-      FROM clusters
-      GROUP BY layer
-    `).all() as Row[];
+      laneRows = this.db.prepare(`
+        SELECT source_lane, COUNT(*) as count
+        FROM capture_events
+        WHERE captured_at >= ?
+        GROUP BY source_lane
+      `).all(cutoffIso) as Row[];
 
-    const assessmentRows = this.db.prepare(`
-      SELECT status, COUNT(*) as count
-      FROM trend_assessments
-      GROUP BY status
-    `).all() as Row[];
+      layerRows = this.db.prepare(`
+        SELECT c.layer, COUNT(DISTINCT c.id) as count
+        FROM clusters c
+        JOIN cluster_members cm ON cm.cluster_id = c.id
+        JOIN capture_events ce ON ce.post_id = cm.post_id
+        WHERE ce.captured_at >= ?
+        GROUP BY c.layer
+      `).all(cutoffIso) as Row[];
 
-    const recentCaptures = this.db.prepare(`
-      SELECT ce.id, ce.captured_at, ce.source_lane, ce.selection_method,
-             p.platform, p.canonical_url, p.caption, cr.handle as creator_handle
-      FROM capture_events ce
-      JOIN posts p ON p.id = ce.post_id
-      LEFT JOIN creators cr ON cr.id = p.creator_id
-      ORDER BY ce.captured_at DESC
-      LIMIT 10
-    `).all() as Row[];
+      assessmentRows = this.db.prepare(`
+        SELECT ta.status, COUNT(DISTINCT ta.cluster_id) as count
+        FROM trend_assessments ta
+        JOIN cluster_members cm ON cm.cluster_id = ta.cluster_id
+        JOIN capture_events ce ON ce.post_id = cm.post_id
+        WHERE ce.captured_at >= ?
+        GROUP BY ta.status
+      `).all(cutoffIso) as Row[];
+
+      recentCaptures = this.db.prepare(`
+        SELECT ce.id, ce.captured_at, ce.source_lane, ce.selection_method,
+               p.platform, p.canonical_url, p.caption, cr.handle as creator_handle
+        FROM capture_events ce
+        JOIN posts p ON p.id = ce.post_id
+        LEFT JOIN creators cr ON cr.id = p.creator_id
+        WHERE ce.captured_at >= ?
+        ORDER BY ce.captured_at DESC
+        LIMIT 20
+      `).all(cutoffIso) as Row[];
+
+      recentAuditEvents = this.db.prepare(`
+        SELECT id, run_id, occurred_at, operation, target_url, attempted_write, executed_write
+        FROM automation_audit_events
+        WHERE occurred_at >= ?
+        ORDER BY occurred_at DESC
+        LIMIT 20
+      `).all(cutoffIso) as Row[];
+    } else {
+      captureCountRow = this.db.prepare('SELECT COUNT(*) AS total FROM capture_events').get() as Row | undefined;
+      postCountRow = this.db.prepare('SELECT COUNT(*) AS total FROM posts').get() as Row | undefined;
+      creatorCountRow = this.db.prepare('SELECT COUNT(*) AS total FROM creators').get() as Row | undefined;
+      metricCountRow = this.db.prepare('SELECT COUNT(*) AS total FROM metric_snapshots').get() as Row | undefined;
+      clusterCountRow = this.db.prepare('SELECT COUNT(*) AS total FROM clusters').get() as Row | undefined;
+      auditCountRow = this.db.prepare('SELECT COUNT(*) AS total FROM automation_audit_events').get() as Row | undefined;
+
+      capturePlatformRows = this.db.prepare(`
+        SELECT p.platform, COUNT(ce.id) as count
+        FROM capture_events ce
+        JOIN posts p ON p.id = ce.post_id
+        GROUP BY p.platform
+      `).all() as Row[];
+
+      laneRows = this.db.prepare(`
+        SELECT source_lane, COUNT(*) as count
+        FROM capture_events
+        GROUP BY source_lane
+      `).all() as Row[];
+
+      layerRows = this.db.prepare(`
+        SELECT layer, COUNT(*) as count
+        FROM clusters
+        GROUP BY layer
+      `).all() as Row[];
+
+      assessmentRows = this.db.prepare(`
+        SELECT status, COUNT(*) as count
+        FROM trend_assessments
+        GROUP BY status
+      `).all() as Row[];
+
+      recentCaptures = this.db.prepare(`
+        SELECT ce.id, ce.captured_at, ce.source_lane, ce.selection_method,
+               p.platform, p.canonical_url, p.caption, cr.handle as creator_handle
+        FROM capture_events ce
+        JOIN posts p ON p.id = ce.post_id
+        LEFT JOIN creators cr ON cr.id = p.creator_id
+        ORDER BY ce.captured_at DESC
+        LIMIT 20
+      `).all() as Row[];
+
+      recentAuditEvents = this.db.prepare(`
+        SELECT id, run_id, occurred_at, operation, target_url, attempted_write, executed_write
+        FROM automation_audit_events
+        ORDER BY occurred_at DESC
+        LIMIT 20
+      `).all() as Row[];
+    }
 
     const totalCaptures = Number(captureCountRow?.total ?? 0);
     const totalPosts = Number(postCountRow?.total ?? 0);
@@ -866,10 +965,15 @@ export class AnalysisReadRepository {
 
     return {
       timestamp: nowIso,
+      filter: {
+        hours: numHours ?? 'all',
+        label: numHours !== null ? `直近 ${numHours} 時間` : '全期間 (All Time)',
+        cutoffTime: cutoffIso,
+      },
       systemHealth: 'operational',
       budget: {
         cloudCostYen: 0,
-        vercelPlan: 'Hobby ($0/mo)',
+        vercelPlan: 'Hobby (/bin/sh/mo)',
         daemonHost: 'Local MacBook Air (Background Daemon)',
         storageType: 'SQLite + WAL Mode (Local SSD)',
         zeroCostGuaranteed: true,
@@ -917,9 +1021,9 @@ export class AnalysisReadRepository {
             databaseEngine: 'node:sqlite (WAL Mode)',
           },
           breakdown: {
-            youtube: platformCaptures.youtube || 12,
-            instagram: platformCaptures.instagram || 8,
-            tiktok: platformCaptures.tiktok || 10,
+            youtube: platformCaptures.youtube || (cutoffIso ? 0 : 12),
+            instagram: platformCaptures.instagram || (cutoffIso ? 0 : 8),
+            tiktok: platformCaptures.tiktok || (cutoffIso ? 0 : 10),
           },
         },
         {
@@ -952,10 +1056,10 @@ export class AnalysisReadRepository {
           name: 'スナップショット生成・静的同期層',
           subtitle: 'Zero-Cloud-Cost Git Auto-Push Delivery',
           status: 'healthy',
-          totalCount: videos.length,
+          totalCount: cutoffIso ? Math.min(totalPosts, videos.length) : videos.length,
           unit: '台本テンプレ動画',
           metrics: {
-            curatedVideos: videos.length,
+            curatedVideos: cutoffIso ? Math.min(totalPosts, videos.length) : videos.length,
             topFormatTemplates: trends.filter((t: any) => t.layer === 'format').length,
             snapshotTarget: 'src/data/seedSnapshot.ts',
             syncTrigger: 'auto-sync-worker.sh / GitHub Actions',
@@ -987,7 +1091,15 @@ export class AnalysisReadRepository {
         caption: r.caption ? String(r.caption).slice(0, 70) : '',
         url: r.canonical_url,
       })),
-      recentAuditEvents: safetyAudit.recentAuditEvents ?? [],
+      recentAuditEvents: recentAuditEvents.map((r) => ({
+        id: r.id,
+        runId: r.run_id,
+        occurredAt: r.occurred_at,
+        operation: r.operation,
+        targetUrl: r.target_url,
+        attemptedWrite: r.attempted_write === 1,
+        executedWrite: r.executed_write ?? 0,
+      })),
     };
   }
 }

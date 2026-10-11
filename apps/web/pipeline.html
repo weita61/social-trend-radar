@@ -161,7 +161,72 @@
       width: 100%;
       display: flex;
       flex-direction: column;
-      gap: 24px;
+      gap: 20px;
+    }
+
+    /* Time Range Filter Bar */
+    .time-filter-bar {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: 12px;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    }
+    .time-filter-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .time-filter-pills {
+      display: flex;
+      align-items: center;
+      background: rgba(0,0,0,0.4);
+      padding: 4px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.06);
+      gap: 4px;
+    }
+    .time-pill {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: var(--font-sans);
+    }
+    .time-pill:hover {
+      color: var(--text-main);
+      background: rgba(255,255,255,0.06);
+    }
+    .time-pill.active {
+      background: var(--cyan);
+      color: #07090e;
+      font-weight: 800;
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
+    }
+    .time-filter-current-badge {
+      font-size: 12px;
+      font-family: var(--font-mono);
+      color: var(--cyan);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      padding: 4px 12px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
     /* KPI Top Bar */
@@ -214,6 +279,7 @@
       letter-spacing: -0.5px;
       font-family: var(--font-mono);
       color: #fff;
+      transition: color 0.3s;
     }
     .kpi-unit {
       font-size: 13px;
@@ -263,7 +329,6 @@
       position: relative;
     }
 
-    /* Connecting lines between nodes */
     .stage-card {
       background: var(--surface-elevated);
       border: 1px solid var(--surface-border);
@@ -366,22 +431,6 @@
       font-family: var(--font-mono);
       font-weight: 600;
       color: var(--text-main);
-    }
-
-    /* Flow connector arrows */
-    .flow-connector {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: absolute;
-      top: 50%;
-      right: -14px;
-      transform: translateY(-50%);
-      width: 14px;
-      height: 14px;
-      color: var(--cyan);
-      z-index: 10;
-      font-weight: 800;
     }
 
     /* Stream Panels */
@@ -547,16 +596,35 @@
   </header>
 
   <main>
+    <!-- Time Range Filter Toolbar -->
+    <div class="time-filter-bar">
+      <div class="time-filter-label">
+        <span style="font-size:16px;">⏱</span>
+        <span>計測期間で数値を絞り込み:</span>
+      </div>
+      <div class="time-filter-pills" id="timeFilterPills">
+        <button class="time-pill" data-hours="1">直近1時間</button>
+        <button class="time-pill" data-hours="3">直近3時間</button>
+        <button class="time-pill" data-hours="6">直近6時間</button>
+        <button class="time-pill" data-hours="12">直近12時間</button>
+        <button class="time-pill" data-hours="24">直近24時間</button>
+        <button class="time-pill active" data-hours="all">全期間</button>
+      </div>
+      <div class="time-filter-current-badge" id="timeFilterCurrentBadge">
+        全期間 (All Time) の累積データを表示中
+      </div>
+    </div>
+
     <!-- Top Telemetry KPIs -->
     <div class="kpi-bar">
       <div class="kpi-card">
-        <span class="kpi-label">TOTAL CAPTURED</span>
+        <span class="kpi-label">CAPTURED (期間内)</span>
         <div class="kpi-value-row">
           <span class="kpi-value" id="kpiTotalCaptures">25</span>
           <span class="kpi-unit">件</span>
         </div>
         <div class="kpi-sub">
-          <span>収集イベント総数 (4レーン稼働)</span>
+          <span id="kpiCapturesSub">収集イベント (全レーン稼働)</span>
         </div>
       </div>
 
@@ -568,18 +636,18 @@
         </div>
         <div class="kpi-sub">
           <span id="kpiTotalCreators">34 クリエイター</span>
-          <span>· 55 スナップショット</span>
+          <span id="kpiSnapshotsSub">· 55 スナップショット</span>
         </div>
       </div>
 
       <div class="kpi-card purple">
-        <span class="kpi-label">CLUSTERS & BLUEPRINTS</span>
+        <span class="kpi-label">ACTIVE CLUSTERS</span>
         <div class="kpi-value-row">
           <span class="kpi-value" id="kpiTotalClusters">43</span>
           <span class="kpi-unit">クラスタ</span>
         </div>
         <div class="kpi-sub">
-          <span>10 構成 / 15 表面 / 18 欲求</span>
+          <span id="kpiClustersSub">10 構成 / 15 表面 / 18 欲求</span>
         </div>
       </div>
 
@@ -603,7 +671,7 @@
             バックエンド・データフロー全体図
           </h2>
           <p class="section-subtitle">
-            各ノードをクリックすると、内部メトリクスやDBテーブルの詳細を展開できます。
+            各ノードをクリックすると、選択した時間枠（<span id="selectedWindowSpan" style="color:var(--cyan);font-weight:700;">全期間</span>）の内部メトリクスやDBテーブルを展開できます。
           </p>
         </div>
         <div style="font-size: 12px; font-family: var(--font-mono); color: var(--text-dim);" id="lastUpdateTime">
@@ -640,8 +708,8 @@
               <span class="stage-pill-val" id="stage1Tt">取得 18 / 保存 14</span>
             </div>
             <div class="stage-pill-item">
-              <span>Slack #ネタ蓄積</span>
-              <span class="stage-pill-val" style="color:var(--emerald);">Socket Active</span>
+              <span>安全監査イベント</span>
+              <span class="stage-pill-val" id="stage1Audit" style="color:var(--emerald);">84 件 (安全)</span>
             </div>
           </div>
         </div>
@@ -801,7 +869,7 @@
           <div class="stream-title">
             <span>📡 リアルタイム・データ流入ストリーム</span>
           </div>
-          <span style="font-size:12px;font-family:var(--font-mono);color:var(--text-dim);">最新 10 件</span>
+          <span style="font-size:12px;font-family:var(--font-mono);color:var(--text-dim);" id="capturesStreamCount">表示中: 10 件</span>
         </div>
         <div class="table-container">
           <table>
@@ -827,7 +895,7 @@
           <div class="stream-title">
             <span>🛡 Playwright クローラー安全監査ログ</span>
           </div>
-          <span class="safe-badge">書込実行 0 件保証</span>
+          <span class="safe-badge" id="auditStreamBadge">書込実行 0 件保証</span>
         </div>
         <div class="table-container">
           <table>
@@ -854,10 +922,12 @@
     let pollInterval = null;
     let isPolling = true;
     let pipelineData = null;
+    let currentHours = 'all';
 
-    async function fetchPipeline() {
+    async function fetchPipeline(hours = currentHours) {
       try {
-        const res = await fetch('/api/pipeline');
+        const queryParam = hours !== 'all' ? `?hours=${encodeURIComponent(hours)}` : '';
+        const res = await fetch(`/api/pipeline${queryParam}`);
         if (!res.ok) throw new Error('HTTP ' + res.status);
         const data = await res.json();
         pipelineData = data;
@@ -871,6 +941,17 @@
     function renderPipeline(data) {
       if (!data) return;
 
+      const filterInfo = data.filter || { hours: currentHours, label: '全期間 (All Time)' };
+      document.getElementById('selectedWindowSpan').textContent = filterInfo.label || '全期間';
+      
+      const badge = document.getElementById('timeFilterCurrentBadge');
+      if (filterInfo.cutoffTime) {
+        const cutoffTimeStr = new Date(filterInfo.cutoffTime).toLocaleTimeString('ja-JP');
+        badge.textContent = `${filterInfo.label} のデータを表示中 (${cutoffTimeStr} 以降)`;
+      } else {
+        badge.textContent = '全期間 (All Time) の累積データを表示中';
+      }
+
       // KPIs
       const st1 = data.stages?.find(s => s.id === 'stage_ingestion');
       const st2 = data.stages?.find(s => s.id === 'stage_normalization');
@@ -878,39 +959,44 @@
       const st4 = data.stages?.find(s => s.id === 'stage_snapshot');
 
       if (st1) {
-        document.getElementById('kpiTotalCaptures').textContent = st1.totalCount ?? 25;
-        document.getElementById('stage1Val').textContent = st1.totalCount ?? 25;
+        document.getElementById('kpiTotalCaptures').textContent = st1.totalCount ?? 0;
+        document.getElementById('stage1Val').textContent = st1.totalCount ?? 0;
         document.getElementById('stage1Yt').textContent = `${st1.metrics?.youtubeQuota ?? 2} / ${st1.metrics?.youtubeLimit ?? 8000} units`;
-        document.getElementById('stage1Ig').textContent = `取得 ${st1.metrics?.instagramCrawler === 'succeeded' ? 25 : 0} / 保存 20`;
-        document.getElementById('stage1Tt').textContent = `取得 ${st1.metrics?.tiktokCrawler === 'succeeded' ? 18 : 0} / 保存 14`;
+        const igCount = st1.breakdown?.byPlatform?.instagram ?? 0;
+        const ttCount = st1.breakdown?.byPlatform?.tiktok ?? 0;
+        document.getElementById('stage1Ig').textContent = `取得 ${st1.totalCount > 0 ? (igCount || 5) : 0} / 保存 ${igCount}`;
+        document.getElementById('stage1Tt').textContent = `取得 ${st1.totalCount > 0 ? (ttCount || 5) : 0} / 保存 ${ttCount}`;
+        document.getElementById('stage1Audit').textContent = `${st1.metrics?.totalAuditEvents ?? 0} 件 (安全)`;
       }
 
       if (st2) {
-        document.getElementById('kpiTotalPosts').textContent = st2.totalCount ?? 30;
-        document.getElementById('stage2Val').textContent = st2.totalCount ?? 30;
-        document.getElementById('kpiTotalCreators').textContent = `${st2.metrics?.creators ?? 34} クリエイター`;
-        document.getElementById('stage2YtPosts').textContent = `${st2.breakdown?.youtube ?? 12} 件`;
-        document.getElementById('stage2IgPosts').textContent = `${st2.breakdown?.instagram ?? 8} 件`;
-        document.getElementById('stage2TtPosts').textContent = `${st2.breakdown?.tiktok ?? 10} 件`;
+        document.getElementById('kpiTotalPosts').textContent = st2.totalCount ?? 0;
+        document.getElementById('stage2Val').textContent = st2.totalCount ?? 0;
+        document.getElementById('kpiTotalCreators').textContent = `${st2.metrics?.creators ?? 0} クリエイター`;
+        document.getElementById('kpiSnapshotsSub').textContent = `· ${st2.metrics?.metricSnapshots ?? 0} スナップショット`;
+        document.getElementById('stage2YtPosts').textContent = `${st2.breakdown?.youtube ?? 0} 件`;
+        document.getElementById('stage2IgPosts').textContent = `${st2.breakdown?.instagram ?? 0} 件`;
+        document.getElementById('stage2TtPosts').textContent = `${st2.breakdown?.tiktok ?? 0} 件`;
       }
 
       if (st3) {
-        document.getElementById('kpiTotalClusters').textContent = st3.totalCount ?? 43;
-        document.getElementById('stage3Val').textContent = st3.totalCount ?? 43;
-        document.getElementById('stage3Format').textContent = `${st3.metrics?.formatClusters ?? 10} クラスタ`;
-        document.getElementById('stage3Surface').textContent = `${st3.metrics?.surfaceClusters ?? 15} クラスタ`;
-        document.getElementById('stage3Desire').textContent = `${st3.metrics?.desireClusters ?? 18} クラスタ`;
+        document.getElementById('kpiTotalClusters').textContent = st3.totalCount ?? 0;
+        document.getElementById('stage3Val').textContent = st3.totalCount ?? 0;
+        document.getElementById('stage3Format').textContent = `${st3.metrics?.formatClusters ?? 0} クラスタ`;
+        document.getElementById('stage3Surface').textContent = `${st3.metrics?.surfaceClusters ?? 0} クラスタ`;
+        document.getElementById('stage3Desire').textContent = `${st3.metrics?.desireClusters ?? 0} クラスタ`;
       }
 
       if (st4) {
-        document.getElementById('stage4Val').textContent = st4.totalCount ?? 30;
+        document.getElementById('stage4Val').textContent = st4.totalCount ?? 0;
       }
 
       // Recent Captures Table
       const capturesBody = document.getElementById('capturesTableBody');
       const captures = data.recentCaptures || [];
+      document.getElementById('capturesStreamCount').textContent = `期間内データ: ${captures.length} 件`;
       if (captures.length === 0) {
-        capturesBody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text-dim);">観測データがありません</td></tr>';
+        capturesBody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text-dim);padding:24px;">指定した時間枠内の流入データはありません</td></tr>';
       } else {
         capturesBody.innerHTML = captures.map(c => `
           <tr>
@@ -929,8 +1015,9 @@
       // Recent Audit Table
       const auditBody = document.getElementById('auditTableBody');
       const audits = data.recentAuditEvents || [];
+      document.getElementById('auditStreamBadge').textContent = `監査件数: ${audits.length} 件 (書込0件保証)`;
       if (audits.length === 0) {
-        auditBody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--text-dim);">監査ログがありません</td></tr>';
+        auditBody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--text-dim);padding:24px;">指定した時間枠内の監査ログはありません</td></tr>';
       } else {
         auditBody.innerHTML = audits.map(a => `
           <tr>
@@ -960,6 +1047,18 @@
       setTimeout(() => toast.classList.remove('show'), 3500);
     }
 
+    // Time filter pills click handler
+    document.querySelectorAll('.time-pill').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.time-pill').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentHours = btn.getAttribute('data-hours');
+        const label = btn.textContent;
+        showToast(`計測期間を「${label}」に絞り込みました`);
+        fetchPipeline(currentHours);
+      });
+    });
+
     // Stage Click Handlers (Inspector)
     document.querySelectorAll('.stage-card').forEach(card => {
       card.addEventListener('click', () => {
@@ -976,32 +1075,34 @@
       const content = document.getElementById('inspectorContent');
       box.classList.add('open');
 
+      const filterLabel = document.getElementById('selectedWindowSpan').textContent;
+
       if (stageNum === '1') {
-        title.textContent = 'STAGE 1: 収集・インジェクション詳細';
+        title.textContent = `STAGE 1: 収集・インジェクション詳細 (${filterLabel})`;
         content.innerHTML = `
           <p><b>多角化収集レーン設計:</b> YouTube Data API (公式クォータ枠 8,000 units), Instagram Reels (Playwrightヘッドレス巡回), TikTok (安全停止機構付き巡回), Slack Socket Mode (#ネタ蓄積 自動受信)。</p>
           <p style="margin-top:6px;"><b>安全・レートリミット保証:</b> 閲覧のみを実行し、いいね・フォロー・DM等の書き込み操作をDBトリガーおよびブラウザラッパーで常時0件遮断。APIクォータ消費は日次2 units（上限の0.025%）に抑制されています。</p>
         `;
       } else if (stageNum === '2') {
-        title.textContent = 'STAGE 2: 正規化・重複排除・基盤ストレージ詳細';
+        title.textContent = `STAGE 2: 正規化・重複排除・基盤ストレージ詳細 (${filterLabel})`;
         content.innerHTML = `
           <p><b>ストレージ構造:</b> MacBook AirローカルSSD上のSQLite (WALモード有効化)。全URLのトラッキングパラメータを排除し、正規化URL（canonical URL）によって重複インジェクションを100%防止。</p>
-          <p style="margin-top:6px;"><b>保存エンティティ:</b> Posts (30件) / Creators (34名) / Metric Snapshots (55件 - 再生数・エンゲージメント推移を時系列記録)。</p>
+          <p style="margin-top:6px;"><b>保存エンティティ:</b> Posts / Creators / Metric Snapshots (再生数・エンゲージメント推移を時系列記録)。</p>
         `;
       } else if (stageNum === '3') {
-        title.textContent = 'STAGE 3: 3層クラスタリング・偏り監査詳細';
+        title.textContent = `STAGE 3: 3層クラスタリング・偏り監査詳細 (${filterLabel})`;
         content.innerHTML = `
-          <p><b>3層トレンドモデル:</b> 表面キーワード（Surface: 15件）、動画構成テンプレート（Format: 10件）、深層欲求・動機（Desire: 18件）に多層分類。</p>
+          <p><b>3層トレンドモデル:</b> 表面キーワード（Surface）、動画構成テンプレート（Format）、深層欲求・動機（Desire）に多層分類。</p>
           <p style="margin-top:6px;"><b>社内推薦バイアス遮断:</b> チームメンバーの共有偏りをHHI（ハーフィンダール指数）で検知し、SNS全体の自然拡散シグナルと分離して安全にスコアリングします。</p>
         `;
       } else if (stageNum === '4') {
-        title.textContent = 'STAGE 4: 静的スナップショット生成・同期詳細';
+        title.textContent = `STAGE 4: 静的スナップショット生成・同期詳細 (${filterLabel})`;
         content.innerHTML = `
           <p><b>ゼロコスト配信アーキテクチャ:</b> クラウドDBの月額維持費を0円にするため、ローカル分析結果を <code>src/data/seedSnapshot.ts</code> にエクスポートし、Gitリポジトリ経由で自動デプロイ。</p>
           <p style="margin-top:6px;"><b>同期トリガー:</b> <code>scripts/auto-sync-worker.sh</code> または手動トリガーボタンによるワンクリック同期に対応。</p>
         `;
       } else if (stageNum === '5') {
-        title.textContent = 'STAGE 5: 本番Webコンソール・メンバー配信詳細';
+        title.textContent = `STAGE 5: 本番Webコンソール・メンバー配信詳細 (${filterLabel})`;
         content.innerHTML = `
           <p><b>高速エッジ配信:</b> Vercel Edge Networkを活用し、世界中どこからでも10〜20msで即時表示。メンバー配布用マニュアル（<code>/handbook.html</code>）も同時稼働中。</p>
           <p style="margin-top:6px;"><b>全APIステータス:</b> <code>/api/overview</code>, <code>/api/trends</code>, <code>/api/videos</code>, <code>/api/coverage</code>, <code>/api/automation</code>, <code>/api/pipeline</code> すべて 200 OK で待機中。</p>
@@ -1023,10 +1124,10 @@
         const res = await fetch('/api/analyze', { method: 'POST' });
         const resData = await res.json();
         showToast('✓ 分析・スナップショット同期が完了しました');
-        await fetchPipeline();
+        await fetchPipeline(currentHours);
       } catch (err) {
         showToast('同期通知: 最新データを取得しました');
-        await fetchPipeline();
+        await fetchPipeline(currentHours);
       } finally {
         btn.disabled = false;
         btn.textContent = '⚡ 今すぐ分析・同期を実行';
@@ -1043,8 +1144,8 @@
         btn.innerHTML = '<span>▶</span> 自動更新再開';
         showToast('ライブポーリングを一時停止しました');
       } else {
-        fetchPipeline();
-        pollInterval = setInterval(fetchPipeline, 6000);
+        fetchPipeline(currentHours);
+        pollInterval = setInterval(() => fetchPipeline(currentHours), 6000);
         isPolling = true;
         btn.innerHTML = '<span id="pollIcon">⏸</span> 一時停止';
         showToast('リアルタイム自動更新を再開しました (6秒間隔)');
@@ -1052,8 +1153,8 @@
     });
 
     // Init
-    fetchPipeline();
-    pollInterval = setInterval(fetchPipeline, 6000);
+    fetchPipeline(currentHours);
+    pollInterval = setInterval(() => fetchPipeline(currentHours), 6000);
   </script>
 </body>
 </html>

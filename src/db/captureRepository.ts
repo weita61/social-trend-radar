@@ -248,8 +248,8 @@ export class CaptureRepository {
     return new AnalysisReadRepository(this.db).getAutomation();
   }
 
-  getPipeline(): Record<string, unknown> {
-    return new AnalysisReadRepository(this.db).getPipeline();
+  getPipeline(hours?: number | string): Record<string, unknown> {
+    return new AnalysisReadRepository(this.db).getPipeline(hours);
   }
 
   runAnalysis(): Record<string, unknown> {
