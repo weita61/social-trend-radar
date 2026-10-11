@@ -80,11 +80,7 @@
   const jevRefreshBtn = document.getElementById('jevRefreshBtn');
   const bpTargetVideoBanner = document.getElementById('bpTargetVideoBanner');
   const bpTargetVideoTitle = document.getElementById('bpTargetVideoTitle');
-  const btnBackToVdb = document.getElementById('btnBackToVdb');
-  const btnCloseEvidence = document.getElementById('btnCloseEvidence');
   const btnHeaderCloseVdb = document.getElementById('btnHeaderCloseVdb');
-  const btnBannerClose = document.getElementById('btnBannerClose');
-  const btnBpBackToVdb = document.getElementById('btnBpBackToVdb');
 
   function renderStepsHtml(rawText) {
     if (!rawText) return '<div class="timeline-step"><span class="step-text">-</span></div>';
@@ -276,11 +272,7 @@
     }
   }
 
-  if (btnBackToVdb) btnBackToVdb.addEventListener('click', returnToVideoDb);
-  if (btnCloseEvidence) btnCloseEvidence.addEventListener('click', returnToVideoDb);
   if (btnHeaderCloseVdb) btnHeaderCloseVdb.addEventListener('click', returnToVideoDb);
-  if (btnBannerClose) btnBannerClose.addEventListener('click', returnToVideoDb);
-  if (btnBpBackToVdb) btnBpBackToVdb.addEventListener('click', returnToVideoDb);
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {

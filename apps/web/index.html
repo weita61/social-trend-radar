@@ -198,25 +198,13 @@
 
           <!-- TREND DETAIL (ACTIONABLE BLUEPRINT & DECONSTRUCTION) -->
           <aside class="evidence" id="evidencePanel">
-            <!-- BACK / CLOSE TO VIDEO DB NAVIGATION BAR -->
-            <div class="evidence-back-nav" id="evidenceBackNav">
-              <button type="button" class="btn-back-to-vdb" id="btnBackToVdb">
-                ← 動画データベース一覧に戻る
-              </button>
-              <button type="button" class="btn-close-evidence" id="btnCloseEvidence" title="動画データベース一覧に戻る">
-                ✕ 閉じる
-              </button>
-            </div>
-
             <header>
               <div class="detail-header-top">
                 <div class="detail-badges-group">
                   <span class="state" id="detailStatusBadge">STATUS</span>
                   <span class="demo" id="detailLayerBadge">企画パターン</span>
                 </div>
-                <button type="button" class="btn-header-close-vdb" id="btnHeaderCloseVdb" title="動画データベース一覧に戻る">
-                  ✕ 閉じる (動画一覧へ)
-                </button>
+                <button type="button" class="btn-header-close-vdb" id="btnHeaderCloseVdb" title="閉じる">✕ 閉じる</button>
               </div>
               <h2 id="detailTitle">トレンドを選択してください</h2>
               <div class="detail-meta-line" id="detailMeta">-</div>
@@ -230,11 +218,8 @@
                   <div class="jev-status-badge" id="jevSourceBadge">⚡ Jev AI 企画レシピ（無料枠稼働中）</div>
                 </div>
                 <div id="bpTargetVideoBanner" class="bp-target-banner" style="display:none;">
-                  <div class="bp-target-content">
-                    <span class="bp-target-label">🎯 動画連動中:</span>
-                    <span id="bpTargetVideoTitle" class="bp-target-title">-</span>
-                  </div>
-                  <button type="button" class="btn-banner-close" id="btnBannerClose" title="動画データベースに戻る">✕ 閉じる (動画一覧へ)</button>
+                  <span class="bp-target-label">🎯 連動中のお手本動画:</span>
+                  <span id="bpTargetVideoTitle" class="bp-target-title">-</span>
                 </div>
                 <div class="blueprint-grid">
                   <!-- 自社アカウントでの応用コンセプト -->
@@ -272,9 +257,6 @@
                     <p id="bpHitReason" style="font-size:12px;color:var(--muted);">-</p>
                   </div>
                   <div class="blueprint-actions">
-                    <button type="button" class="btn-bp-back-to-vdb" id="btnBpBackToVdb">
-                      ← 動画データベースに戻る
-                    </button>
                     <button type="button" class="btn-jev-refresh" id="jevRefreshBtn">
                       ⚡ Jev AIで企画レシピを再生成（無料枠）
                     </button>
