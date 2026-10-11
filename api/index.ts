@@ -35,11 +35,14 @@ async function toRequest(req: IncomingMessage): Promise<Request> {
     if (chunks.length > 0) body = Buffer.concat(chunks);
   }
 
-  return new Request(url, {
+  const init: RequestInit = {
     method,
     headers: req.headers as HeadersInit,
-    ...(body !== undefined ? { body } : {}),
-  });
+  };
+  if (body !== undefined) {
+    init.body = new Uint8Array(body);
+  }
+  return new Request(url, init);
 }
 
 export default async function (req: IncomingMessage, res: ServerResponse): Promise<void> {

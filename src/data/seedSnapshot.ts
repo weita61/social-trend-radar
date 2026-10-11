@@ -1283,5 +1283,6 @@ export const snapshotData = {
     "valueProposition": "実践的な活動経験・ビジネススキル、刺激し合える同世代の仲間コミュニティ",
     "toneAndManner": "親しみやすい先輩目線、説教くさくなくリアルな学生目線で共感を誘う"
   }
-} as const;
+};
 export default snapshotData;
+

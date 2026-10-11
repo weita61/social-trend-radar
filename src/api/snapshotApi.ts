@@ -19,7 +19,7 @@ export class SnapshotCaptureApi implements CaptureApi {
   }
 
   listTrends(filters: TrendFilters = {}): Record<string, unknown>[] {
-    let trends = (this.data.trends ?? []) as Record<string, unknown>[];
+    let trends = (this.data.trends ?? []) as unknown as Record<string, unknown>[];
     if (filters.layer) {
       trends = trends.filter((t) => t.layer === filters.layer);
     }
@@ -33,7 +33,7 @@ export class SnapshotCaptureApi implements CaptureApi {
   }
 
   listVideos(filters: VideoFilters = {}): Record<string, unknown>[] {
-    let list = (this.data.videos ?? []) as Record<string, unknown>[];
+    let list = (this.data.videos ?? []) as unknown as Record<string, unknown>[];
     if (filters.template && filters.template !== 'all') {
       list = list.filter((v) => v.templateKey === filters.template);
     }
@@ -56,7 +56,7 @@ export class SnapshotCaptureApi implements CaptureApi {
   }
 
   getTrend(id: string): Record<string, unknown> | null {
-    const trend = (this.data.trends as Record<string, unknown>[]).find((t) => t.id === id);
+    const trend = ((this.data.trends ?? []) as unknown as Record<string, unknown>[]).find((t) => t.id === id);
     if (!trend) return null;
 
     const blueprint = this.jev.generateMarketingBlueprintSync({
@@ -74,7 +74,7 @@ export class SnapshotCaptureApi implements CaptureApi {
   }
 
   async generateJevBlueprintForTrend(id: string, brandProfile?: BrandProfile): Promise<Record<string, unknown> | null> {
-    const trend = (this.data.trends as Record<string, unknown>[]).find((t) => t.id === id);
+    const trend = ((this.data.trends ?? []) as unknown as Record<string, unknown>[]).find((t) => t.id === id);
     if (!trend) return null;
 
     const profileToUse = brandProfile ?? this.brandProfile;
@@ -112,7 +112,7 @@ export class SnapshotCaptureApi implements CaptureApi {
   }
 
   getPost(id: string): Record<string, unknown> | null {
-    const video = (this.data.videos as Record<string, unknown>[]).find((v) => v.id === id);
+    const video = ((this.data.videos ?? []) as unknown as Record<string, unknown>[]).find((v) => v.id === id);
     return video ?? null;
   }
 
