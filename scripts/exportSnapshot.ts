@@ -10,7 +10,10 @@ export function exportSnapshot(): void {
     const snapshot = {
       exportedAt: new Date().toISOString(),
       overview: repo.getOverview(),
-      trends: repo.listTrends({ layer: 'format' }),
+      trends: repo.listTrends({ layer: 'format' }).map((t) => {
+        const full = repo.getTrend(String(t.id));
+        return full ?? t;
+      }),
       videos: repo.listVideos(),
       coverage: repo.getCoverage(),
       automation: repo.getAutomation(),

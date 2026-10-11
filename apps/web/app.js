@@ -641,7 +641,7 @@
         </div>
 
         <div class="vcard-actions">
-          <a class="btn-open-video" href="${escapeHtml(v.canonicalUrl || '#')}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">
+          <a class="btn-open-video" href="${escapeHtml(v.canonicalUrl || v.url || '#')}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">
             元動画を開く ↗
           </a>
           <button class="btn-view-blueprint" data-cluster-id="${escapeHtml(v.formatClusterId || '')}" data-template-key="${escapeHtml(v.templateKey || '')}" data-video-title="${escapeHtml(v.title || '')}" data-creator-handle="${escapeHtml(v.creatorHandle || '')}">
@@ -1027,7 +1027,7 @@
             </div>
 
             <div class="ev-actions-row">
-              <a class="ev-link-button" href="${escapeHtml(p.canonicalUrl || '#')}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">
+              <a class="ev-link-button" href="${escapeHtml(p.canonicalUrl || p.url || '#')}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">
                 ${platformUpper} で元動画を開く <span>↗</span>
               </a>
               <button type="button" class="btn-sync-blueprint">

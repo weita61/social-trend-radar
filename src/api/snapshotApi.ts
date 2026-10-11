@@ -75,10 +75,16 @@ export class SnapshotCaptureApi implements CaptureApi {
       brandProfile: this.brandProfile,
     });
 
+    const evidencePosts = (trend.evidencePosts as Array<Record<string, unknown>> | undefined)
+      ?? ((this.data.videos ?? []) as unknown as Array<Record<string, unknown>>).filter((v) =>
+        v.formatClusterId === id || v.templateKey === trend.label
+      );
+
     return {
       ...trend,
-      actionableAdvice: blueprint,
-      jevBlueprint: blueprint,
+      evidencePosts,
+      actionableAdvice: (trend.actionableAdvice as Record<string, unknown> | undefined) ?? blueprint,
+      jevBlueprint: (trend.jevBlueprint as Record<string, unknown> | undefined) ?? blueprint,
     };
   }
 

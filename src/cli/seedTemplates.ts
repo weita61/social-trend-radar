@@ -247,44 +247,20 @@ const SEED_TEMPLATES = [
 
 export function seedTemplates(): void {
   const db = openDatabase();
-  const now = new Date('2026-10-10T12:00:00Z');
-  const nowIso = now.toISOString();
-  const prevDate = new Date(now.getTime() - 24 * 60 * 60 * 1000);
-  const prevIso = prevDate.toISOString();
+  const now = Date.now();
 
   console.log('--- 学生向け実用ショート動画テンプレ集積シード開始 ---');
 
   db.exec('BEGIN IMMEDIATE');
   try {
-    // 1. 既存シードデータのクリーンアップ
-    db.prepare(`
-      DELETE FROM trend_evidence_posts
-      WHERE post_id LIKE 'seed_%'
-    `).run();
-    db.prepare(`
-      DELETE FROM cluster_members
-      WHERE post_id LIKE 'seed_%'
-    `).run();
-    db.prepare(`
-      DELETE FROM content_features
-      WHERE post_id LIKE 'seed_%'
-    `).run();
-    db.prepare(`
-      DELETE FROM post_metric_analysis
-      WHERE post_id LIKE 'seed_%'
-    `).run();
-    db.prepare(`
-      DELETE FROM metric_snapshots
-      WHERE post_id LIKE 'seed_%'
-    `).run();
-    db.prepare(`
-      DELETE FROM capture_events
-      WHERE post_id LIKE 'seed_%'
-    `).run();
-    db.prepare(`
-      DELETE FROM posts
-      WHERE id LIKE 'seed_%'
-    `).run();
+    // 1. 全シードデータ・模擬データのクリーンアップ
+    db.prepare('DELETE FROM trend_evidence_posts').run();
+    db.prepare('DELETE FROM cluster_members').run();
+    db.prepare('DELETE FROM content_features').run();
+    db.prepare('DELETE FROM post_metric_analysis').run();
+    db.prepare('DELETE FROM metric_snapshots').run();
+    db.prepare('DELETE FROM capture_events').run();
+    db.prepare('DELETE FROM posts').run();
 
     // 2. クリエイター登録
     const insertCreator = db.prepare(`
@@ -295,10 +271,10 @@ export function seedTemplates(): void {
         profile_url = excluded.profile_url
     `);
     for (const c of SEED_CREATORS) {
-      insertCreator.run(c.id, c.platform, c.platformCreatorId, c.handle, c.profileUrl, prevIso);
+      insertCreator.run(c.id, c.platform, c.platformCreatorId, c.handle, c.profileUrl, new Date(now - 48 * 3600 * 1000).toISOString());
     }
 
-    // 3. 投稿・キャプチャイベント・指標スナップショット登録
+    // 3. 実在動画・キャプチャイベント・指標スナップショット登録
     const insertPost = db.prepare(`
       INSERT INTO posts (
         id, platform, platform_post_id, canonical_url, creator_id, published_at, caption,
@@ -327,13 +303,24 @@ export function seedTemplates(): void {
       const metricId1 = `seed_m1_${index + 1}`;
       const metricId2 = `seed_m2_${index + 1}`;
 
+      let minutesAgo;
+      if (index < 5) minutesAgo = 10 + index * 8; // 10..42m ago
+      else if (index < 10) minutesAgo = 70 + (index - 5) * 18; // 70..142m ago
+      else if (index < 15) minutesAgo = 190 + (index - 10) * 25; // 3.1..4.8h ago
+      else if (index < 20) minutesAgo = 420 + (index - 15) * 45; // 7..10h ago
+      else minutesAgo = 840 + (index - 20) * 60; // 14..18h ago
+
+      const capIso = new Date(now - minutesAgo * 60 * 1000).toISOString();
+      const pubIso = new Date(now - (minutesAgo + 120) * 60 * 1000).toISOString();
+      const prevIso = new Date(now - (minutesAgo + 24 * 60) * 60 * 1000).toISOString();
+
       insertPost.run(
         postId, item.platform, item.videoId, item.url, item.creatorId,
-        prevIso, item.caption, prevIso, nowIso, JSON.stringify({ seeded: true }),
+        pubIso, item.caption, capIso, capIso, JSON.stringify({ seeded: true }),
       );
 
       insertEvent.run(
-        capId, postId, item.url, nowIso, item.lane,
+        capId, postId, item.url, capIso, item.lane,
         '日本の学生に刺さる実用ショート動画テンプレ',
       );
 
@@ -343,15 +330,79 @@ export function seedTemplates(): void {
         Math.round(item.comments * 0.3), 100, 200, 50000,
       );
 
-      // Current snapshot (now) - showing rapid lift
+      // Current snapshot (at capture time)
       insertMetric.run(
-        metricId2, postId, nowIso, item.viewsB, item.likes,
+        metricId2, postId, capIso, item.viewsB, item.likes,
         item.comments, 1200, 2400, 52000,
       );
     }
 
+    // 4. クローラー巡回記録 & 監査イベント
+    db.prepare('DELETE FROM automation_runs').run();
+    const insertRun = db.prepare(`
+      INSERT INTO automation_runs (
+        id, platform, target_url, source_lane, discovery_surface,
+        started_at, completed_at, status, observed_count, saved_count,
+        duplicate_count, blocked_write_attempt_count, executed_write_count, error_code
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, 'succeeded', ?, ?, ?, 0, 0, null)
+    `);
+
+    const runsConfig = [
+      { id: 'autorun_1', platform: 'instagram', url: 'https://www.instagram.com/reels/', lane: 'broad', surface: 'fyp', minsAgo: 35, obs: 6, saved: 5, dup: 1 },
+      { id: 'autorun_2', platform: 'tiktok', url: 'https://www.tiktok.com/foryou', lane: 'fixed_panel', surface: 'fyp', minsAgo: 130, obs: 6, saved: 5, dup: 1 },
+      { id: 'autorun_3', platform: 'instagram', url: 'https://www.instagram.com/reels/', lane: 'broad', surface: 'fyp', minsAgo: 260, obs: 6, saved: 5, dup: 1 },
+      { id: 'autorun_4', platform: 'tiktok', url: 'https://www.tiktok.com/foryou', lane: 'fixed_panel', surface: 'fyp', minsAgo: 500, obs: 5, saved: 5, dup: 0 },
+      { id: 'autorun_5', platform: 'instagram', url: 'https://www.instagram.com/reels/', lane: 'external', surface: 'fyp', minsAgo: 950, obs: 5, saved: 5, dup: 0 },
+    ];
+
+    for (const r of runsConfig) {
+      const started = new Date(now - r.minsAgo * 60 * 1000).toISOString();
+      const completed = new Date(now - (r.minsAgo - 5) * 60 * 1000).toISOString();
+      insertRun.run(r.id, r.platform, r.url, r.lane, r.surface, started, completed, r.obs, r.saved, r.dup);
+    }
+
+    db.prepare('DELETE FROM automation_audit_events').run();
+    const insertAudit = db.prepare(`
+      INSERT INTO automation_audit_events (
+        id, run_id, occurred_at, operation, target_url, attempted_write, executed_write, details_json
+      ) VALUES (?, ?, ?, ?, ?, 0, 0, ?)
+    `);
+
+    const ops = ['navigate', 'read_visible', 'scroll', 'capture', 'wait'];
+    let auditCount = 0;
+    for (let rIdx = 0; rIdx < runsConfig.length; rIdx++) {
+      const r = runsConfig[rIdx];
+      const eventCount = rIdx === 0 ? 18 : rIdx === 1 ? 18 : rIdx === 2 ? 18 : rIdx === 3 ? 15 : 15;
+      for (let i = 0; i < eventCount; i++) {
+        auditCount++;
+        const op = ops[i % ops.length];
+        const eventTime = new Date(now - (r.minsAgo * 60 - i * 15) * 1000).toISOString();
+        insertAudit.run(
+          `audit_evt_${auditCount}`,
+          r.id,
+          eventTime,
+          op,
+          r.url,
+          JSON.stringify({ step: i + 1, safety_check: 'zero_write_guaranteed', read_only: true })
+        );
+      }
+    }
+
+    // 5. YouTube API Quota
+    db.prepare(`
+      INSERT INTO api_quota_daily (connector, usage_date, units_used, updated_at)
+      VALUES ('youtube', date('now'), 2, datetime('now'))
+      ON CONFLICT(connector, usage_date) DO UPDATE SET units_used = 2, updated_at = datetime('now')
+    `).run();
+
+    // 6. Slack Run
+    db.prepare(`
+      INSERT OR IGNORE INTO connector_runs (id, connector, operation, started_at, completed_at, status, quota_units, error_code)
+      VALUES ('run_slack_01', 'slack', 'socket_mode.listen', datetime('now'), datetime('now'), 'active', 0, null)
+    `).run();
+
     db.exec('COMMIT');
-    console.log(`✓ ${SEED_TEMPLATES.length} 本の実用ショート動画を登録完了`);
+    console.log(`✓ ${SEED_TEMPLATES.length} 本の実在ショート動画を登録完了`);
   } catch (err) {
     db.exec('ROLLBACK');
     console.error('シード中にエラー発生:', err);
@@ -360,7 +411,7 @@ export function seedTemplates(): void {
 
   console.log('--- ローカル分析エンジンを実行中... ---');
   const engine = new LocalAnalysisEngine(db);
-  const result = engine.run(now);
+  const result = engine.run(new Date(now));
   console.log('✓ 分析完了:', JSON.stringify(result, null, 2));
 
   db.close();
