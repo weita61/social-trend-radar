@@ -330,9 +330,9 @@
 
   // Video DB Template Filters
   if (vdbTemplateToolbar) {
-    vdbTemplateToolbar.querySelectorAll('.chip').forEach((chip) => {
+    vdbTemplateToolbar.querySelectorAll('button.chip[data-template]').forEach((chip) => {
       chip.addEventListener('click', () => {
-        vdbTemplateToolbar.querySelectorAll('.chip').forEach((c) => c.classList.toggle('active', c === chip));
+        vdbTemplateToolbar.querySelectorAll('button.chip[data-template]').forEach((c) => c.classList.toggle('active', c === chip));
         vdbActiveTemplate = chip.dataset.template;
         renderVideoDatabase();
       });
@@ -341,9 +341,9 @@
 
   // Video DB Category Filters
   if (vdbCategoryToolbar) {
-    vdbCategoryToolbar.querySelectorAll('.chip').forEach((chip) => {
+    vdbCategoryToolbar.querySelectorAll('button.chip[data-category]').forEach((chip) => {
       chip.addEventListener('click', () => {
-        vdbCategoryToolbar.querySelectorAll('.chip').forEach((c) => c.classList.toggle('active', c === chip));
+        vdbCategoryToolbar.querySelectorAll('button.chip[data-category]').forEach((c) => c.classList.toggle('active', c === chip));
         vdbActiveCategory = chip.dataset.category;
         renderVideoDatabase();
       });

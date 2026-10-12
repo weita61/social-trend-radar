@@ -272,6 +272,24 @@ h1 {
   border-color: var(--ink);
 }
 
+.toolbar-select {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--ink);
+  padding: 6px 12px;
+  border-radius: 99px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  outline: none;
+  transition: all 0.15s;
+}
+
+.toolbar-select:hover {
+  border-color: var(--ink);
+}
+
 .spacer {
   flex: 1;
 }
