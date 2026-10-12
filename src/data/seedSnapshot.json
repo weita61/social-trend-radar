@@ -1,5 +1,5 @@
 {
-  "exportedAt": "2026-10-11T18:03:41.716Z",
+  "exportedAt": "2026-10-12T16:27:15.993Z",
   "overview": {
     "totalClusters": 43,
     "marketTrendCount": 4,
@@ -11,9 +11,9 @@
     "totalCreators": 34,
     "averageConfidence": 0.68,
     "lastAnalysis": {
-      "id": "analysis_ce3e39e581f34b3b8fedc28e713dbbbb",
-      "startedAt": "2026-10-11T18:01:26.165Z",
-      "completedAt": "2026-10-11T18:01:26.165Z",
+      "id": "analysis_e62f2bcf0d26482baf669d63d8c00379",
+      "startedAt": "2026-10-12T16:27:15.926Z",
+      "completedAt": "2026-10-12T16:27:15.926Z",
       "status": "succeeded",
       "postCount": 25,
       "clusterCount": 43
@@ -36,7 +36,7 @@
       "noveltyCandidate": false,
       "status": "market_trend",
       "gatePassed": true,
-      "universalScore": 63.73487010400465,
+      "universalScore": 63.09043507160211,
       "teamInterestScore": 0,
       "evidenceCount": 5,
       "independentCreatorCount": 4,
@@ -70,7 +70,7 @@
         "crossLane": 75,
         "crossPlatform": 33.33333333333333,
         "engagement": 31.80580019605336,
-        "freshness": 99.79188352992992
+        "freshness": 93.34753320590453
       },
       "actionableAdvice": {
         "recommendedHook": "「フライパン1つで5分！もう外食行けなくなる悪魔の〇〇」「これ知ったらもう普通に戻れない」",
@@ -1430,7 +1430,7 @@
           "reproducibilityScore": 100,
           "brandFitScore": 60,
           "audienceFitScore": 33.33333333333333,
-          "computedAt": "2026-10-11T18:01:26.165Z"
+          "computedAt": "2026-10-12T16:27:15.926Z"
         }
       ]
     },
@@ -1450,7 +1450,7 @@
       "noveltyCandidate": false,
       "status": "market_trend",
       "gatePassed": true,
-      "universalScore": 60.417847291348636,
+      "universalScore": 59.77264461754496,
       "teamInterestScore": 0,
       "evidenceCount": 6,
       "independentCreatorCount": 3,
@@ -1484,7 +1484,7 @@
         "crossLane": 50,
         "crossPlatform": 66.66666666666666,
         "engagement": 30.982030191690324,
-        "freshness": 99.91075413354781
+        "freshness": 93.4587273955111
       },
       "actionableAdvice": {
         "recommendedHook": "「英語メール、まだDearで送ってない？実は…」「バイトでこれ言ってたら即注意されるNG敬語」「実はこれ、9割の大学生が損してます」",
@@ -2440,7 +2440,7 @@
           "reproducibilityScore": 80,
           "brandFitScore": 60,
           "audienceFitScore": 66.66666666666666,
-          "computedAt": "2026-10-11T18:01:26.165Z"
+          "computedAt": "2026-10-12T16:27:15.926Z"
         }
       ]
     },
@@ -2460,7 +2460,7 @@
       "noveltyCandidate": true,
       "status": "insufficient_evidence",
       "gatePassed": false,
-      "universalScore": 57.902817322196526,
+      "universalScore": 57.28706900755574,
       "teamInterestScore": 0,
       "evidenceCount": 2,
       "independentCreatorCount": 2,
@@ -2494,7 +2494,7 @@
         "crossLane": 50,
         "crossPlatform": 33.33333333333333,
         "engagement": 27.6890746124031,
-        "freshness": 95.34969548334767
+        "freshness": 89.19221233693986
       },
       "actionableAdvice": {
         "recommendedHook": "「大学生、絶対に1回はやったことある説」「〇〇な人しか共感できないあるある」",
@@ -3072,7 +3072,7 @@
           "reproducibilityScore": 70,
           "brandFitScore": 60,
           "audienceFitScore": 33.33333333333333,
-          "computedAt": "2026-10-11T18:01:26.165Z"
+          "computedAt": "2026-10-12T16:27:15.926Z"
         }
       ]
     },
@@ -3092,7 +3092,7 @@
       "noveltyCandidate": true,
       "status": "insufficient_evidence",
       "gatePassed": false,
-      "universalScore": 53.25712912760576,
+      "universalScore": 52.612438316269326,
       "teamInterestScore": 0,
       "evidenceCount": 2,
       "independentCreatorCount": 2,
@@ -3126,7 +3126,7 @@
         "crossLane": 25,
         "crossPlatform": 33.33333333333333,
         "engagement": 34.25535880708294,
-        "freshness": 99.83149134188474
+        "freshness": 93.3845832285204
       },
       "actionableAdvice": {
         "recommendedHook": "「レポートまだ一から自力で書いてる？このプロンプト知れば一瞬で終わるのに…」「マウス動かす時間、全部無駄です」",
@@ -3705,7 +3705,7 @@
           "reproducibilityScore": 70,
           "brandFitScore": 60,
           "audienceFitScore": 33.33333333333333,
-          "computedAt": "2026-10-11T18:01:26.165Z"
+          "computedAt": "2026-10-12T16:27:15.926Z"
         }
       ]
     },
@@ -3725,7 +3725,7 @@
       "noveltyCandidate": true,
       "status": "insufficient_evidence",
       "gatePassed": false,
-      "universalScore": 53.1197560215183,
+      "universalScore": 52.48003463733219,
       "teamInterestScore": 0,
       "evidenceCount": 1,
       "independentCreatorCount": 1,
@@ -3759,7 +3759,7 @@
         "crossLane": 25,
         "crossPlatform": 33.33333333333333,
         "engagement": 34.476190476190474,
-        "freshness": 99.06196692055265
+        "freshness": 92.66475307869155
       },
       "actionableAdvice": {
         "recommendedHook": "「レポートまだ一から自力で書いてる？このプロンプト知れば一瞬で終わるのに…」「マウス動かす時間、全部無駄です」",
@@ -4080,7 +4080,7 @@
           "reproducibilityScore": 60,
           "brandFitScore": 60,
           "audienceFitScore": 33.33333333333333,
-          "computedAt": "2026-10-11T18:01:26.165Z"
+          "computedAt": "2026-10-12T16:27:15.926Z"
         }
       ]
     },
@@ -4100,7 +4100,7 @@
       "noveltyCandidate": true,
       "status": "insufficient_evidence",
       "gatePassed": false,
-      "universalScore": 52.50853480347322,
+      "universalScore": 51.87118891370871,
       "teamInterestScore": 0,
       "evidenceCount": 4,
       "independentCreatorCount": 1,
@@ -4134,7 +4134,7 @@
         "crossLane": 25,
         "crossPlatform": 33.33333333333333,
         "engagement": 34.48717948717948,
-        "freshness": 98.6941174854247
+        "freshness": 92.32065858777958
       },
       "actionableAdvice": {
         "recommendedHook": "「テスト前夜に教科書1ページ目から読んでる人、それ落ちます。正しい一夜漬けはこれ」",
@@ -4574,7 +4574,7 @@
           "reproducibilityScore": 40,
           "brandFitScore": 60,
           "audienceFitScore": 33.33333333333333,
-          "computedAt": "2026-10-11T18:01:26.165Z"
+          "computedAt": "2026-10-12T16:27:15.926Z"
         }
       ]
     },
@@ -4594,7 +4594,7 @@
       "noveltyCandidate": true,
       "status": "insufficient_evidence",
       "gatePassed": false,
-      "universalScore": 52.29883506850545,
+      "universalScore": 51.65644261769415,
       "teamInterestScore": 0,
       "evidenceCount": 2,
       "independentCreatorCount": 1,
@@ -4628,7 +4628,7 @@
         "crossLane": 25,
         "crossPlatform": 33.33333333333333,
         "engagement": 35.27272727272727,
-        "freshness": 99.47558622453086
+        "freshness": 93.05166171641788
       },
       "actionableAdvice": {
         "recommendedHook": "「知らないと年間10万損する！学生証見せるだけでタダになる神施設5選」「面接の逆質問でこれ聞けば一発で好印象残せる3選」",
@@ -4987,7 +4987,7 @@
           "reproducibilityScore": 60,
           "brandFitScore": 60,
           "audienceFitScore": 33.33333333333333,
-          "computedAt": "2026-10-11T18:01:26.165Z"
+          "computedAt": "2026-10-12T16:27:15.926Z"
         }
       ]
     },
@@ -5007,7 +5007,7 @@
       "noveltyCandidate": true,
       "status": "insufficient_evidence",
       "gatePassed": false,
-      "universalScore": 50.95576866516952,
+      "universalScore": 50.32471439128231,
       "teamInterestScore": 0,
       "evidenceCount": 1,
       "independentCreatorCount": 1,
@@ -5041,7 +5041,7 @@
         "crossLane": 25,
         "crossPlatform": 33.33333333333333,
         "engagement": 31.303030303030305,
-        "freshness": 97.7198498443525
+        "freshness": 91.40930710548044
       },
       "actionableAdvice": {
         "recommendedHook": "「知らないと年間10万損する！学生証見せるだけでタダになる神施設5選」「面接の逆質問でこれ聞けば一発で好印象残せる3選」",
@@ -5361,7 +5361,7 @@
           "reproducibilityScore": 60,
           "brandFitScore": 60,
           "audienceFitScore": 33.33333333333333,
-          "computedAt": "2026-10-11T18:01:26.165Z"
+          "computedAt": "2026-10-12T16:27:15.926Z"
         }
       ]
     },
@@ -5381,7 +5381,7 @@
       "noveltyCandidate": true,
       "status": "insufficient_evidence",
       "gatePassed": false,
-      "universalScore": 50.00372349885775,
+      "universalScore": 49.37688091745295,
       "teamInterestScore": 0,
       "evidenceCount": 1,
       "independentCreatorCount": 1,
@@ -5415,7 +5415,7 @@
         "crossLane": 25,
         "crossPlatform": 33.33333333333333,
         "engagement": 30.43918918918919,
-        "freshness": 97.06766195180197
+        "freshness": 90.79923613775398
       },
       "actionableAdvice": {
         "recommendedHook": "「テスト前夜に教科書1ページ目から読んでる人、それ落ちます。正しい一夜漬けはこれ」",
@@ -5733,7 +5733,7 @@
           "reproducibilityScore": 60,
           "brandFitScore": 60,
           "audienceFitScore": 33.33333333333333,
-          "computedAt": "2026-10-11T18:01:26.165Z"
+          "computedAt": "2026-10-12T16:27:15.926Z"
         }
       ]
     },
@@ -5753,7 +5753,7 @@
       "noveltyCandidate": true,
       "status": "insufficient_evidence",
       "gatePassed": false,
-      "universalScore": 49.756561256050134,
+      "universalScore": 49.14446722332035,
       "teamInterestScore": 0,
       "evidenceCount": 1,
       "independentCreatorCount": 1,
@@ -5787,7 +5787,7 @@
         "crossLane": 25,
         "crossPlatform": 33.33333333333333,
         "engagement": 33.241379310344826,
-        "freshness": 94.78382358546584
+        "freshness": 88.66288325816794
       },
       "actionableAdvice": {
         "recommendedHook": "「これに変えたら肌褒められまくった…ドラッグストアで買える名品」「9割がやってるNG塗り方、今すぐやめて」",
@@ -6105,7 +6105,7 @@
           "reproducibilityScore": 60,
           "brandFitScore": 60,
           "audienceFitScore": 33.33333333333333,
-          "computedAt": "2026-10-11T18:01:26.165Z"
+          "computedAt": "2026-10-12T16:27:15.926Z"
         }
       ]
     }
@@ -6138,7 +6138,8 @@
       "likeCount": 135000,
       "commentCount": 2400,
       "usualValueRatio": 1.5562913907284768,
-      "publishedAt": "2026-10-11T06:46:26.165Z"
+      "publishedAt": "2026-10-11T06:46:26.165Z",
+      "firstSeenAt": "2026-10-11T08:46:26.165Z"
     },
     {
       "id": "seed_post_23",
@@ -6167,7 +6168,8 @@
       "likeCount": 112000,
       "commentCount": 4500,
       "usualValueRatio": 1.423841059602649,
-      "publishedAt": "2026-10-11T00:01:26.165Z"
+      "publishedAt": "2026-10-11T00:01:26.165Z",
+      "firstSeenAt": "2026-10-11T02:01:26.165Z"
     },
     {
       "id": "seed_post_11",
@@ -6196,7 +6198,8 @@
       "likeCount": 138000,
       "commentCount": 3200,
       "usualValueRatio": 1.390728476821192,
-      "publishedAt": "2026-10-11T12:51:26.165Z"
+      "publishedAt": "2026-10-11T12:51:26.165Z",
+      "firstSeenAt": "2026-10-11T14:51:26.165Z"
     },
     {
       "id": "seed_post_7",
@@ -6225,7 +6228,8 @@
       "likeCount": 125000,
       "commentCount": 3400,
       "usualValueRatio": 1.3112582781456954,
-      "publishedAt": "2026-10-11T14:33:26.165Z"
+      "publishedAt": "2026-10-11T14:33:26.165Z",
+      "firstSeenAt": "2026-10-11T16:33:26.165Z"
     },
     {
       "id": "seed_post_14",
@@ -6254,7 +6258,8 @@
       "likeCount": 128000,
       "commentCount": 2900,
       "usualValueRatio": 1.2913907284768211,
-      "publishedAt": "2026-10-11T11:36:26.165Z"
+      "publishedAt": "2026-10-11T11:36:26.165Z",
+      "firstSeenAt": "2026-10-11T13:36:26.165Z"
     },
     {
       "id": "seed_post_24",
@@ -6283,7 +6288,8 @@
       "likeCount": 98000,
       "commentCount": 3800,
       "usualValueRatio": 1.271523178807947,
-      "publishedAt": "2026-10-10T23:01:26.165Z"
+      "publishedAt": "2026-10-10T23:01:26.165Z",
+      "firstSeenAt": "2026-10-11T01:01:26.165Z"
     },
     {
       "id": "seed_post_10",
@@ -6312,7 +6318,8 @@
       "likeCount": 115000,
       "commentCount": 2200,
       "usualValueRatio": 1.2251655629139073,
-      "publishedAt": "2026-10-11T13:39:26.165Z"
+      "publishedAt": "2026-10-11T13:39:26.165Z",
+      "firstSeenAt": "2026-10-11T15:39:26.165Z"
     },
     {
       "id": "seed_post_1",
@@ -6341,7 +6348,8 @@
       "likeCount": 18000,
       "commentCount": 53,
       "usualValueRatio": 2,
-      "publishedAt": "2026-10-11T15:51:26.165Z"
+      "publishedAt": "2026-10-11T15:51:26.165Z",
+      "firstSeenAt": "2026-10-11T17:51:26.165Z"
     },
     {
       "id": "seed_post_9",
@@ -6370,7 +6378,8 @@
       "likeCount": 94000,
       "commentCount": 3100,
       "usualValueRatio": 1.1390728476821192,
-      "publishedAt": "2026-10-11T13:57:26.165Z"
+      "publishedAt": "2026-10-11T13:57:26.165Z",
+      "firstSeenAt": "2026-10-11T15:57:26.165Z"
     },
     {
       "id": "seed_post_8",
@@ -6399,7 +6408,8 @@
       "likeCount": 110000,
       "commentCount": 2800,
       "usualValueRatio": 1.7934782608695652,
-      "publishedAt": "2026-10-11T14:15:26.165Z"
+      "publishedAt": "2026-10-11T14:15:26.165Z",
+      "firstSeenAt": "2026-10-11T16:15:26.165Z"
     },
     {
       "id": "seed_post_17",
@@ -6428,7 +6438,8 @@
       "likeCount": 98000,
       "commentCount": 1700,
       "usualValueRatio": 1.0927152317880795,
-      "publishedAt": "2026-10-11T08:16:26.165Z"
+      "publishedAt": "2026-10-11T08:16:26.165Z",
+      "firstSeenAt": "2026-10-11T10:16:26.165Z"
     },
     {
       "id": "seed_post_18",
@@ -6457,7 +6468,8 @@
       "likeCount": 92000,
       "commentCount": 2100,
       "usualValueRatio": 1.0463576158940397,
-      "publishedAt": "2026-10-11T07:31:26.165Z"
+      "publishedAt": "2026-10-11T07:31:26.165Z",
+      "firstSeenAt": "2026-10-11T09:31:26.165Z"
     },
     {
       "id": "seed_post_12",
@@ -6486,7 +6498,8 @@
       "likeCount": 88000,
       "commentCount": 2100,
       "usualValueRatio": 1.0065359477124183,
-      "publishedAt": "2026-10-11T12:26:26.165Z"
+      "publishedAt": "2026-10-11T12:26:26.165Z",
+      "firstSeenAt": "2026-10-11T14:26:26.165Z"
     },
     {
       "id": "seed_post_20",
@@ -6515,7 +6528,8 @@
       "likeCount": 85000,
       "commentCount": 1500,
       "usualValueRatio": 0.9487179487179487,
-      "publishedAt": "2026-10-11T06:01:26.165Z"
+      "publishedAt": "2026-10-11T06:01:26.165Z",
+      "firstSeenAt": "2026-10-11T08:01:26.165Z"
     },
     {
       "id": "seed_post_4",
@@ -6544,7 +6558,8 @@
       "likeCount": 98000,
       "commentCount": 2400,
       "usualValueRatio": 0.9294871794871795,
-      "publishedAt": "2026-10-11T15:27:26.165Z"
+      "publishedAt": "2026-10-11T15:27:26.165Z",
+      "firstSeenAt": "2026-10-11T17:27:26.165Z"
     },
     {
       "id": "seed_post_25",
@@ -6573,7 +6588,8 @@
       "likeCount": 91000,
       "commentCount": 1800,
       "usualValueRatio": 0.9294871794871795,
-      "publishedAt": "2026-10-10T22:01:26.165Z"
+      "publishedAt": "2026-10-10T22:01:26.165Z",
+      "firstSeenAt": "2026-10-11T00:01:26.165Z"
     },
     {
       "id": "seed_post_15",
@@ -6602,7 +6618,8 @@
       "likeCount": 89000,
       "commentCount": 1900,
       "usualValueRatio": 0.9102564102564102,
-      "publishedAt": "2026-10-11T11:11:26.165Z"
+      "publishedAt": "2026-10-11T11:11:26.165Z",
+      "firstSeenAt": "2026-10-11T13:11:26.165Z"
     },
     {
       "id": "seed_post_5",
@@ -6631,7 +6648,8 @@
       "likeCount": 78000,
       "commentCount": 1800,
       "usualValueRatio": 0.8461538461538461,
-      "publishedAt": "2026-10-11T15:19:26.165Z"
+      "publishedAt": "2026-10-11T15:19:26.165Z",
+      "firstSeenAt": "2026-10-11T17:19:26.165Z"
     },
     {
       "id": "seed_post_21",
@@ -6660,7 +6678,8 @@
       "likeCount": 76000,
       "commentCount": 1400,
       "usualValueRatio": 0.8012820512820513,
-      "publishedAt": "2026-10-11T02:01:26.165Z"
+      "publishedAt": "2026-10-11T02:01:26.165Z",
+      "firstSeenAt": "2026-10-11T04:01:26.165Z"
     },
     {
       "id": "seed_post_16",
@@ -6689,7 +6708,8 @@
       "likeCount": 74000,
       "commentCount": 1300,
       "usualValueRatio": 0.782051282051282,
-      "publishedAt": "2026-10-11T09:01:26.165Z"
+      "publishedAt": "2026-10-11T09:01:26.165Z",
+      "firstSeenAt": "2026-10-11T11:01:26.165Z"
     },
     {
       "id": "seed_post_13",
@@ -6718,7 +6738,8 @@
       "likeCount": 67000,
       "commentCount": 1600,
       "usualValueRatio": 0.717948717948718,
-      "publishedAt": "2026-10-11T12:01:26.165Z"
+      "publishedAt": "2026-10-11T12:01:26.165Z",
+      "firstSeenAt": "2026-10-11T14:01:26.165Z"
     },
     {
       "id": "seed_post_22",
@@ -6747,7 +6768,8 @@
       "likeCount": 69000,
       "commentCount": 1100,
       "usualValueRatio": 0.6923076923076923,
-      "publishedAt": "2026-10-11T01:01:26.165Z"
+      "publishedAt": "2026-10-11T01:01:26.165Z",
+      "firstSeenAt": "2026-10-11T03:01:26.165Z"
     },
     {
       "id": "seed_post_6",
@@ -6776,7 +6798,8 @@
       "likeCount": 61000,
       "commentCount": 1500,
       "usualValueRatio": 0.6153846153846154,
-      "publishedAt": "2026-10-11T14:51:26.165Z"
+      "publishedAt": "2026-10-11T14:51:26.165Z",
+      "firstSeenAt": "2026-10-11T16:51:26.165Z"
     },
     {
       "id": "seed_post_3",
@@ -6805,7 +6828,8 @@
       "likeCount": 52000,
       "commentCount": 1400,
       "usualValueRatio": 0.5575757575757576,
-      "publishedAt": "2026-10-11T15:35:26.165Z"
+      "publishedAt": "2026-10-11T15:35:26.165Z",
+      "firstSeenAt": "2026-10-11T17:35:26.165Z"
     },
     {
       "id": "seed_post_2",
@@ -6834,7 +6858,8 @@
       "likeCount": 45000,
       "commentCount": 1900,
       "usualValueRatio": 0.5333333333333333,
-      "publishedAt": "2026-10-11T15:43:26.165Z"
+      "publishedAt": "2026-10-11T15:43:26.165Z",
+      "firstSeenAt": "2026-10-11T17:43:26.165Z"
     }
   ],
   "coverage": {
@@ -6956,7 +6981,7 @@
   "automation": {
     "macStatus": {
       "online": true,
-      "lastActiveAt": "2026-10-11T18:03:41.728Z"
+      "lastActiveAt": "2026-10-12T16:27:16.004Z"
     },
     "safetyAudit": {
       "executedWriteCount": 0,
@@ -7155,7 +7180,7 @@
     ]
   },
   "pipeline": {
-    "timestamp": "2026-10-11T18:03:41.729Z",
+    "timestamp": "2026-10-12T16:27:16.006Z",
     "filter": {
       "hours": "all",
       "label": "全期間 (All Time)",
