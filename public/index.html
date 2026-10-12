@@ -105,6 +105,13 @@
             <button class="chip" data-category="gadget_tool">📱 神アイテム・便利ツール</button>
             <button class="chip" data-category="entertainment">🎭 エンタメ・日常あるある</button>
             <span class="spacer"></span>
+            <select id="vdbSortSelect" class="chip" style="background:var(--surface);border:1px solid var(--border);color:var(--ink);cursor:pointer;padding:6px 10px;font-weight:600;">
+              <option value="latest">⏱ 追加日時（新着順）</option>
+              <option value="oldest">⏳ 追加日時（古い順）</option>
+              <option value="views">👀 再生数順</option>
+              <option value="likes">❤️ いいね数順</option>
+              <option value="lift">🔥 急上昇スコア順</option>
+            </select>
             <select id="vdbPlatformSelect" class="chip" style="background:var(--surface);border:1px solid var(--border);color:var(--ink);cursor:pointer;padding:6px 10px;">
               <option value="all">全プラットフォーム</option>
               <option value="youtube">YouTube Shorts</option>

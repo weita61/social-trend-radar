@@ -718,7 +718,7 @@ export class AnalysisReadRepository {
 
   listVideos(filters: VideoFilters = {}): Record<string, unknown>[] {
     const rows = this.db.prepare(`
-      SELECT p.id, p.platform, p.canonical_url, p.creator_id, p.published_at,
+      SELECT p.id, p.platform, p.canonical_url, p.creator_id, p.published_at, p.first_seen_at,
              p.caption, p.duration_ms, p.media_type,
              cr.handle AS creator_handle, cr.profile_url AS creator_profile_url,
              pma.usual_value_ratio, pma.robust_lift_score, pma.velocity_per_hour,
@@ -769,6 +769,7 @@ export class AnalysisReadRepository {
         commentCount: row.comment_count ?? null,
         usualValueRatio: row.usual_value_ratio ?? null,
         publishedAt: row.published_at ?? null,
+        firstSeenAt: row.first_seen_at ?? null,
       };
     });
 

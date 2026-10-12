@@ -15,6 +15,7 @@
   let vdbActiveCategory = 'all';
   let vdbActivePlatform = 'all';
   let vdbSearchQuery = '';
+  let vdbSortOrder = 'latest';
 
   let cachedCoverage = null;
   let cachedAutomation = null;
@@ -36,6 +37,7 @@
   const vdbPlatforms = document.getElementById('vdbPlatforms');
   const vdbSearchInput = document.getElementById('vdbSearchInput');
   const vdbPlatformSelect = document.getElementById('vdbPlatformSelect');
+  const vdbSortSelect = document.getElementById('vdbSortSelect');
   const vdbRefreshBtn = document.getElementById('vdbRefreshBtn');
   const vdbSyncText = document.getElementById('vdbSyncText');
   const vdbTemplateToolbar = document.getElementById('vdbTemplateToolbar');
@@ -356,6 +358,14 @@
     });
   }
 
+  // Video DB Sort Order
+  if (vdbSortSelect) {
+    vdbSortSelect.addEventListener('change', () => {
+      vdbSortOrder = vdbSortSelect.value;
+      renderVideoDatabase();
+    });
+  }
+
   // Video DB Search Input
   if (vdbSearchInput) {
     vdbSearchInput.addEventListener('input', (e) => {
@@ -539,6 +549,18 @@
     }
   }
 
+  function formatAddedDate(isoStr) {
+    if (!isoStr) return '-';
+    const d = new Date(isoStr);
+    if (isNaN(d.getTime())) return '-';
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    const h = String(d.getHours()).padStart(2, '0');
+    const min = String(d.getMinutes()).padStart(2, '0');
+    return `${y}/${m}/${day} ${h}:${min}`;
+  }
+
   // Render Video Database Grid
   function renderVideoDatabase() {
     if (!vdbCardsContainer) return;
@@ -553,6 +575,29 @@
         if (!str.includes(q)) return false;
       }
       return true;
+    });
+
+    filtered.sort((a, b) => {
+      if (vdbSortOrder === 'latest') {
+        const timeA = new Date(a.publishedAt || a.firstSeenAt || 0).getTime();
+        const timeB = new Date(b.publishedAt || b.firstSeenAt || 0).getTime();
+        return timeB - timeA;
+      }
+      if (vdbSortOrder === 'oldest') {
+        const timeA = new Date(a.publishedAt || a.firstSeenAt || 0).getTime();
+        const timeB = new Date(b.publishedAt || b.firstSeenAt || 0).getTime();
+        return timeA - timeB;
+      }
+      if (vdbSortOrder === 'views') {
+        return (Number(b.viewCount) || 0) - (Number(a.viewCount) || 0);
+      }
+      if (vdbSortOrder === 'likes') {
+        return (Number(b.likeCount) || 0) - (Number(a.likeCount) || 0);
+      }
+      if (vdbSortOrder === 'lift') {
+        return (Number(b.usualValueRatio) || 0) - (Number(a.usualValueRatio) || 0);
+      }
+      return 0;
     });
 
     if (vdbCountBadge) vdbCountBadge.textContent = `${filtered.length} / ${allVideos.length} 件`;
@@ -582,6 +627,7 @@
             <span class="badge-platform ${escapeHtml(v.platform || '')}">${escapeHtml(platformUpper)}</span>
             <span class="badge-template">${escapeHtml(v.templateLabel || '注目テンプレ')}</span>
             <span class="badge-category">${escapeHtml(v.studentCategoryLabel || '実用ノウハウ')}</span>
+            <span class="badge" style="background:rgba(255,255,255,0.06);font-size:11px;font-family:monospace;">⏱ 追加: ${formatAddedDate(v.publishedAt || v.firstSeenAt)}</span>
           </div>
           <span style="font-size:11px;font-weight:700;color:var(--orange);">🔥 ${escapeHtml(liftText)}</span>
         </div>
@@ -638,6 +684,7 @@
           <span>👤 <b>@${escapeHtml(v.creatorHandle || 'クリエイター')}</b></span>
           <span>👀 <b>${viewsText}</b></span>
           <span>❤️ <b>${likesText}</b></span>
+          <span>📅 <b>追加: ${formatAddedDate(v.publishedAt || v.firstSeenAt)}</b></span>
         </div>
 
         <div class="vcard-actions">
