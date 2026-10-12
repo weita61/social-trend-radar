@@ -127,6 +127,66 @@ export function enrichVideoInformation(input: {
     };
   }
 
+  // 4b. Canva / スライド作成 / プレゼン
+  if (text.includes('canva') || text.includes('スライド') || text.includes('プレゼン')) {
+    return {
+      title: '📊 【スライド爆速化】パワポ苦手な大学生必見！Canvaで5分でプロ級資料を作る神技',
+      hook: '「パワポのデザインで何時間も悩んでる人、それ全部無駄です。Canvaのこれ使って」',
+      conceptSummary: 'レイアウトや配色に悩まず、文字を入れるだけで発表スライドが完成する神テンプレート活用法。',
+      studentAppeal: 'ゼミ発表やグループワークの資料作りが一瞬で終わり、教授や同級生から絶賛される即効テク。',
+      templateKey: 'shortcut_hack',
+      templateLabel: TEMPLATE_MAP.shortcut_hack,
+      studentCategory: 'ai_pc_hack',
+      studentCategoryLabel: CATEGORY_MAP.ai_pc_hack,
+      actionableArrangement: '自社サービスの資料テンプレートやデザインノウハウを画面操作とともに実演。',
+      timelineOutline: '【0〜2秒】「パワポ一から作って何時間も溶かしてない？」と問題提起\n→ 【3〜8秒】Canvaの教育向け神テンプレート検索ワードを実演提示\n→ 【9〜16秒】テキストを流し込むだけで一瞬で垢抜けるビフォーアフター\n→ 【17〜24秒】「発表前に見返せるよう保存しておいてね」と保存誘導',
+      selfHook: '「まだ資料作成に何時間もかけてる？このテンプレートで5分で終わります」',
+      selfScriptOutline: '【0〜2秒】ターゲットが苦戦している資料・企画書作成の非効率さを提示\n→ 【3〜8秒】自社おすすめの神テンプレの入力・適用実演\n→ 【9〜18秒】見違えるほど洗練されたアウトプットを提示\n→ 【19〜25秒】「テンプレ使いたい人はコメントか保存推奨」と誘導',
+      filmingTips: '画面録画と手元操作。ダサいスライドとおしゃれなスライドの劇的なコントラストを見せる。',
+      hitReason: '「資料作成にかかる時間を短縮したい」「見栄えを良くしたい」という普遍的な学生ニーズ。',
+    };
+  }
+
+  // 4c. Notion / 履修登録 / タスク管理
+  if (text.includes('notion') || text.includes('履修') || text.includes('課題締め切り')) {
+    return {
+      title: '📓 【単位落とさない】Notionで履修登録・課題締め切りを一元管理する神テンプレート',
+      hook: '「課題の提出遅れて単位落としかけた大学生、全員このNotionテンプレート使って…」',
+      conceptSummary: 'シラバス、講義リンク、提出期限、出席回数を1ページで可視化する学生特化ダッシュボード。',
+      studentAppeal: 'うっかり忘れによる単位落単をゼロにし、テスト前の混乱を防ぐ必須ツール。',
+      templateKey: 'how_to',
+      templateLabel: TEMPLATE_MAP.how_to,
+      studentCategory: 'study_report',
+      studentCategoryLabel: CATEGORY_MAP.study_report,
+      actionableArrangement: '日々のタスク管理・進捗可視化をNotionなどの活用例として実演。',
+      timelineOutline: '【0〜2秒】「課題の提出期限忘れて絶望したことない？」と共感フック\n→ 【3〜8秒】カレンダーと連動した課題締め切りカウントダウンを画面提示\n→ 【9〜16秒】講義ごとの出席回数・シラバスが一覧できる神設計の実演\n→ 【17〜24秒】「無料配布テンプレはプロフのリンクからコピーしてね！」と誘導',
+      selfHook: '「もう締め切りに追われない！毎日のタスクが片付く神テンプレート」',
+      selfScriptOutline: '【0〜2秒】日々のタスク漏れやスケジュールの混乱を提示\n→ 【3〜9秒】一目で今日やるべきことがわかるダッシュボードの実演\n→ 【10〜17秒】使い方の簡単ステップ解説\n→ 【18〜24秒】「テンプレ配布中、保存推奨」とコールトゥアクション',
+      filmingTips: 'PCおよびiPadの画面を高精細にキャプチャ。動くチェックボックスやカウントダウンの爽快感を強調。',
+      hitReason: '実用的なテンプレートの無料配布による保存率・プロフ誘導率の圧倒的高さ。',
+    };
+  }
+
+  // 4d. Google Scholar / 論文検索 / レポート引用
+  if (text.includes('scholar') || text.includes('論文') || text.includes('参考文献')) {
+    return {
+      title: '🔍 【レポート引用】Google Scholarで信頼できる参考文献を一発検索＆自動引用する神技',
+      hook: '「レポートの参考文献、Wikipediaや個人ブログ貼ってない？教授に即落とされるよ」',
+      conceptSummary: 'Google Scholarを使った信頼性の高い学術論文の絞り込み方と、引用フォーマット（APA/MLA）の瞬時コピー術。',
+      studentAppeal: 'レポートの説得力が跳ね上がり、参考文献リスト作成の手間がゼロになる救済テク。',
+      templateKey: 'shortcut_hack',
+      templateLabel: TEMPLATE_MAP.shortcut_hack,
+      studentCategory: 'study_report',
+      studentCategoryLabel: CATEGORY_MAP.study_report,
+      actionableArrangement: '正しい情報の調べ方や参考文献の抽出手順をノウハウとして解説。',
+      timelineOutline: '【0〜2秒】「参考文献に一般サイト貼って教授に怒られた人必見」と警告\n→ 【3〜8秒】Google Scholarの検索窓にキーワード＋年数を指定する技\n→ 【9〜16秒】「引用」ボタン一発で書式通りにコピーできる神実演\n→ 【17〜24秒】「次のレポート提出ですぐ使えるよう保存しておいてね」',
+      selfHook: '「参考文献の書き方で悩んでる人、このボタン1回押すだけで完了します」',
+      selfScriptOutline: '【0〜2秒】多くの人が間違えている非効率な参考文献探しの指摘\n→ 【3〜9秒】最短で信頼できるデータ・文献を引く手順の実演\n→ 【10〜17秒】一発で書式を揃える便利機能の解説\n→ 【18〜24秒】保存推奨',
+      filmingTips: 'Google Scholarの画面で「引用」アイコンを赤丸でハイライト。手元のクリック音を入れてテンポよく見せる。',
+      hitReason: '学術レポートのルールが分からず困っている学生のペインをピンポイントで解決。',
+    };
+  }
+
   // 5. 就活面接 / 逆質問 / 敬語
   if (text.includes('面接') || text.includes('逆質問') || text.includes('就活') || text.includes('バイト敬語')) {
     return {
