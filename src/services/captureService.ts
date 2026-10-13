@@ -73,8 +73,8 @@ export class CaptureService {
     return this.repository.getPipeline(hours);
   }
 
-  runAnalysis(): Record<string, unknown> {
-    return this.repository.runAnalysis();
+  async runAnalysis(): Promise<Record<string, unknown>> {
+    return await this.repository.runAnalysis();
   }
   getBrandProfile(): Record<string, unknown> {
     return this.repository.getBrandProfile();

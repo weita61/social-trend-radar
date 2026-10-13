@@ -64,7 +64,30 @@ server.listen(port, host, () => {
   console.log(`Social Trend Radar Capture & Web API listening on http://${host}:${port}`);
 });
 
+let autoTimer: NodeJS.Timeout | null = null;
+const autoPipelineIntervalMin = Number.parseInt(process.env.AUTO_PIPELINE_INTERVAL_MIN ?? '30', 10);
+if (process.env.AUTO_PIPELINE_DISABLED !== 'true') {
+  setTimeout(async () => {
+    try {
+      const { runAutomatedPipeline } = await import('./automation/pipeline.ts');
+      await runAutomatedPipeline(db);
+    } catch (e) {
+      console.warn('[AutoPipeline] Initial run notice:', e);
+    }
+  }, 3_000);
+
+  autoTimer = setInterval(async () => {
+    try {
+      const { runAutomatedPipeline } = await import('./automation/pipeline.ts');
+      await runAutomatedPipeline(db);
+    } catch (e) {
+      console.warn('[AutoPipeline] Periodic run notice:', e);
+    }
+  }, autoPipelineIntervalMin * 60_000);
+}
+
 function shutdown(): void {
+  if (autoTimer) clearInterval(autoTimer);
   server.close(() => {
     db.close();
     process.exit(0);

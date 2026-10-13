@@ -252,8 +252,9 @@ export class CaptureRepository {
     return new AnalysisReadRepository(this.db).getPipeline(hours);
   }
 
-  runAnalysis(): Record<string, unknown> {
-    return new LocalAnalysisEngine(this.db).run();
+  async runAnalysis(): Promise<Record<string, unknown>> {
+    const { runAutomatedPipeline } = await import('../automation/pipeline.ts');
+    return await runAutomatedPipeline(this.db);
   }
 
   enrichYoutubePost(postId: string, metadata: YoutubeVideoMetadata, observedAt = new Date()): void {
